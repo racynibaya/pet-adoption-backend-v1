@@ -1,3 +1,71 @@
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id             Int    @id @default(autoincrement())
+  email          String @unique
+  hashedPassword String
+  name           String
+  address        String
+  phoneNumber    String
+  role           Role   @default(USER)
+
+  pets      Pet[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+}
+
+model Pet {
+  id          Int       @id @default(autoincrement())
+  name        String
+  status      PetStatus @default(AVAILABLE)
+  breed       String
+  species     String
+  photo       String
+  description String
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      Int?
+  bookings    Booking[]
+
+  adoptionRequest AdoptionRequest[]
+}
+
+model Booking {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  pet    Pet  @relation(fields: [petId], references: [id])
+  petId  Int
+
+  status    BookingStatus @default(PENDING)
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model AdoptionRequest {
+  id    Int  @id @default(autoincrement())
+  pet   Pet? @relation(fields: [petId], references: [id])
+  petId Int?
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PetStatus {
+  PENDING
+  REVIEWING
+  AVAILABLE
+}
