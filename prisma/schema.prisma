@@ -1,3 +1,8 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
 datasource db {
   provider = "postgresql"
 }
@@ -11,10 +16,10 @@ model User {
   phoneNumber    String
   role           Role   @default(USER)
 
-  pets      Pet[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  bookings  Booking[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  bookings         Booking[]
+  adoptionRequests AdoptionRequest[]
 }
 
 model Pet {
@@ -25,11 +30,12 @@ model Pet {
   species     String
   photo       String
   description String
-  user        User?     @relation(fields: [userId], references: [id])
-  userId      Int?
-  bookings    Booking[]
 
+  bookings        Booking[]
   adoptionRequest AdoptionRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Booking {
@@ -47,9 +53,20 @@ model Booking {
 }
 
 model AdoptionRequest {
-  id    Int  @id @default(autoincrement())
-  pet   Pet? @relation(fields: [petId], references: [id])
-  petId Int?
+  id Int @id @default(autoincrement())
+
+  petId           Int
+  userId          Int
+  message         String?
+  rejectionReason String?
+  pet             Pet                   @relation(fields: [petId], references: [id])
+  user            User                  @relation(fields: [userId], references: [id])
+  status          AdoptionRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, petId])
 }
 
 enum BookingStatus {
@@ -66,6 +83,14 @@ enum Role {
 
 enum PetStatus {
   PENDING
-  REVIEWING
   AVAILABLE
+  ADOPTED
+}
+
+enum AdoptionRequestStatus {
+  PENDING
+  REVIEWING
+  APPROVED
+  REJECTED
+  CANCELLED
 }
