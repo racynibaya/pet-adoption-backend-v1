@@ -8,13 +8,18 @@ datasource db {
 }
 
 model User {
-  id             Int    @id @default(autoincrement())
-  email          String @unique
+  id             Int     @id @default(autoincrement())
+  email          String  @unique
   hashedPassword String
   name           String
-  address        String
-  phoneNumber    String
-  role           Role   @default(USER)
+  address        String?
+  phoneNumber    String?
+  role           Role    @default(USER)
+
+  isVerified Boolean @default(false)
+
+  verifyToken       String?
+  verifyTokenExpiry DateTime
 
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt

@@ -528,10 +528,6 @@ export type AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput = {
   deleteMany?: Prisma.AdoptionRequestScalarWhereInput | Prisma.AdoptionRequestScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type EnumAdoptionRequestStatusFieldUpdateOperationsInput = {
   set?: $Enums.AdoptionRequestStatus
 }

@@ -1,5 +1,11 @@
-import app from './app';
+import http from 'http';
 
-app.listen(3000, () => {
-  console.log(`Server running in PORT: 3000`);
+import app from 'app';
+
+const PORT = 3000;
+
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
+  console.log(`HTTP Server listening on http://localhost:${PORT}/`);
 });
