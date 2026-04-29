@@ -63,87 +63,82 @@ class AuthController {
     }
   }
 
-  async verify(req: Request, res: Response) {
-    const token = req.query.token as string;
+  async verify(req: Request, res: Response, next: NextFunction) {
+    try {
+      const token = req.query.token as string;
 
-    const record = await authService.findUserViaToken(token);
+      const record = await authService.findUserViaToken(token);
 
-    if (!token) {
-      return res.status(400).json({
-        success: false,
-        message: 'Verification token is missing',
+      if (!token) {
+        return res.status(400).json({
+          success: false,
+          message: 'Verification token is missing',
+        });
+      }
+
+      if (!record)
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid verification token',
+        });
+
+      if (record.verifyTokenExpiry < new Date())
+        return res.status(400).json({
+          success: false,
+          message: 'Verification token has expired, please request a new one',
+        });
+
+      await authService.updateVerification(record);
+
+      res.status(200).json({
+        success: true,
+        message: 'Email verified successfully, you can now login',
       });
+    } catch (error) {
+      next(error);
     }
-
-    if (!record)
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid verification token',
-      });
-
-    if (record.verifyTokenExpiry < new Date())
-      return res.status(400).json({
-        success: false,
-        message: 'Verification token has expired, please request a new one',
-      });
-
-    await authService.updateVerification(record);
-
-    res.status(200).json({
-      success: true,
-      message: 'Email verified successfully, you can now login',
-    });
   }
 
-  //   POST /auth/resend-verification
+  async resendVerification(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email } = EmailInput.parse(req.body);
 
-  // 1. receive { email }
-  // 2. find user by email → 404 if not found
-  // 3. check if already verified → 400 if yes
-  // 4. generate new token
-  // 5. update user {
-  //      verifyToken: newToken,
-  //      verifyTokenExpiry: now + 1 hour
-  //    }
-  // 6. send new verification email
-  // 7. return 200 { message: "verification email resent" }
+      const user = await authService.existingEmail(email);
 
-  async resendVerification(req: Request, res: Response) {
-    const { email } = EmailInput.parse(req.body);
+      if (!user)
+        return res.status(404).json({
+          success: false,
+          message: 'User dont exist',
+        });
 
-    const user = await authService.existingEmail(email);
+      if (user.isVerified) {
+        return res.status(400).json({
+          success: 'false',
+          message: 'User is already verified',
+        });
+      }
 
-    if (!user)
-      return res.status(404).json({
-        success: false,
-        message: 'User dont exist',
+      const token = crypto.randomBytes(32).toString('hex');
+
+      await prisma.user.update({
+        where: { email },
+        data: {
+          verifyToken: token,
+          verifyTokenExpiry: new Date(Date.now() + 60 * 60 * 1000),
+        },
       });
 
-    if (user.isVerified) {
-      return res.status(400).json({
-        success: 'false',
-        message: 'User is already verified',
+      const link = `${process.env.BASE_URL}/auth/verify?token=${token}`;
+
+      console.log(link);
+
+      res.status(200).json({
+        success: true,
+        message: 'Verification email sent',
       });
+    } catch (error) {
+      next(error);
     }
-
-    const token = crypto.randomBytes(32).toString('hex');
-
-    await prisma.user.update({
-      where: { email },
-      data: {
-        verifyToken: token,
-        verifyTokenExpiry: new Date(Date.now() + 60 * 60 * 1000),
-      },
-    });
-
-    const link = `${process.env.BASE_URL}/auth/verify?token=${token}`;
-
-    console.log(link);
-
-    res.status(200).json({
-      success: true,
-      message: 'Verification email sent',
-    });
   }
 }
 
