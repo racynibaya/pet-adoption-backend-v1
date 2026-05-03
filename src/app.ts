@@ -1,28 +1,39 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { Request, Response, NextFunction } from 'express';
 
-import userRoute from 'models/user/user.routes';
-import authRoute from 'models/auth/auth.routes';
+import userRoute from 'models/user/user-routes';
+import authRoute from 'models/auth/auth-routes';
+import AppError from '@utils/app-errror';
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/api/v1/', (req: Request, res: Response) => {
   res.json({
     message: 'hello',
   });
 });
 
-app.use('/users', userRoute);
-app.use('/auth', authRoute);
+app.use('/api/v1/users', userRoute);
+app.use('/api/v1/auth', authRoute);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack); // Log the error
+  console.error(err);
+
+  if (err instanceof AppError) {
+    res.status(err.statusCode).json({
+      success: false,
+      message: err.message,
+    });
+    return;
+  }
 
   res.status(500).json({
     success: false,
-    message: err.message || 'Internal Server Error',
+    message: 'Internal Server Error',
   });
 });
 
