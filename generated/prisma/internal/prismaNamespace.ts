@@ -387,7 +387,9 @@ export const ModelName = {
   User: 'User',
   Pet: 'Pet',
   Booking: 'Booking',
-  AdoptionRequest: 'AdoptionRequest'
+  AdoptionRequest: 'AdoptionRequest',
+  Shelter: 'Shelter',
+  ShelterStaff: 'ShelterStaff'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "pet" | "booking" | "adoptionRequest"
+    modelProps: "user" | "pet" | "booking" | "adoptionRequest" | "shelter" | "shelterStaff"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -703,6 +705,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Shelter: {
+      payload: Prisma.$ShelterPayload<ExtArgs>
+      fields: Prisma.ShelterFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShelterFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShelterFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>
+        }
+        findFirst: {
+          args: Prisma.ShelterFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShelterFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>
+        }
+        findMany: {
+          args: Prisma.ShelterFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>[]
+        }
+        create: {
+          args: Prisma.ShelterCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>
+        }
+        createMany: {
+          args: Prisma.ShelterCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShelterCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>[]
+        }
+        delete: {
+          args: Prisma.ShelterDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>
+        }
+        update: {
+          args: Prisma.ShelterUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShelterDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShelterUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShelterUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShelterUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterPayload>
+        }
+        aggregate: {
+          args: Prisma.ShelterAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShelter>
+        }
+        groupBy: {
+          args: Prisma.ShelterGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShelterGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShelterCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShelterCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShelterStaff: {
+      payload: Prisma.$ShelterStaffPayload<ExtArgs>
+      fields: Prisma.ShelterStaffFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShelterStaffFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShelterStaffFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>
+        }
+        findFirst: {
+          args: Prisma.ShelterStaffFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShelterStaffFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>
+        }
+        findMany: {
+          args: Prisma.ShelterStaffFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>[]
+        }
+        create: {
+          args: Prisma.ShelterStaffCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>
+        }
+        createMany: {
+          args: Prisma.ShelterStaffCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShelterStaffCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>[]
+        }
+        delete: {
+          args: Prisma.ShelterStaffDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>
+        }
+        update: {
+          args: Prisma.ShelterStaffUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShelterStaffDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShelterStaffUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShelterStaffUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShelterStaffUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShelterStaffPayload>
+        }
+        aggregate: {
+          args: Prisma.ShelterStaffAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShelterStaff>
+        }
+        groupBy: {
+          args: Prisma.ShelterStaffGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShelterStaffGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShelterStaffCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShelterStaffCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -801,6 +951,24 @@ export const AdoptionRequestScalarFieldEnum = {
 } as const
 
 export type AdoptionRequestScalarFieldEnum = (typeof AdoptionRequestScalarFieldEnum)[keyof typeof AdoptionRequestScalarFieldEnum]
+
+
+export const ShelterScalarFieldEnum = {
+  id: 'id'
+} as const
+
+export type ShelterScalarFieldEnum = (typeof ShelterScalarFieldEnum)[keyof typeof ShelterScalarFieldEnum]
+
+
+export const ShelterStaffScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  shelterId: 'shelterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShelterStaffScalarFieldEnum = (typeof ShelterStaffScalarFieldEnum)[keyof typeof ShelterStaffScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1065,6 +1233,8 @@ export type GlobalOmitConfig = {
   pet?: Prisma.PetOmit
   booking?: Prisma.BookingOmit
   adoptionRequest?: Prisma.AdoptionRequestOmit
+  shelter?: Prisma.ShelterOmit
+  shelterStaff?: Prisma.ShelterStaffOmit
 }
 
 /* Types for Logging */

@@ -231,7 +231,7 @@ export type UserGroupByOutputType = {
   role: $Enums.Role
   isVerified: boolean
   verifyToken: string | null
-  verifyTokenExpiry: Date
+  verifyTokenExpiry: Date | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -269,11 +269,12 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   verifyToken?: Prisma.StringNullableFilter<"User"> | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFilter<"User"> | Date | string
+  verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
   adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
+  shelterStaffs?: Prisma.ShelterStaffListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -286,11 +287,12 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   adoptionRequests?: Prisma.AdoptionRequestOrderByRelationAggregateInput
+  shelterStaffs?: Prisma.ShelterStaffOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -306,11 +308,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   verifyToken?: Prisma.StringNullableFilter<"User"> | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFilter<"User"> | Date | string
+  verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
   adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
+  shelterStaffs?: Prisma.ShelterStaffListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -323,7 +326,7 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -346,7 +349,7 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   verifyToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  verifyTokenExpiry?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  verifyTokenExpiry?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -360,11 +363,12 @@ export type UserCreateInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -377,11 +381,12 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -393,11 +398,12 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -410,11 +416,12 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -427,7 +434,7 @@ export type UserCreateManyInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -441,7 +448,7 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -456,7 +463,7 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -535,6 +542,10 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -575,6 +586,20 @@ export type UserUpdateOneRequiredWithoutAdoptionRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdoptionRequestsInput, Prisma.UserUpdateWithoutAdoptionRequestsInput>, Prisma.UserUncheckedUpdateWithoutAdoptionRequestsInput>
 }
 
+export type UserCreateNestedOneWithoutShelterStaffsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShelterStaffsInput, Prisma.UserUncheckedCreateWithoutShelterStaffsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShelterStaffsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShelterStaffsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShelterStaffsInput, Prisma.UserUncheckedCreateWithoutShelterStaffsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShelterStaffsInput
+  upsert?: Prisma.UserUpsertWithoutShelterStaffsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShelterStaffsInput, Prisma.UserUpdateWithoutShelterStaffsInput>, Prisma.UserUncheckedUpdateWithoutShelterStaffsInput>
+}
+
 export type UserCreateWithoutBookingsInput = {
   email: string
   hashedPassword: string
@@ -584,10 +609,11 @@ export type UserCreateWithoutBookingsInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -600,10 +626,11 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -631,10 +658,11 @@ export type UserUpdateWithoutBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -647,10 +675,11 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAdoptionRequestsInput = {
@@ -662,10 +691,11 @@ export type UserCreateWithoutAdoptionRequestsInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
@@ -678,10 +708,11 @@ export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
   role?: $Enums.Role
   isVerified?: boolean
   verifyToken?: string | null
-  verifyTokenExpiry: Date | string
+  verifyTokenExpiry?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAdoptionRequestsInput = {
@@ -709,10 +740,11 @@ export type UserUpdateWithoutAdoptionRequestsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
@@ -725,10 +757,93 @@ export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutShelterStaffsInput = {
+  email: string
+  hashedPassword: string
+  name: string
+  address?: string | null
+  phoneNumber?: string | null
+  role?: $Enums.Role
+  isVerified?: boolean
+  verifyToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShelterStaffsInput = {
+  id?: number
+  email: string
+  hashedPassword: string
+  name: string
+  address?: string | null
+  phoneNumber?: string | null
+  role?: $Enums.Role
+  isVerified?: boolean
+  verifyToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShelterStaffsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShelterStaffsInput, Prisma.UserUncheckedCreateWithoutShelterStaffsInput>
+}
+
+export type UserUpsertWithoutShelterStaffsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShelterStaffsInput, Prisma.UserUncheckedUpdateWithoutShelterStaffsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShelterStaffsInput, Prisma.UserUncheckedCreateWithoutShelterStaffsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShelterStaffsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShelterStaffsInput, Prisma.UserUncheckedUpdateWithoutShelterStaffsInput>
+}
+
+export type UserUpdateWithoutShelterStaffsInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShelterStaffsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -739,11 +854,13 @@ export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
 export type UserCountOutputType = {
   bookings: number
   adoptionRequests: number
+  shelterStaffs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | UserCountOutputTypeCountBookingsArgs
   adoptionRequests?: boolean | UserCountOutputTypeCountAdoptionRequestsArgs
+  shelterStaffs?: boolean | UserCountOutputTypeCountShelterStaffsArgs
 }
 
 /**
@@ -770,6 +887,13 @@ export type UserCountOutputTypeCountAdoptionRequestsArgs<ExtArgs extends runtime
   where?: Prisma.AdoptionRequestWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShelterStaffsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShelterStaffWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -786,6 +910,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
+  shelterStaffs?: boolean | Prisma.User$shelterStaffsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -838,6 +963,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
+  shelterStaffs?: boolean | Prisma.User$shelterStaffsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -848,6 +974,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     adoptionRequests: Prisma.$AdoptionRequestPayload<ExtArgs>[]
+    shelterStaffs: Prisma.$ShelterStaffPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -859,7 +986,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     isVerified: boolean
     verifyToken: string | null
-    verifyTokenExpiry: Date
+    verifyTokenExpiry: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1258,6 +1385,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   adoptionRequests<T extends Prisma.User$adoptionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adoptionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdoptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shelterStaffs<T extends Prisma.User$shelterStaffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shelterStaffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1737,6 +1865,30 @@ export type User$adoptionRequestsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.AdoptionRequestScalarFieldEnum | Prisma.AdoptionRequestScalarFieldEnum[]
+}
+
+/**
+ * User.shelterStaffs
+ */
+export type User$shelterStaffsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShelterStaff
+   */
+  select?: Prisma.ShelterStaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShelterStaff
+   */
+  omit?: Prisma.ShelterStaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShelterStaffInclude<ExtArgs> | null
+  where?: Prisma.ShelterStaffWhereInput
+  orderBy?: Prisma.ShelterStaffOrderByWithRelationInput | Prisma.ShelterStaffOrderByWithRelationInput[]
+  cursor?: Prisma.ShelterStaffWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShelterStaffScalarFieldEnum | Prisma.ShelterStaffScalarFieldEnum[]
 }
 
 /**

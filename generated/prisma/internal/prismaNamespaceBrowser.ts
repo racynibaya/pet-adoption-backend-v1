@@ -54,7 +54,9 @@ export const ModelName = {
   User: 'User',
   Pet: 'Pet',
   Booking: 'Booking',
-  AdoptionRequest: 'AdoptionRequest'
+  AdoptionRequest: 'AdoptionRequest',
+  Shelter: 'Shelter',
+  ShelterStaff: 'ShelterStaff'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -132,6 +134,24 @@ export const AdoptionRequestScalarFieldEnum = {
 } as const
 
 export type AdoptionRequestScalarFieldEnum = (typeof AdoptionRequestScalarFieldEnum)[keyof typeof AdoptionRequestScalarFieldEnum]
+
+
+export const ShelterScalarFieldEnum = {
+  id: 'id'
+} as const
+
+export type ShelterScalarFieldEnum = (typeof ShelterScalarFieldEnum)[keyof typeof ShelterScalarFieldEnum]
+
+
+export const ShelterStaffScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  shelterId: 'shelterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShelterStaffScalarFieldEnum = (typeof ShelterStaffScalarFieldEnum)[keyof typeof ShelterStaffScalarFieldEnum]
 
 
 export const SortOrder = {

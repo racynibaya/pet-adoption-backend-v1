@@ -61,3 +61,13 @@ export type Booking = Prisma.BookingModel
  * 
  */
 export type AdoptionRequest = Prisma.AdoptionRequestModel
+/**
+ * Model Shelter
+ * 
+ */
+export type Shelter = Prisma.ShelterModel
+/**
+ * Model ShelterStaff
+ * 
+ */
+export type ShelterStaff = Prisma.ShelterStaffModel

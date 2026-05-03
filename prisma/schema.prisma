@@ -19,12 +19,13 @@ model User {
   isVerified Boolean @default(false)
 
   verifyToken       String?
-  verifyTokenExpiry DateTime
+  verifyTokenExpiry DateTime?
 
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   bookings         Booking[]
   adoptionRequests AdoptionRequest[]
+  shelterStaffs    ShelterStaff[]
 }
 
 model Pet {
@@ -74,6 +75,23 @@ model AdoptionRequest {
   @@unique([userId, petId])
 }
 
+model Shelter {
+  id            Int            @id @default(autoincrement())
+  shelterStaffs ShelterStaff[]
+}
+
+model ShelterStaff {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  shelterId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id])
+  shelter Shelter @relation(fields: [shelterId], references: [id])
+}
+
 enum BookingStatus {
   PENDING
   APPROVED
@@ -83,6 +101,7 @@ enum BookingStatus {
 
 enum Role {
   USER
+  STAFF
   ADMIN
 }
 
