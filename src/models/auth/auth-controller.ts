@@ -20,7 +20,6 @@ import prisma from '@config/prisma';
 
 export type UserT = z.infer<typeof User>;
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -71,24 +70,9 @@ class AuthController {
     const refreshToken = req.cookies.refreshToken;
 
     try {
-      if (refreshToken) {
-        try {
-          const decoded = jwt.verify(refreshToken, JWT_SECRET) as JwtPayload;
+      if (refreshToken) await authService.clearRefreshToken(refreshToken);
 
-          const user = await prisma.user.findUnique({
-            where: { email: decoded.email },
-          });
-
-          if (user) {
-            await prisma.user.update({
-              where: { email: user.email },
-              data: { refreshToken: null },
-            });
-          }
-        } catch (error) {}
-      }
-
-      return res
+      res
         .clearCookie('refreshToken', { path: '/api/v1/auth' })
         .status(200)
         .json({

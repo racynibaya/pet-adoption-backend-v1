@@ -30,18 +30,14 @@ class AuthService {
       where: { email },
     });
 
-    if (!user) {
-      throw new UnauthorizedError('Invalid Credentials');
-    }
+    if (!user) return null;
 
     const isPasswordMatched = await bcrypt.compare(
       password,
       user.hashedPassword,
     );
 
-    if (!isPasswordMatched) {
-      throw new UnauthorizedError('Invalid Credentials');
-    }
+    if (!isPasswordMatched) return null;
 
     const accessToken = jwt.sign({ email: user.email }, JWT_SECRET, {
       expiresIn: '1h',
@@ -66,6 +62,23 @@ class AuthService {
       }
       throw error;
     }
+  }
+
+  async clearRefreshToken(token: string) {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+
+      const user = await prisma.user.findUnique({
+        where: { email: decoded.email },
+      });
+
+      if (user) {
+        await prisma.user.update({
+          where: { email: user.email },
+          data: { refreshToken: null },
+        });
+      }
+    } catch (error) {}
   }
 
   async createUser(
