@@ -45,6 +45,7 @@ export type UserMinAggregateOutputType = {
   isVerified: boolean | null
   verifyToken: string | null
   verifyTokenExpiry: Date | null
+  refreshToken: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +61,7 @@ export type UserMaxAggregateOutputType = {
   isVerified: boolean | null
   verifyToken: string | null
   verifyTokenExpiry: Date | null
+  refreshToken: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -75,6 +77,7 @@ export type UserCountAggregateOutputType = {
   isVerified: number
   verifyToken: number
   verifyTokenExpiry: number
+  refreshToken: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -100,6 +103,7 @@ export type UserMinAggregateInputType = {
   isVerified?: true
   verifyToken?: true
   verifyTokenExpiry?: true
+  refreshToken?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -115,6 +119,7 @@ export type UserMaxAggregateInputType = {
   isVerified?: true
   verifyToken?: true
   verifyTokenExpiry?: true
+  refreshToken?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -130,6 +135,7 @@ export type UserCountAggregateInputType = {
   isVerified?: true
   verifyToken?: true
   verifyTokenExpiry?: true
+  refreshToken?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -232,6 +238,7 @@ export type UserGroupByOutputType = {
   isVerified: boolean
   verifyToken: string | null
   verifyTokenExpiry: Date | null
+  refreshToken: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -270,6 +277,7 @@ export type UserWhereInput = {
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   verifyToken?: Prisma.StringNullableFilter<"User"> | string | null
   verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
@@ -288,6 +296,7 @@ export type UserOrderByWithRelationInput = {
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
   verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
@@ -309,6 +318,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   verifyToken?: Prisma.StringNullableFilter<"User"> | string | null
   verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
@@ -327,6 +337,7 @@ export type UserOrderByWithAggregationInput = {
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
   verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -350,6 +361,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   verifyToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   verifyTokenExpiry?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -364,6 +376,7 @@ export type UserCreateInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -382,6 +395,7 @@ export type UserUncheckedCreateInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -399,6 +413,7 @@ export type UserUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -417,6 +432,7 @@ export type UserUncheckedUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -435,6 +451,7 @@ export type UserCreateManyInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -449,6 +466,7 @@ export type UserUpdateManyMutationInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -464,6 +482,7 @@ export type UserUncheckedUpdateManyInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -479,6 +498,7 @@ export type UserCountOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrder
   verifyTokenExpiry?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -498,6 +518,7 @@ export type UserMaxOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrder
   verifyTokenExpiry?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -513,6 +534,7 @@ export type UserMinOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrder
   verifyTokenExpiry?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -610,6 +632,7 @@ export type UserCreateWithoutBookingsInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
@@ -627,6 +650,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
@@ -659,6 +683,7 @@ export type UserUpdateWithoutBookingsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
@@ -676,6 +701,7 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -692,6 +718,7 @@ export type UserCreateWithoutAdoptionRequestsInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -709,6 +736,7 @@ export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -741,6 +769,7 @@ export type UserUpdateWithoutAdoptionRequestsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -758,6 +787,7 @@ export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -774,6 +804,7 @@ export type UserCreateWithoutShelterStaffsInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -791,6 +822,7 @@ export type UserUncheckedCreateWithoutShelterStaffsInput = {
   isVerified?: boolean
   verifyToken?: string | null
   verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -823,6 +855,7 @@ export type UserUpdateWithoutShelterStaffsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -840,6 +873,7 @@ export type UserUncheckedUpdateWithoutShelterStaffsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -906,6 +940,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isVerified?: boolean
   verifyToken?: boolean
   verifyTokenExpiry?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
@@ -925,6 +960,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isVerified?: boolean
   verifyToken?: boolean
   verifyTokenExpiry?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -940,6 +976,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isVerified?: boolean
   verifyToken?: boolean
   verifyTokenExpiry?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -955,11 +992,12 @@ export type UserSelectScalar = {
   isVerified?: boolean
   verifyToken?: boolean
   verifyTokenExpiry?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "name" | "address" | "phoneNumber" | "role" | "isVerified" | "verifyToken" | "verifyTokenExpiry" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "name" | "address" | "phoneNumber" | "role" | "isVerified" | "verifyToken" | "verifyTokenExpiry" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
@@ -987,6 +1025,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isVerified: boolean
     verifyToken: string | null
     verifyTokenExpiry: Date | null
+    refreshToken: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1425,6 +1464,7 @@ export interface UserFieldRefs {
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly verifyToken: Prisma.FieldRef<"User", 'String'>
   readonly verifyTokenExpiry: Prisma.FieldRef<"User", 'DateTime'>
+  readonly refreshToken: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

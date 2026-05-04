@@ -17,11 +17,9 @@ const ONE_HOUR_MS = 60 * 60 * 1000;
 
 class AuthService {
   async isExistingEmail(email: string): Promise<User | null> {
-    const user = await prisma.user.findUnique({
+    return await prisma.user.findUnique({
       where: { email },
     });
-
-    return user;
   }
 
   async authenticateUser(
@@ -131,7 +129,7 @@ class AuthService {
       where: { email },
       data: {
         verifyToken: token,
-        verifyTokenExpiry: new Date(Date.now() + 60 + 60 * 1000),
+        verifyTokenExpiry: new Date(Date.now() + 60 * 60 * 1000),
       },
       omit: {
         verifyTokenExpiry: true,

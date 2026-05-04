@@ -4,7 +4,7 @@ import * as z from 'zod';
 
 import authService from './auth-service';
 
-import bcrypt from 'bcrypt';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const User = z.object({
   email: z.email(),
@@ -16,19 +16,11 @@ const LoginSchema = User.omit({ name: true });
 
 import { EmailInput } from './auth-types';
 import { UnauthorizedError } from '@utils/error';
+import prisma from '@config/prisma';
 
 export type UserT = z.infer<typeof User>;
 
-// * User submits email + password
-// * Backend validates input
-// * Check if user exists (by email)
-// * If not → return “Invalid credentials”
-// * Compare password using bcrypt.compare
-// * If not match → return “Invalid credentials”
-// * Generate JWT token (userId + role)
-// * Return success response + token
-// * Client stores token (cookie / localStorage)
-// * Client sends token in Authorization header for future requests
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -53,6 +45,11 @@ class AuthController {
 
       const { accessToken, refreshToken } = tokens;
 
+      await prisma.user.update({
+        where: { email },
+        data: { refreshToken },
+      });
+
       res
         .cookie('refreshToken', refreshToken, {
           httpOnly: true,
@@ -64,6 +61,39 @@ class AuthController {
           message: 'Succesfully Logged in',
           accessToken,
           refreshToken, //TODO: REMOVE IT IN PRODUCTION
+        });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async logout(req: Request, res: Response, next: NextFunction) {
+    const refreshToken = req.cookies.refreshToken;
+
+    try {
+      if (refreshToken) {
+        try {
+          const decoded = jwt.verify(refreshToken, JWT_SECRET) as JwtPayload;
+
+          const user = await prisma.user.findUnique({
+            where: { email: decoded.email },
+          });
+
+          if (user) {
+            await prisma.user.update({
+              where: { email: user.email },
+              data: { refreshToken: null },
+            });
+          }
+        } catch (error) {}
+      }
+
+      return res
+        .clearCookie('refreshToken', { path: '/api/v1/auth' })
+        .status(200)
+        .json({
+          success: true,
+          message: 'User logged out successfully',
         });
     } catch (error) {
       next(error);
