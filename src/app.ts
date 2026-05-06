@@ -1,15 +1,19 @@
 import express from 'express';
-import cookieParser from 'cookie-parser';
 import { Request, Response, NextFunction } from 'express';
+
+import cookieParser from 'cookie-parser';
 
 import userRoute from 'models/user/user-routes';
 import authRoute from 'models/auth/auth-routes';
 import AppError from '@utils/app-errror';
 
+import { corsMiddleware } from '@config/corsConfigurations';
+
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(corsMiddleware);
 
 app.get('/api/v1/', (req: Request, res: Response) => {
   res.json({
