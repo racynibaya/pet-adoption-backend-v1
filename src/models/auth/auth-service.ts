@@ -84,7 +84,7 @@ class AuthService {
   async createUser(
     data: CreateUserDTO,
   ): Promise<SanitizedUser & { link: string }> {
-    const { name, email, password } = data;
+    const { name, email, password, role } = data;
     const token = crypto.randomBytes(32).toString('hex');
     const hashed = await bcrypt.hash(password, 10);
     try {
@@ -96,6 +96,7 @@ class AuthService {
           isVerified: false,
           verifyToken: token,
           verifyTokenExpiry: new Date(Date.now() + ONE_HOUR_MS), //1hr
+          role: role || 'USER',
         },
         omit: {
           verifyTokenExpiry: true,

@@ -10,6 +10,7 @@ const User = z.object({
   email: z.email(),
   name: z.string().min(5),
   password: z.string(),
+  role: z.enum(['USER', 'STAFF', 'ADMIN']).default('USER').optional(),
 });
 
 const LoginSchema = User.omit({ name: true });
@@ -90,7 +91,7 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { name, email, password } = User.parse(req.body);
+      const { name, email, password, role } = User.parse(req.body);
 
       const existingUser = await authService.isExistingEmail(email);
 
@@ -108,6 +109,7 @@ class AuthController {
         name,
         email,
         password,
+        role,
       });
 
       res.status(201).json({

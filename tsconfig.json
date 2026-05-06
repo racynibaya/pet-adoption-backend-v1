@@ -6,6 +6,7 @@
     "strict": true,
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0",
+    "skipLibCheck": true,
 
     "baseUrl": "./src",
     "paths": {
@@ -13,7 +14,12 @@
 
       "@modules/*": ["modules/*"],
 
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+
+      "@models/*": ["models/*"],
+
+      "@middlewares": ["middlewares"]
     }
-  }
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

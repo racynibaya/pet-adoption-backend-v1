@@ -23,6 +23,7 @@ export interface CreateUserDTO {
   name: string;
   email: string;
   password: string;
+  role?: 'USER' | 'STAFF' | 'ADMIN';
 }
 export type SanitizedUser = Omit<
   User,

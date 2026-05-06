@@ -1,14 +1,14 @@
-import express from 'express';
-import { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 
+// 3rd Party Middlewares
 import cookieParser from 'cookie-parser';
-
-import userRoute from 'models/user/user-routes';
-import authRoute from 'models/auth/auth-routes';
-import AppError from '@utils/app-errror';
-
-import { corsMiddleware } from '@config/corsConfigurations';
 import morgan from 'morgan';
+
+// Custom Middlewares and Routes
+import userRoute from '@models/user/user-routes';
+import authRoute from '@models/auth/auth-routes';
+import AppError from '@utils/app-errror';
+import { corsMiddleware, rateLimiter } from '@middlewares';
 
 const app = express();
 
@@ -17,6 +17,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(morgan('dev'));
+
+app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
 
 // Test Route: Entry POINT
 app.get('/api/v1/', (req: Request, res: Response) => {
@@ -30,7 +32,7 @@ app.use('/api/v1/auth', authRoute);
 
 // Global Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err);
+  console.error(err.stack);
 
   if (err instanceof AppError) {
     res.status(err.statusCode).json({

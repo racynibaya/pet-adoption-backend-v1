@@ -1,15 +1,20 @@
 import { Router } from 'express';
 import authController from './auth-controller';
-import prisma from '@config/prisma';
+
 import { authMiddleWare } from './auth-middleware';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.json({
-    message: 'Message from auth route',
+router
+  .route('/')
+  .get((req, res) => {
+    res.json({
+      message: 'Message from auth route',
+    });
+  })
+  .post((req, res) => {
+    res.json({ message: 'POST request to auth route' });
   });
-});
 
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
