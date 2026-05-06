@@ -7,6 +7,7 @@ import morgan from 'morgan';
 // Custom Middlewares and Routes
 import userRoute from '@models/user/user-routes';
 import authRoute from '@models/auth/auth-routes';
+import shelterRoute from '@models/shelter/shelter-routes';
 import AppError from '@utils/app-errror';
 import { corsMiddleware, rateLimiter } from '@middlewares';
 
@@ -29,6 +30,7 @@ app.get('/api/v1/', (req: Request, res: Response) => {
 
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/shelters', shelterRoute);
 
 // Global Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import authController from './auth-controller';
 
-import { authMiddleWare, checkVerifiedUser } from './auth-middleware';
+import {
+  verifyTokenMiddleware,
+  checkVerifiedUser,
+  authorizeRole,
+} from '../../middlewares/auth-middleware';
 
 const router = Router();
 
@@ -20,7 +24,13 @@ router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 router.post('/register', authController.register);
 
-router.get('/admin', authMiddleWare, checkVerifiedUser, authController.test);
+router.get(
+  '/admin',
+  verifyTokenMiddleware,
+  checkVerifiedUser,
+  authorizeRole('ADMIN'),
+  authController.test,
+);
 router.get('/refresh', authController.refresh);
 
 // GET /auth/verify?token=xyz

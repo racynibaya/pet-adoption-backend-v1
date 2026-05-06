@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
-import authService from './auth-service';
+import authService from '../models/auth/auth-service';
 import prisma from '@config/prisma';
-import { SanitizedUser } from './auth-types';
-import { verify } from 'node:crypto';
-import { ForbiddenError, UnauthorizedError } from '@utils/error';
+import { SanitizedUser } from '../models/auth/auth-types';
 
-export const authMiddleWare = async function (
+import { ForbiddenError, UnauthorizedError } from '@utils/error';
+import { Role } from '../../generated/prisma/client';
+
+export const verifyTokenMiddleware = async function (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -60,10 +61,18 @@ export const checkVerifiedUser = function (
   }
 };
 
-export const checkRole = function (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
-  const role = req.user?.role;
+export const authorizeRole = (...allowedRoles: Role[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user) {
+      throw new UnauthorizedError('User is not authenticated');
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      throw new ForbiddenError(
+        'You do not have permission to access this resource',
+      );
+    }
+
+    next();
+  };
 };
