@@ -25,9 +25,5 @@ export interface CreateUserDTO {
   password: string;
   role?: 'USER' | 'STAFF' | 'ADMIN';
 }
-export type SanitizedUser = Omit<
-  User,
-  'verifyTokenExpiry' | 'hashedPassword'
-> & {
-  link: string;
-};
+
+export type SanitizedUser = Omit<User, 'verifyTokenExpiry' | 'hashedPassword'>;

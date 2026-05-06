@@ -8,7 +8,11 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 
 import { User } from '../../../generated/prisma/client';
 import { JwtPayload, CreateUserDTO, SanitizedUser } from './auth-types';
-import { BadRequestError, UnauthorizedError } from '@utils/error';
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from '@utils/error';
 
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
@@ -17,9 +21,13 @@ const ONE_HOUR_MS = 60 * 60 * 1000;
 
 class AuthService {
   async isExistingEmail(email: string): Promise<User | null> {
-    return await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
+
+    if (!user) throw new NotFoundError('Email not found');
+
+    return user;
   }
 
   async authenticateUser(
@@ -30,14 +38,14 @@ class AuthService {
       where: { email },
     });
 
-    if (!user) return null;
+    if (!user) throw new NotFoundError('Email not found');
 
     const isPasswordMatched = await bcrypt.compare(
       password,
       user.hashedPassword,
     );
 
-    if (!isPasswordMatched) return null;
+    if (!isPasswordMatched) throw new UnauthorizedError('Invalid credentials');
 
     const accessToken = jwt.sign({ email: user.email }, JWT_SECRET, {
       expiresIn: '1h',
@@ -134,23 +142,36 @@ class AuthService {
     });
   }
 
-  async verifyUserViaEmail(email: string): Promise<SanitizedUser> {
+  async reverificationEmail(
+    staleToken: string | null,
+  ): Promise<{ token: string; link: string }> {
     const token = crypto.randomBytes(32).toString('hex');
 
     const link = `${process.env.BASE_URL}/auth/verify?token=${token}`;
 
-    const updatedUser = await prisma.user.update({
-      where: { email },
+    if (!staleToken)
+      throw new BadRequestError(
+        'No existing verification token found, please register again',
+      );
+
+    const user = await prisma.user.findFirst({
+      where: { verifyToken: staleToken },
+    });
+
+    if (!user)
+      throw new NotFoundError(
+        'No user found for this verification token, please register again',
+      );
+
+    await prisma.user.update({
+      where: { email: user.email },
       data: {
         verifyToken: token,
-        verifyTokenExpiry: new Date(Date.now() + 60 * 60 * 1000),
-      },
-      omit: {
-        verifyTokenExpiry: true,
+        verifyTokenExpiry: new Date(Date.now() + ONE_HOUR_MS), //1hr
       },
     });
 
-    return { link, ...updatedUser };
+    return { token, link };
   }
 
   async refreshAccessToken(token: string) {

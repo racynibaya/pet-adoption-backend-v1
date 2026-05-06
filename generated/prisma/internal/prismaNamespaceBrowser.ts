@@ -102,6 +102,7 @@ export const PetScalarFieldEnum = {
   species: 'species',
   photo: 'photo',
   description: 'description',
+  shelterId: 'shelterId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -138,7 +139,15 @@ export type AdoptionRequestScalarFieldEnum = (typeof AdoptionRequestScalarFieldE
 
 
 export const ShelterScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  contactEmail: 'contactEmail',
+  phoneNumber: 'phoneNumber',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ShelterScalarFieldEnum = (typeof ShelterScalarFieldEnum)[keyof typeof ShelterScalarFieldEnum]

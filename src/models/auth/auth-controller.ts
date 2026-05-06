@@ -16,7 +16,11 @@ const User = z.object({
 const LoginSchema = User.omit({ name: true });
 
 import { EmailInput } from './auth-types';
-import { UnauthorizedError } from '@utils/error';
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from '@utils/error';
 import prisma from '@config/prisma';
 
 export type UserT = z.infer<typeof User>;
@@ -133,6 +137,8 @@ class AuthController {
     try {
       const token = req.query.token;
 
+      console.log(token, 'LINE 136');
+
       if (typeof token !== 'string') {
         res.status(400).json({
           success: false,
@@ -187,27 +193,20 @@ class AuthController {
 
       const user = await authService.isExistingEmail(email);
 
-      if (!user) {
-        res.status(404).json({
-          success: false,
-          message: 'User dont exist',
-        });
-        return;
-      }
+      if (!user) throw new NotFoundError('User with this email does not exist');
 
-      if (user.isVerified) {
-        res.status(400).json({
-          success: false,
-          message: 'User is already verified',
-        });
-        return;
-      }
+      if (user.isVerified)
+        throw new BadRequestError('User is already verified');
 
-      await authService.verifyUserViaEmail(email);
+      const { link, token } = await authService.reverificationEmail(
+        user.verifyToken,
+      );
 
       res.status(200).json({
+        token,
+        link,
         success: true,
-        message: 'Verification email sent',
+        message: 'Verification link sent',
       });
     } catch (error) {
       next(error);
@@ -234,6 +233,8 @@ class AuthController {
   }
 
   test(req: Request, res: Response, next: NextFunction) {
+    console.log(req.user);
+
     res.json({
       message: 'This is the admin',
     });

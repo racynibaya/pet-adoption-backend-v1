@@ -1,9 +1,10 @@
+import { SanitizedUser } from '@models/auth/auth-types';
 import { JwtPayload } from 'jsonwebtoken';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload;
+      user?: SanitizedUser | JwtPayload;
     }
   }
 }

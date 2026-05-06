@@ -283,6 +283,7 @@ export type UserWhereInput = {
   bookings?: Prisma.BookingListRelationFilter
   adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
+  shelters?: Prisma.ShelterListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -302,6 +303,7 @@ export type UserOrderByWithRelationInput = {
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   adoptionRequests?: Prisma.AdoptionRequestOrderByRelationAggregateInput
   shelterStaffs?: Prisma.ShelterStaffOrderByRelationAggregateInput
+  shelters?: Prisma.ShelterOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -324,6 +326,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   bookings?: Prisma.BookingListRelationFilter
   adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
+  shelters?: Prisma.ShelterListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -382,6 +385,7 @@ export type UserCreateInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -401,6 +405,7 @@ export type UserUncheckedCreateInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUpdateInput = {
@@ -419,6 +424,7 @@ export type UserUpdateInput = {
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -438,6 +444,7 @@ export type UserUncheckedUpdateInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -608,6 +615,20 @@ export type UserUpdateOneRequiredWithoutAdoptionRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdoptionRequestsInput, Prisma.UserUpdateWithoutAdoptionRequestsInput>, Prisma.UserUncheckedUpdateWithoutAdoptionRequestsInput>
 }
 
+export type UserCreateNestedOneWithoutSheltersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSheltersInput, Prisma.UserUncheckedCreateWithoutSheltersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSheltersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSheltersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSheltersInput, Prisma.UserUncheckedCreateWithoutSheltersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSheltersInput
+  upsert?: Prisma.UserUpsertWithoutSheltersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSheltersInput, Prisma.UserUpdateWithoutSheltersInput>, Prisma.UserUncheckedUpdateWithoutSheltersInput>
+}
+
 export type UserCreateNestedOneWithoutShelterStaffsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutShelterStaffsInput, Prisma.UserUncheckedCreateWithoutShelterStaffsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutShelterStaffsInput
@@ -637,6 +658,7 @@ export type UserCreateWithoutBookingsInput = {
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -655,6 +677,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -688,6 +711,7 @@ export type UserUpdateWithoutBookingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -706,6 +730,7 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateWithoutAdoptionRequestsInput = {
@@ -723,6 +748,7 @@ export type UserCreateWithoutAdoptionRequestsInput = {
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
@@ -741,6 +767,7 @@ export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutAdoptionRequestsInput = {
@@ -774,6 +801,7 @@ export type UserUpdateWithoutAdoptionRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
@@ -792,6 +820,97 @@ export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutSheltersInput = {
+  email: string
+  hashedPassword: string
+  name: string
+  address?: string | null
+  phoneNumber?: string | null
+  role?: $Enums.Role
+  isVerified?: boolean
+  verifyToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSheltersInput = {
+  id?: number
+  email: string
+  hashedPassword: string
+  name: string
+  address?: string | null
+  phoneNumber?: string | null
+  role?: $Enums.Role
+  isVerified?: boolean
+  verifyToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSheltersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSheltersInput, Prisma.UserUncheckedCreateWithoutSheltersInput>
+}
+
+export type UserUpsertWithoutSheltersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSheltersInput, Prisma.UserUncheckedUpdateWithoutSheltersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSheltersInput, Prisma.UserUncheckedCreateWithoutSheltersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSheltersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSheltersInput, Prisma.UserUncheckedUpdateWithoutSheltersInput>
+}
+
+export type UserUpdateWithoutSheltersInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSheltersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShelterStaffsInput = {
@@ -809,6 +928,7 @@ export type UserCreateWithoutShelterStaffsInput = {
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutShelterStaffsInput = {
@@ -827,6 +947,7 @@ export type UserUncheckedCreateWithoutShelterStaffsInput = {
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutShelterStaffsInput = {
@@ -860,6 +981,7 @@ export type UserUpdateWithoutShelterStaffsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShelterStaffsInput = {
@@ -878,6 +1000,7 @@ export type UserUncheckedUpdateWithoutShelterStaffsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 
@@ -889,12 +1012,14 @@ export type UserCountOutputType = {
   bookings: number
   adoptionRequests: number
   shelterStaffs: number
+  shelters: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | UserCountOutputTypeCountBookingsArgs
   adoptionRequests?: boolean | UserCountOutputTypeCountAdoptionRequestsArgs
   shelterStaffs?: boolean | UserCountOutputTypeCountShelterStaffsArgs
+  shelters?: boolean | UserCountOutputTypeCountSheltersArgs
 }
 
 /**
@@ -928,6 +1053,13 @@ export type UserCountOutputTypeCountShelterStaffsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.ShelterStaffWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSheltersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShelterWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -946,6 +1078,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.User$shelterStaffsArgs<ExtArgs>
+  shelters?: boolean | Prisma.User$sheltersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1002,6 +1135,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.User$shelterStaffsArgs<ExtArgs>
+  shelters?: boolean | Prisma.User$sheltersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1013,6 +1147,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     adoptionRequests: Prisma.$AdoptionRequestPayload<ExtArgs>[]
     shelterStaffs: Prisma.$ShelterStaffPayload<ExtArgs>[]
+    shelters: Prisma.$ShelterPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1425,6 +1560,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   adoptionRequests<T extends Prisma.User$adoptionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adoptionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdoptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shelterStaffs<T extends Prisma.User$shelterStaffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shelterStaffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shelters<T extends Prisma.User$sheltersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sheltersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1929,6 +2065,30 @@ export type User$shelterStaffsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.ShelterStaffScalarFieldEnum | Prisma.ShelterStaffScalarFieldEnum[]
+}
+
+/**
+ * User.shelters
+ */
+export type User$sheltersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Shelter
+   */
+  select?: Prisma.ShelterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Shelter
+   */
+  omit?: Prisma.ShelterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShelterInclude<ExtArgs> | null
+  where?: Prisma.ShelterWhereInput
+  orderBy?: Prisma.ShelterOrderByWithRelationInput | Prisma.ShelterOrderByWithRelationInput[]
+  cursor?: Prisma.ShelterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShelterScalarFieldEnum | Prisma.ShelterScalarFieldEnum[]
 }
 
 /**

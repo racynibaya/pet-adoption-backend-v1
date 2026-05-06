@@ -28,44 +28,96 @@ export type AggregateShelter = {
 
 export type ShelterAvgAggregateOutputType = {
   id: number | null
+  ownerId: number | null
 }
 
 export type ShelterSumAggregateOutputType = {
   id: number | null
+  ownerId: number | null
 }
 
 export type ShelterMinAggregateOutputType = {
   id: number | null
+  name: string | null
+  description: string | null
+  address: string | null
+  contactEmail: string | null
+  phoneNumber: string | null
+  ownerId: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ShelterMaxAggregateOutputType = {
   id: number | null
+  name: string | null
+  description: string | null
+  address: string | null
+  contactEmail: string | null
+  phoneNumber: string | null
+  ownerId: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ShelterCountAggregateOutputType = {
   id: number
+  name: number
+  description: number
+  address: number
+  contactEmail: number
+  phoneNumber: number
+  ownerId: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type ShelterAvgAggregateInputType = {
   id?: true
+  ownerId?: true
 }
 
 export type ShelterSumAggregateInputType = {
   id?: true
+  ownerId?: true
 }
 
 export type ShelterMinAggregateInputType = {
   id?: true
+  name?: true
+  description?: true
+  address?: true
+  contactEmail?: true
+  phoneNumber?: true
+  ownerId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ShelterMaxAggregateInputType = {
   id?: true
+  name?: true
+  description?: true
+  address?: true
+  contactEmail?: true
+  phoneNumber?: true
+  ownerId?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type ShelterCountAggregateInputType = {
   id?: true
+  name?: true
+  description?: true
+  address?: true
+  contactEmail?: true
+  phoneNumber?: true
+  ownerId?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -157,6 +209,14 @@ export type ShelterGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type ShelterGroupByOutputType = {
   id: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  ownerId: number
+  createdAt: Date
+  updatedAt: Date
   _count: ShelterCountAggregateOutputType | null
   _avg: ShelterAvgAggregateOutputType | null
   _sum: ShelterSumAggregateOutputType | null
@@ -184,12 +244,32 @@ export type ShelterWhereInput = {
   OR?: Prisma.ShelterWhereInput[]
   NOT?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
   id?: Prisma.IntFilter<"Shelter"> | number
+  name?: Prisma.StringFilter<"Shelter"> | string
+  description?: Prisma.StringFilter<"Shelter"> | string
+  address?: Prisma.StringFilter<"Shelter"> | string
+  contactEmail?: Prisma.StringFilter<"Shelter"> | string
+  phoneNumber?: Prisma.StringFilter<"Shelter"> | string
+  ownerId?: Prisma.IntFilter<"Shelter"> | number
+  createdAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
+  pets?: Prisma.PetListRelationFilter
 }
 
 export type ShelterOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  owner?: Prisma.UserOrderByWithRelationInput
   shelterStaffs?: Prisma.ShelterStaffOrderByRelationAggregateInput
+  pets?: Prisma.PetOrderByRelationAggregateInput
 }
 
 export type ShelterWhereUniqueInput = Prisma.AtLeast<{
@@ -197,11 +277,29 @@ export type ShelterWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
   OR?: Prisma.ShelterWhereInput[]
   NOT?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
+  name?: Prisma.StringFilter<"Shelter"> | string
+  description?: Prisma.StringFilter<"Shelter"> | string
+  address?: Prisma.StringFilter<"Shelter"> | string
+  contactEmail?: Prisma.StringFilter<"Shelter"> | string
+  phoneNumber?: Prisma.StringFilter<"Shelter"> | string
+  ownerId?: Prisma.IntFilter<"Shelter"> | number
+  createdAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
+  pets?: Prisma.PetListRelationFilter
 }, "id">
 
 export type ShelterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ShelterCountOrderByAggregateInput
   _avg?: Prisma.ShelterAvgOrderByAggregateInput
   _max?: Prisma.ShelterMaxOrderByAggregateInput
@@ -214,61 +312,219 @@ export type ShelterScalarWhereWithAggregatesInput = {
   OR?: Prisma.ShelterScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ShelterScalarWhereWithAggregatesInput | Prisma.ShelterScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Shelter"> | number
+  name?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  description?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  address?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  contactEmail?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  phoneNumber?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  ownerId?: Prisma.IntWithAggregatesFilter<"Shelter"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shelter"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shelter"> | Date | string
 }
 
 export type ShelterCreateInput = {
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutSheltersInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutShelterInput
+  pets?: Prisma.PetCreateNestedManyWithoutShelterInput
 }
 
 export type ShelterUncheckedCreateInput = {
   id?: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  ownerId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutShelterInput
+  pets?: Prisma.PetUncheckedCreateNestedManyWithoutShelterInput
 }
 
 export type ShelterUpdateInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutShelterNestedInput
+  pets?: Prisma.PetUpdateManyWithoutShelterNestedInput
 }
 
 export type ShelterUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutShelterNestedInput
+  pets?: Prisma.PetUncheckedUpdateManyWithoutShelterNestedInput
 }
 
 export type ShelterCreateManyInput = {
   id?: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  ownerId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ShelterUpdateManyMutationInput = {
-
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ShelterUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ShelterCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+export type ShelterListRelationFilter = {
+  every?: Prisma.ShelterWhereInput
+  some?: Prisma.ShelterWhereInput
+  none?: Prisma.ShelterWhereInput
 }
 
-export type ShelterAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
-export type ShelterMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
-export type ShelterMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
-export type ShelterSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+export type ShelterOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ShelterScalarRelationFilter = {
   is?: Prisma.ShelterWhereInput
   isNot?: Prisma.ShelterWhereInput
+}
+
+export type ShelterCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type ShelterAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+}
+
+export type ShelterMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type ShelterMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type ShelterSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
+}
+
+export type ShelterCreateNestedManyWithoutOwnerInput = {
+  create?: Prisma.XOR<Prisma.ShelterCreateWithoutOwnerInput, Prisma.ShelterUncheckedCreateWithoutOwnerInput> | Prisma.ShelterCreateWithoutOwnerInput[] | Prisma.ShelterUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.ShelterCreateOrConnectWithoutOwnerInput | Prisma.ShelterCreateOrConnectWithoutOwnerInput[]
+  createMany?: Prisma.ShelterCreateManyOwnerInputEnvelope
+  connect?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+}
+
+export type ShelterUncheckedCreateNestedManyWithoutOwnerInput = {
+  create?: Prisma.XOR<Prisma.ShelterCreateWithoutOwnerInput, Prisma.ShelterUncheckedCreateWithoutOwnerInput> | Prisma.ShelterCreateWithoutOwnerInput[] | Prisma.ShelterUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.ShelterCreateOrConnectWithoutOwnerInput | Prisma.ShelterCreateOrConnectWithoutOwnerInput[]
+  createMany?: Prisma.ShelterCreateManyOwnerInputEnvelope
+  connect?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+}
+
+export type ShelterUpdateManyWithoutOwnerNestedInput = {
+  create?: Prisma.XOR<Prisma.ShelterCreateWithoutOwnerInput, Prisma.ShelterUncheckedCreateWithoutOwnerInput> | Prisma.ShelterCreateWithoutOwnerInput[] | Prisma.ShelterUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.ShelterCreateOrConnectWithoutOwnerInput | Prisma.ShelterCreateOrConnectWithoutOwnerInput[]
+  upsert?: Prisma.ShelterUpsertWithWhereUniqueWithoutOwnerInput | Prisma.ShelterUpsertWithWhereUniqueWithoutOwnerInput[]
+  createMany?: Prisma.ShelterCreateManyOwnerInputEnvelope
+  set?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  disconnect?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  delete?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  connect?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  update?: Prisma.ShelterUpdateWithWhereUniqueWithoutOwnerInput | Prisma.ShelterUpdateWithWhereUniqueWithoutOwnerInput[]
+  updateMany?: Prisma.ShelterUpdateManyWithWhereWithoutOwnerInput | Prisma.ShelterUpdateManyWithWhereWithoutOwnerInput[]
+  deleteMany?: Prisma.ShelterScalarWhereInput | Prisma.ShelterScalarWhereInput[]
+}
+
+export type ShelterUncheckedUpdateManyWithoutOwnerNestedInput = {
+  create?: Prisma.XOR<Prisma.ShelterCreateWithoutOwnerInput, Prisma.ShelterUncheckedCreateWithoutOwnerInput> | Prisma.ShelterCreateWithoutOwnerInput[] | Prisma.ShelterUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.ShelterCreateOrConnectWithoutOwnerInput | Prisma.ShelterCreateOrConnectWithoutOwnerInput[]
+  upsert?: Prisma.ShelterUpsertWithWhereUniqueWithoutOwnerInput | Prisma.ShelterUpsertWithWhereUniqueWithoutOwnerInput[]
+  createMany?: Prisma.ShelterCreateManyOwnerInputEnvelope
+  set?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  disconnect?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  delete?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  connect?: Prisma.ShelterWhereUniqueInput | Prisma.ShelterWhereUniqueInput[]
+  update?: Prisma.ShelterUpdateWithWhereUniqueWithoutOwnerInput | Prisma.ShelterUpdateWithWhereUniqueWithoutOwnerInput[]
+  updateMany?: Prisma.ShelterUpdateManyWithWhereWithoutOwnerInput | Prisma.ShelterUpdateManyWithWhereWithoutOwnerInput[]
+  deleteMany?: Prisma.ShelterScalarWhereInput | Prisma.ShelterScalarWhereInput[]
+}
+
+export type ShelterCreateNestedOneWithoutPetsInput = {
+  create?: Prisma.XOR<Prisma.ShelterCreateWithoutPetsInput, Prisma.ShelterUncheckedCreateWithoutPetsInput>
+  connectOrCreate?: Prisma.ShelterCreateOrConnectWithoutPetsInput
+  connect?: Prisma.ShelterWhereUniqueInput
+}
+
+export type ShelterUpdateOneRequiredWithoutPetsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShelterCreateWithoutPetsInput, Prisma.ShelterUncheckedCreateWithoutPetsInput>
+  connectOrCreate?: Prisma.ShelterCreateOrConnectWithoutPetsInput
+  upsert?: Prisma.ShelterUpsertWithoutPetsInput
+  connect?: Prisma.ShelterWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShelterUpdateToOneWithWhereWithoutPetsInput, Prisma.ShelterUpdateWithoutPetsInput>, Prisma.ShelterUncheckedUpdateWithoutPetsInput>
 }
 
 export type ShelterCreateNestedOneWithoutShelterStaffsInput = {
@@ -285,12 +541,161 @@ export type ShelterUpdateOneRequiredWithoutShelterStaffsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShelterUpdateToOneWithWhereWithoutShelterStaffsInput, Prisma.ShelterUpdateWithoutShelterStaffsInput>, Prisma.ShelterUncheckedUpdateWithoutShelterStaffsInput>
 }
 
-export type ShelterCreateWithoutShelterStaffsInput = {
+export type ShelterCreateWithoutOwnerInput = {
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutShelterInput
+  pets?: Prisma.PetCreateNestedManyWithoutShelterInput
+}
 
+export type ShelterUncheckedCreateWithoutOwnerInput = {
+  id?: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutShelterInput
+  pets?: Prisma.PetUncheckedCreateNestedManyWithoutShelterInput
+}
+
+export type ShelterCreateOrConnectWithoutOwnerInput = {
+  where: Prisma.ShelterWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShelterCreateWithoutOwnerInput, Prisma.ShelterUncheckedCreateWithoutOwnerInput>
+}
+
+export type ShelterCreateManyOwnerInputEnvelope = {
+  data: Prisma.ShelterCreateManyOwnerInput | Prisma.ShelterCreateManyOwnerInput[]
+  skipDuplicates?: boolean
+}
+
+export type ShelterUpsertWithWhereUniqueWithoutOwnerInput = {
+  where: Prisma.ShelterWhereUniqueInput
+  update: Prisma.XOR<Prisma.ShelterUpdateWithoutOwnerInput, Prisma.ShelterUncheckedUpdateWithoutOwnerInput>
+  create: Prisma.XOR<Prisma.ShelterCreateWithoutOwnerInput, Prisma.ShelterUncheckedCreateWithoutOwnerInput>
+}
+
+export type ShelterUpdateWithWhereUniqueWithoutOwnerInput = {
+  where: Prisma.ShelterWhereUniqueInput
+  data: Prisma.XOR<Prisma.ShelterUpdateWithoutOwnerInput, Prisma.ShelterUncheckedUpdateWithoutOwnerInput>
+}
+
+export type ShelterUpdateManyWithWhereWithoutOwnerInput = {
+  where: Prisma.ShelterScalarWhereInput
+  data: Prisma.XOR<Prisma.ShelterUpdateManyMutationInput, Prisma.ShelterUncheckedUpdateManyWithoutOwnerInput>
+}
+
+export type ShelterScalarWhereInput = {
+  AND?: Prisma.ShelterScalarWhereInput | Prisma.ShelterScalarWhereInput[]
+  OR?: Prisma.ShelterScalarWhereInput[]
+  NOT?: Prisma.ShelterScalarWhereInput | Prisma.ShelterScalarWhereInput[]
+  id?: Prisma.IntFilter<"Shelter"> | number
+  name?: Prisma.StringFilter<"Shelter"> | string
+  description?: Prisma.StringFilter<"Shelter"> | string
+  address?: Prisma.StringFilter<"Shelter"> | string
+  contactEmail?: Prisma.StringFilter<"Shelter"> | string
+  phoneNumber?: Prisma.StringFilter<"Shelter"> | string
+  ownerId?: Prisma.IntFilter<"Shelter"> | number
+  createdAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
+}
+
+export type ShelterCreateWithoutPetsInput = {
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutSheltersInput
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutShelterInput
+}
+
+export type ShelterUncheckedCreateWithoutPetsInput = {
+  id?: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  ownerId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutShelterInput
+}
+
+export type ShelterCreateOrConnectWithoutPetsInput = {
+  where: Prisma.ShelterWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShelterCreateWithoutPetsInput, Prisma.ShelterUncheckedCreateWithoutPetsInput>
+}
+
+export type ShelterUpsertWithoutPetsInput = {
+  update: Prisma.XOR<Prisma.ShelterUpdateWithoutPetsInput, Prisma.ShelterUncheckedUpdateWithoutPetsInput>
+  create: Prisma.XOR<Prisma.ShelterCreateWithoutPetsInput, Prisma.ShelterUncheckedCreateWithoutPetsInput>
+  where?: Prisma.ShelterWhereInput
+}
+
+export type ShelterUpdateToOneWithWhereWithoutPetsInput = {
+  where?: Prisma.ShelterWhereInput
+  data: Prisma.XOR<Prisma.ShelterUpdateWithoutPetsInput, Prisma.ShelterUncheckedUpdateWithoutPetsInput>
+}
+
+export type ShelterUpdateWithoutPetsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutShelterNestedInput
+}
+
+export type ShelterUncheckedUpdateWithoutPetsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutShelterNestedInput
+}
+
+export type ShelterCreateWithoutShelterStaffsInput = {
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutSheltersInput
+  pets?: Prisma.PetCreateNestedManyWithoutShelterInput
 }
 
 export type ShelterUncheckedCreateWithoutShelterStaffsInput = {
   id?: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  ownerId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  pets?: Prisma.PetUncheckedCreateNestedManyWithoutShelterInput
 }
 
 export type ShelterCreateOrConnectWithoutShelterStaffsInput = {
@@ -310,11 +715,75 @@ export type ShelterUpdateToOneWithWhereWithoutShelterStaffsInput = {
 }
 
 export type ShelterUpdateWithoutShelterStaffsInput = {
-
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
+  pets?: Prisma.PetUpdateManyWithoutShelterNestedInput
 }
 
 export type ShelterUncheckedUpdateWithoutShelterStaffsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pets?: Prisma.PetUncheckedUpdateManyWithoutShelterNestedInput
+}
+
+export type ShelterCreateManyOwnerInput = {
+  id?: number
+  name: string
+  description: string
+  address: string
+  contactEmail: string
+  phoneNumber: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShelterUpdateWithoutOwnerInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutShelterNestedInput
+  pets?: Prisma.PetUpdateManyWithoutShelterNestedInput
+}
+
+export type ShelterUncheckedUpdateWithoutOwnerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutShelterNestedInput
+  pets?: Prisma.PetUncheckedUpdateManyWithoutShelterNestedInput
+}
+
+export type ShelterUncheckedUpdateManyWithoutOwnerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -324,10 +793,12 @@ export type ShelterUncheckedUpdateWithoutShelterStaffsInput = {
 
 export type ShelterCountOutputType = {
   shelterStaffs: number
+  pets: number
 }
 
 export type ShelterCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shelterStaffs?: boolean | ShelterCountOutputTypeCountShelterStaffsArgs
+  pets?: boolean | ShelterCountOutputTypeCountPetsArgs
 }
 
 /**
@@ -347,40 +818,99 @@ export type ShelterCountOutputTypeCountShelterStaffsArgs<ExtArgs extends runtime
   where?: Prisma.ShelterStaffWhereInput
 }
 
+/**
+ * ShelterCountOutputType without action
+ */
+export type ShelterCountOutputTypeCountPetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PetWhereInput
+}
+
 
 export type ShelterSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  name?: boolean
+  description?: boolean
+  address?: boolean
+  contactEmail?: boolean
+  phoneNumber?: boolean
+  ownerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.Shelter$shelterStaffsArgs<ExtArgs>
+  pets?: boolean | Prisma.Shelter$petsArgs<ExtArgs>
   _count?: boolean | Prisma.ShelterCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shelter"]>
 
 export type ShelterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  name?: boolean
+  description?: boolean
+  address?: boolean
+  contactEmail?: boolean
+  phoneNumber?: boolean
+  ownerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shelter"]>
 
 export type ShelterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  name?: boolean
+  description?: boolean
+  address?: boolean
+  contactEmail?: boolean
+  phoneNumber?: boolean
+  ownerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shelter"]>
 
 export type ShelterSelectScalar = {
   id?: boolean
+  name?: boolean
+  description?: boolean
+  address?: boolean
+  contactEmail?: boolean
+  phoneNumber?: boolean
+  ownerId?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ShelterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id", ExtArgs["result"]["shelter"]>
+export type ShelterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "contactEmail" | "phoneNumber" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["shelter"]>
 export type ShelterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.Shelter$shelterStaffsArgs<ExtArgs>
+  pets?: boolean | Prisma.Shelter$petsArgs<ExtArgs>
   _count?: boolean | Prisma.ShelterCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ShelterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ShelterIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ShelterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type ShelterIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $ShelterPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Shelter"
   objects: {
+    owner: Prisma.$UserPayload<ExtArgs>
     shelterStaffs: Prisma.$ShelterStaffPayload<ExtArgs>[]
+    pets: Prisma.$PetPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    name: string
+    description: string
+    address: string
+    contactEmail: string
+    phoneNumber: string
+    ownerId: number
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["shelter"]>
   composites: {}
 }
@@ -775,7 +1305,9 @@ readonly fields: ShelterFieldRefs;
  */
 export interface Prisma__ShelterClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   shelterStaffs<T extends Prisma.Shelter$shelterStaffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shelter$shelterStaffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pets<T extends Prisma.Shelter$petsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shelter$petsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -806,6 +1338,14 @@ export interface Prisma__ShelterClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface ShelterFieldRefs {
   readonly id: Prisma.FieldRef<"Shelter", 'Int'>
+  readonly name: Prisma.FieldRef<"Shelter", 'String'>
+  readonly description: Prisma.FieldRef<"Shelter", 'String'>
+  readonly address: Prisma.FieldRef<"Shelter", 'String'>
+  readonly contactEmail: Prisma.FieldRef<"Shelter", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"Shelter", 'String'>
+  readonly ownerId: Prisma.FieldRef<"Shelter", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Shelter", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Shelter", 'DateTime'>
 }
     
 
@@ -1029,7 +1569,7 @@ export type ShelterCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * The data needed to create a Shelter.
    */
-  data?: Prisma.XOR<Prisma.ShelterCreateInput, Prisma.ShelterUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.ShelterCreateInput, Prisma.ShelterUncheckedCreateInput>
 }
 
 /**
@@ -1060,6 +1600,10 @@ export type ShelterCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.ShelterCreateManyInput | Prisma.ShelterCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShelterIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1130,6 +1674,10 @@ export type ShelterUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many Shelters to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShelterIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1220,6 +1768,30 @@ export type Shelter$shelterStaffsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ShelterStaffScalarFieldEnum | Prisma.ShelterStaffScalarFieldEnum[]
+}
+
+/**
+ * Shelter.pets
+ */
+export type Shelter$petsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Pet
+   */
+  select?: Prisma.PetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Pet
+   */
+  omit?: Prisma.PetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PetInclude<ExtArgs> | null
+  where?: Prisma.PetWhereInput
+  orderBy?: Prisma.PetOrderByWithRelationInput | Prisma.PetOrderByWithRelationInput[]
+  cursor?: Prisma.PetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PetScalarFieldEnum | Prisma.PetScalarFieldEnum[]
 }
 
 /**
