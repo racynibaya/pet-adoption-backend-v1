@@ -25,8 +25,6 @@ class AuthService {
       where: { email },
     });
 
-    if (!user) throw new NotFoundError('Email not found');
-
     return user;
   }
 

@@ -4,8 +4,6 @@ import * as z from 'zod';
 
 import authService from './auth-service';
 
-import jwt, { JwtPayload } from 'jsonwebtoken';
-
 const User = z.object({
   email: z.email(),
   name: z.string().min(5),
@@ -18,6 +16,8 @@ const LoginSchema = User.omit({ name: true });
 import { EmailInput } from './auth-types';
 import {
   BadRequestError,
+  ConflictError,
+  ForbiddenError,
   NotFoundError,
   UnauthorizedError,
 } from '@utils/error';
@@ -36,7 +36,15 @@ class AuthController {
       }
       const { email, password } = parsed.data;
 
-      console.log(email, password);
+      const user = await authService.isExistingEmail(email);
+
+      if (!user) throw new UnauthorizedError('Invalid credentials');
+
+      if (!user.isVerified) {
+        throw new ForbiddenError(
+          'Email not verified, please verify your email before logging in',
+        );
+      }
 
       const tokens = await authService.authenticateUser(email, password);
 
@@ -100,11 +108,7 @@ class AuthController {
       const existingUser = await authService.isExistingEmail(email);
 
       if (existingUser) {
-        res.status(409).json({
-          success: false,
-          message: 'Email already in use',
-        });
-        return;
+        throw new ConflictError('User with this email already exists');
       }
 
       // createUser

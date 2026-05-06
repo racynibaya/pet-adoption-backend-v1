@@ -274,12 +274,12 @@ export type ShelterOrderByWithRelationInput = {
 
 export type ShelterWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  address?: string
   AND?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
   OR?: Prisma.ShelterWhereInput[]
   NOT?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
   name?: Prisma.StringFilter<"Shelter"> | string
   description?: Prisma.StringFilter<"Shelter"> | string
-  address?: Prisma.StringFilter<"Shelter"> | string
   contactEmail?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
   ownerId?: Prisma.IntFilter<"Shelter"> | number
@@ -288,7 +288,7 @@ export type ShelterWhereUniqueInput = Prisma.AtLeast<{
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
   pets?: Prisma.PetListRelationFilter
-}, "id">
+}, "id" | "address">
 
 export type ShelterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

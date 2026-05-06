@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 
 import prisma from '@config/prisma';
 import {
@@ -6,29 +6,26 @@ import {
   checkVerifiedUser,
   verifyTokenMiddleware,
 } from 'middlewares/auth-middleware';
+import shelterController from './shelter-controller';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-  const shelters = await prisma.shelter.findMany();
-  res.json({
-    message: 'Message from shelter route',
-    data: shelters,
-  });
-});
+router.get('/', shelterController.getShelters);
 
 router.post(
   '/',
   verifyTokenMiddleware,
   checkVerifiedUser,
   authorizeRole('ADMIN'),
-  async (req: Request, res: Response) => {
-    const shelters = await prisma.shelter.findMany();
-    res.json({
-      message: 'YOURE AN ADMIN AND CAN DELETE SHELTERS',
-      data: shelters,
-    });
-  },
+  shelterController.create,
+);
+
+router.delete(
+  '/:id',
+  verifyTokenMiddleware,
+  checkVerifiedUser,
+  authorizeRole('ADMIN'),
+  shelterController.delete,
 );
 
 export default router;

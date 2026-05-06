@@ -296,7 +296,7 @@ async function main() {
       prisma.shelter.create({
         data: {
           name: SHELTER_NAMES[i],
-          address: randomItem(ADDRESSES),
+          address: ADDRESSES[i],
           contactEmail: `contact${i + 1}@${SHELTER_NAMES[i].toLowerCase().replace(/\s/g, '')}.com`,
           phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
           description: `Welcome to ${SHELTER_NAMES[i]}! We are dedicated to rescuing and rehoming pets in need. Our shelter provides a safe haven for dogs, cats, and rabbits, offering them love, care, and a second chance at life. Come visit us and find your new best friend!`,
