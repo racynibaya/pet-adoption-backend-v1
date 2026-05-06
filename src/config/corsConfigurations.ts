@@ -9,13 +9,22 @@ const allowedOrigins = ['http://localhost:3001', 'http://yourcustomdomain.com'];
 const corsOptionsDelegate: CorsOptionsDelegate<Request> = (req, callback) => {
   const origin = req.header('Origin');
 
-  console.log(origin);
+  const options: CorsOptions = {
+    origin: false,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    exposedHeaders: [
+      'Content-Range',
+      'Accept-Ranges',
+      'Content-Encoding',
+      'Content-Length',
+    ],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 600, // Cache preflight response for 10 minutes
+  };
 
   if (!origin || allowedOrigins.includes(origin)) {
-    const options: CorsOptions = {
-      origin: true,
-      credentials: true,
-    };
+    options.origin = true;
     callback(null, options);
   } else {
     callback(new AppError('Not allowed by CORS', 403));

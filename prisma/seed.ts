@@ -12,6 +12,7 @@ async function main() {
         email: `user${i + 1}@example.com`,
         hashedPassword: password,
         verifyToken: token,
+        isVerified: true,
         verifyTokenExpiry: new Date(Date.now() + 60 + i + 60 * 1000),
       };
     }),
