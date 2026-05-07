@@ -119,6 +119,14 @@ class ShelterController {
         message: 'You do not have permission to update this shelter',
       });
     } catch (error) {
+      if (
+        error instanceof PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        return next(
+          new ConflictError('Shelter with this address already exists'),
+        );
+      }
       next(error);
     }
   }
