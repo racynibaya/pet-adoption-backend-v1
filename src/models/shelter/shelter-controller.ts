@@ -4,9 +4,15 @@ import prisma from '@config/prisma';
 
 import shelterService from './shelter-service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
-import { BadRequestError, ConflictError, NotFoundError } from '@utils/error';
+import {
+  BadRequestError,
+  ConflictError,
+  NotFoundError,
+  UnauthorizedError,
+} from '@utils/error';
 import { Role } from '../../../generated/prisma/enums';
 import { Shelter } from '../../../generated/prisma/client';
+import { success } from 'zod';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -62,23 +68,55 @@ class ShelterController {
       const data = shelterService.validateShelterData(req.body);
 
       const { name, description, address, contactEmail, phoneNumber } = data;
+      const user = req.user;
 
       if (isNaN(shelterId)) throw new BadRequestError('Invalid shelter ID');
 
-      const shelter = await prisma.shelter.findUnique({
-        where: { id: shelterId },
+      if (!user) throw new BadRequestError('User not found in request');
+
+      if (user.role === Role.ADMIN) {
+        updatedShelter = await prisma.shelter.update({
+          where: { id: shelterId },
+          data: { name, description, address, contactEmail, phoneNumber },
+        });
+
+        res.status(200).json({
+          success: true,
+          message: 'YOURE AN ADMIN AND CAN UPDATE SHELTERS',
+          data: updatedShelter,
+        });
+        return;
+      }
+
+      const shelterStaff = await prisma.shelterStaff.findFirst({
+        where: { userId: user.id, shelterId },
       });
 
-      if (!shelter) throw new NotFoundError('Shelter not found');
+      if (!shelterStaff) {
+        throw new UnauthorizedError(
+          'You are not a staff member of any shelter',
+        );
+      }
 
-      updatedShelter = await prisma.shelter.update({
-        where: { id: shelterId },
-        data: { name, description, address, contactEmail, phoneNumber },
-      });
+      // using user id and shelter staff id
 
-      res.json({
-        message: 'YOURE AN ADMIN OR STAFF AND CAN UPDATE SHELTERS',
-        data: updatedShelter,
+      if (user.role === Role.STAFF && shelterStaff) {
+        updatedShelter = await prisma.shelter.update({
+          where: { id: shelterId },
+          data: { name, description, address, contactEmail, phoneNumber },
+        });
+
+        res.json({
+          success: true,
+          message: 'YOURE A STAFF AND CAN UPDATE YOUR OWN SHELTER',
+          data: updatedShelter,
+        });
+        return;
+      }
+
+      res.status(403).json({
+        success: false,
+        message: 'You do not have permission to update this shelter',
       });
     } catch (error) {
       next(error);
