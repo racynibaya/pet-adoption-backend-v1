@@ -5,6 +5,8 @@ import prisma from '@config/prisma';
 import shelterService from './shelter-service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import { BadRequestError, ConflictError, NotFoundError } from '@utils/error';
+import { Role } from '../../../generated/prisma/enums';
+import { Shelter } from '../../../generated/prisma/client';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -40,10 +42,51 @@ class ShelterController {
     }
   }
 
+  // validate body (Zod)
+  //   ↓
+  // check shelter exists
+  //   ↓
+  // check ownership (ownerId === req.user.id)
+  //   ↓
+  // update shelter
+  //   ↓
+  // handle DB errors
+  //   ↓
+  // return updated shelter
+
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const shelterId = Number(req.params.id);
+      let updatedShelter: Shelter | null = null;
+
+      const data = shelterService.validateShelterData(req.body);
+
+      const { name, description, address, contactEmail, phoneNumber } = data;
+
+      if (isNaN(shelterId)) throw new BadRequestError('Invalid shelter ID');
+
+      const shelter = await prisma.shelter.findUnique({
+        where: { id: shelterId },
+      });
+
+      if (!shelter) throw new NotFoundError('Shelter not found');
+
+      updatedShelter = await prisma.shelter.update({
+        where: { id: shelterId },
+        data: { name, description, address, contactEmail, phoneNumber },
+      });
+
+      res.json({
+        message: 'YOURE AN ADMIN OR STAFF AND CAN UPDATE SHELTERS',
+        data: updatedShelter,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async delete(req: Request, res: Response, next: NextFunction) {
     const shelterId = Number(req.params.id);
-
-    console.log(shelterId, 'LINE 69');
 
     try {
       if (isNaN(shelterId)) {

@@ -20,12 +20,19 @@ router.post(
   shelterController.create,
 );
 
-router.delete(
-  '/:id',
-  verifyTokenMiddleware,
-  checkVerifiedUser,
-  authorizeRole('ADMIN'),
-  shelterController.delete,
-);
+router
+  .route('/:id')
+  .delete(
+    verifyTokenMiddleware,
+    checkVerifiedUser,
+    authorizeRole('ADMIN'),
+    shelterController.delete,
+  )
+  .patch(
+    verifyTokenMiddleware,
+    checkVerifiedUser,
+    authorizeRole('ADMIN', 'STAFF'),
+    shelterController.update,
+  );
 
 export default router;
