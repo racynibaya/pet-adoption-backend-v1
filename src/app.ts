@@ -10,10 +10,13 @@ import { verifyTokenMiddleware } from '@models/auth/auth-middleware';
 import userRoute from '@models/user/user-routes';
 import authRoute from '@models/auth/auth-routes';
 import shelterRoute from '@models/shelter/shelter-routes';
+import petsRoute from '@models/pet/pet-routes';
 
 import AppError from '@utils/app-errror';
 
 const app = express();
+
+const BASE_ROUTE = process.env.BASE_ROUTE || '/api/v1';
 
 // Express middlewares
 app.use(express.json());
@@ -30,9 +33,10 @@ app.get('/api/v1/', verifyTokenMiddleware, (req: Request, res: Response) => {
   });
 });
 
-app.use('/api/v1/users', userRoute);
-app.use('/api/v1/auth', authRoute);
-app.use('/api/v1/shelters', shelterRoute);
+app.use(`${BASE_ROUTE}/users`, userRoute);
+app.use(`${BASE_ROUTE}/auth`, authRoute);
+app.use(`${BASE_ROUTE}/shelters`, shelterRoute);
+app.use(`${BASE_ROUTE}/pets`, petsRoute);
 
 // Global Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
