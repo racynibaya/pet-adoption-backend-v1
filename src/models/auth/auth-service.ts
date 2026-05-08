@@ -1,18 +1,18 @@
 import crypto from 'node:crypto';
 
 import bcrypt from 'bcrypt';
-import prisma from '@config/prisma';
 import jwt from 'jsonwebtoken';
 
+import prisma from '@config/prisma';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
-
-import { User } from '../../../generated/prisma/client';
-import { JwtPayload, CreateUserDTO, SanitizedUser } from './auth-types';
 import {
   BadRequestError,
   NotFoundError,
   UnauthorizedError,
 } from '@utils/error';
+
+import { User } from '../../../generated/prisma/client';
+import { JwtPayload, CreateUserDTO, SanitizedUser } from './auth-types';
 
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 

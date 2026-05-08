@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import { ZodError } from 'zod';
 
 import prisma from '@config/prisma';
-
-import shelterService from './shelter-service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import {
   BadRequestError,
@@ -11,9 +10,10 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from '@utils/error';
+
+import shelterService from './shelter-service';
 import { Role } from '../../../generated/prisma/enums';
 import { Shelter } from '../../../generated/prisma/client';
-import { ZodError } from 'zod';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {

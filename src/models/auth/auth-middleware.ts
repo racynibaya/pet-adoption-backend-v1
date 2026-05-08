@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 
-import authService from '../models/auth/auth-service';
 import prisma from '@config/prisma';
-import { SanitizedUser } from '../models/auth/auth-types';
-
 import { ForbiddenError, UnauthorizedError } from '@utils/error';
-import { Role } from '../../generated/prisma/client';
+
+import { Role } from '../../../generated/prisma/client';
+import authService from './auth-service';
+import { SanitizedUser } from './auth-types';
 
 export const verifyTokenMiddleware = async function (
   req: Request,

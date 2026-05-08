@@ -4,7 +4,8 @@ import {
   authorizeRole,
   checkVerifiedUser,
   verifyTokenMiddleware,
-} from 'middlewares/auth-middleware';
+} from '@models/auth/auth-middleware';
+
 import shelterController from './shelter-controller';
 
 const router = Router();

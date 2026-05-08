@@ -1,7 +1,6 @@
-import { ZodError } from 'zod';
-import { ShelterCreateDTO, ShelterType } from './shelter-types';
-import { BadRequestError } from '@utils/error';
 import prisma from '@config/prisma';
+
+import { ShelterCreateDTO, ShelterType } from './shelter-types';
 
 class ShelterService {
   validateShelterData(data: ShelterCreateDTO) {

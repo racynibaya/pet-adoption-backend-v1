@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import authController from './auth-controller';
 
+import authController from './auth-controller';
 import {
   verifyTokenMiddleware,
   checkVerifiedUser,
   authorizeRole,
-} from '../../middlewares/auth-middleware';
+} from './auth-middleware';
 
 const router = Router();
 

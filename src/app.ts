@@ -1,16 +1,17 @@
 import express, { Request, Response, NextFunction } from 'express';
-
-// 3rd Party Middlewares
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 
-// Custom Middlewares and Routes
+// Custom Middlewares
+import { corsMiddleware, rateLimiter } from '@middlewares';
+import { verifyTokenMiddleware } from '@models/auth/auth-middleware';
+
+// Routes
 import userRoute from '@models/user/user-routes';
 import authRoute from '@models/auth/auth-routes';
 import shelterRoute from '@models/shelter/shelter-routes';
+
 import AppError from '@utils/app-errror';
-import { corsMiddleware, rateLimiter } from '@middlewares';
-import { verifyTokenMiddleware } from 'middlewares/auth-middleware';
 
 const app = express();
 

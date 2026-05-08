@@ -1,10 +1,12 @@
 import * as z from 'zod';
+
 import { User } from '../../../generated/prisma/client';
 
-const User = z.object({
+export const UserT = z.object({
   email: z.email(),
   name: z.string().min(5),
   password: z.string(),
+  role: z.enum(['USER', 'STAFF', 'ADMIN']).default('USER').optional(),
 });
 
 export type CreateUserInput = {
@@ -12,7 +14,7 @@ export type CreateUserInput = {
   email: string;
 };
 
-export const EmailInput = User.pick({ email: true });
+export const EmailInput = UserT.pick({ email: true });
 
 export interface JwtPayload {
   email: string;
@@ -25,5 +27,7 @@ export interface CreateUserDTO {
   password: string;
   role?: 'USER' | 'STAFF' | 'ADMIN';
 }
+
+export const LoginSchema = UserT.omit({ name: true });
 
 export type SanitizedUser = Omit<User, 'verifyTokenExpiry' | 'hashedPassword'>;

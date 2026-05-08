@@ -1,19 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import * as z from 'zod';
+import prisma from '@config/prisma';
 
-import authService from './auth-service';
-
-const User = z.object({
-  email: z.email(),
-  name: z.string().min(5),
-  password: z.string(),
-  role: z.enum(['USER', 'STAFF', 'ADMIN']).default('USER').optional(),
-});
-
-const LoginSchema = User.omit({ name: true });
-
-import { EmailInput } from './auth-types';
 import {
   BadRequestError,
   ConflictError,
@@ -21,9 +9,9 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from '@utils/error';
-import prisma from '@config/prisma';
 
-export type UserT = z.infer<typeof User>;
+import authService from './auth-service';
+import { UserT, LoginSchema, EmailInput } from './auth-types';
 
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -103,7 +91,7 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { name, email, password, role } = User.parse(req.body);
+      const { name, email, password, role } = UserT.parse(req.body);
 
       const existingUser = await authService.isExistingEmail(email);
 
