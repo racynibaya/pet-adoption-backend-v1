@@ -7,34 +7,24 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import {
   BadRequestError,
   ConflictError,
+  ForbiddenError,
   NotFoundError,
   UnauthorizedError,
 } from '@utils/error';
 import { Role } from '../../../generated/prisma/enums';
 import { Shelter } from '../../../generated/prisma/client';
-import { success } from 'zod';
+import { ZodError } from 'zod';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { name, description, address, contactEmail, phoneNumber, ownerId } =
-        shelterService.validateShelterData(req.body);
-
-      const shelter = await prisma.shelter.create({
-        data: {
-          name,
-          description,
-          address,
-          contactEmail,
-          phoneNumber,
-          ownerId,
-        },
-      });
+      const shelter = await shelterService.createShelter(req.body);
 
       res.json({
         message: 'YOURE AN ADMIN AND CAN ADD NEW SHELTERS',
         data: shelter,
       });
+      return;
     } catch (error) {
       if (
         error instanceof PrismaClientKnownRequestError &&
@@ -48,37 +38,23 @@ class ShelterController {
     }
   }
 
-  // validate body (Zod)
-  //   ↓
-  // check shelter exists
-  //   ↓
-  // check ownership (ownerId === req.user.id)
-  //   ↓
-  // update shelter
-  //   ↓
-  // handle DB errors
-  //   ↓
-  // return updated shelter
-
   async update(req: Request, res: Response, next: NextFunction) {
+    const shelterId = Number(req.params.id);
+    let updatedShelter: Shelter | null = null;
+    const user = req.user;
+
     try {
-      const shelterId = Number(req.params.id);
-      let updatedShelter: Shelter | null = null;
-
       const data = shelterService.validateShelterData(req.body);
-
-      const { name, description, address, contactEmail, phoneNumber } = data;
-      const user = req.user;
 
       if (isNaN(shelterId)) throw new BadRequestError('Invalid shelter ID');
 
       if (!user) throw new BadRequestError('User not found in request');
 
       if (user.role === Role.ADMIN) {
-        updatedShelter = await prisma.shelter.update({
-          where: { id: shelterId },
-          data: { name, description, address, contactEmail, phoneNumber },
-        });
+        updatedShelter = await shelterService.updateShelterData(
+          data,
+          shelterId,
+        );
 
         res.status(200).json({
           success: true,
@@ -88,9 +64,10 @@ class ShelterController {
         return;
       }
 
-      const shelterStaff = await prisma.shelterStaff.findFirst({
-        where: { userId: user.id, shelterId },
-      });
+      const shelterStaff = await shelterService.findShelterStaff(
+        user.id,
+        shelterId,
+      );
 
       if (!shelterStaff) {
         throw new UnauthorizedError(
@@ -98,13 +75,11 @@ class ShelterController {
         );
       }
 
-      // using user id and shelter staff id
-
       if (user.role === Role.STAFF && shelterStaff) {
-        updatedShelter = await prisma.shelter.update({
-          where: { id: shelterId },
-          data: { name, description, address, contactEmail, phoneNumber },
-        });
+        updatedShelter = await shelterService.updateShelterData(
+          data,
+          shelterId,
+        );
 
         res.json({
           success: true,
@@ -114,10 +89,9 @@ class ShelterController {
         return;
       }
 
-      res.status(403).json({
-        success: false,
-        message: 'You do not have permission to update this shelter',
-      });
+      throw new ForbiddenError(
+        'You do not have permission to update this shelter',
+      );
     } catch (error) {
       if (
         error instanceof PrismaClientKnownRequestError &&
@@ -127,6 +101,11 @@ class ShelterController {
           new ConflictError('Shelter with this address already exists'),
         );
       }
+
+      if (error instanceof ZodError) {
+        return next(new BadRequestError('Invalid shelter data'));
+      }
+
       next(error);
     }
   }
@@ -139,17 +118,13 @@ class ShelterController {
         throw new BadRequestError('Invalid shelter ID');
       }
 
-      const shelter = await prisma.shelter.findUnique({
-        where: { id: shelterId },
-      });
+      const shelter = await shelterService.findShelter(shelterId);
 
       if (!shelter) throw new NotFoundError('Shelter not found');
 
-      const deletedShelter = await prisma.shelter.delete({
-        where: { id: shelterId },
-      });
+      const deletedShelter = await shelterService.deleteShelter(shelterId);
 
-      res.json({
+      res.status(200).json({
         message: `SHELTER WITH ID ${shelterId} DELETED`,
         data: deletedShelter,
       });
@@ -158,12 +133,16 @@ class ShelterController {
     }
   }
 
-  async getShelters(req: Request, res: Response) {
-    const shelters = await prisma.shelter.findMany();
-    res.json({
-      message: 'Message from shelter route',
-      data: shelters,
-    });
+  async getShelters(req: Request, res: Response, next: NextFunction) {
+    try {
+      const shelters = await prisma.shelter.findMany();
+      res.json({
+        message: 'Message from shelter route',
+        data: shelters,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

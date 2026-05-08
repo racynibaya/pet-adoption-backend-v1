@@ -10,6 +10,7 @@ import authRoute from '@models/auth/auth-routes';
 import shelterRoute from '@models/shelter/shelter-routes';
 import AppError from '@utils/app-errror';
 import { corsMiddleware, rateLimiter } from '@middlewares';
+import { verifyTokenMiddleware } from 'middlewares/auth-middleware';
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(morgan('dev'));
 app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
 
 // Test Route: Entry POINT
-app.get('/api/v1/', (req: Request, res: Response) => {
+app.get('/api/v1/', verifyTokenMiddleware, (req: Request, res: Response) => {
   res.json({
     message: 'hello',
   });
