@@ -22,7 +22,7 @@ export const verifyTokenMiddleware = async function (
 
     const payload = authService.verifyAccessToken(token);
     const user: SanitizedUser = (await prisma.user.findUnique({
-      where: { email: payload.email },
+      where: { id: payload.id },
       omit: {
         hashedPassword: true,
         verifyToken: true,

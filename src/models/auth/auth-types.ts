@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import { User } from '../../../generated/prisma/client';
+import { Role, User } from '../../../generated/prisma/client';
 
 export const UserT = z.object({
   email: z.email(),
@@ -17,8 +17,8 @@ export type CreateUserInput = {
 export const EmailInput = UserT.pick({ email: true });
 
 export interface JwtPayload {
-  email: string;
-  password: string;
+  id: number;
+  role: Role;
 }
 
 export interface CreateUserDTO {

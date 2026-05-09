@@ -45,12 +45,16 @@ class AuthService {
 
     if (!isPasswordMatched) throw new UnauthorizedError('Invalid credentials');
 
-    const accessToken = jwt.sign({ email: user.email }, JWT_SECRET, {
+    const accessToken = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
       expiresIn: '1h',
     });
-    const refreshToken = jwt.sign({ email: user.email }, JWT_SECRET, {
-      expiresIn: '7d',
-    });
+    const refreshToken = jwt.sign(
+      { id: user.id, role: user.role },
+      JWT_SECRET,
+      {
+        expiresIn: '7d',
+      },
+    );
 
     return { accessToken, refreshToken };
   }
@@ -75,7 +79,7 @@ class AuthService {
       const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
       const user = await prisma.user.findUnique({
-        where: { email: decoded.email },
+        where: { id: decoded.id },
       });
 
       if (user) {
@@ -176,9 +180,13 @@ class AuthService {
     try {
       const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
-      const accessToken = jwt.sign({ email: decoded.email }, JWT_SECRET, {
-        expiresIn: '1h',
-      });
+      const accessToken = jwt.sign(
+        { id: decoded.id, role: decoded.role },
+        JWT_SECRET,
+        {
+          expiresIn: '1h',
+        },
+      );
 
       return accessToken;
     } catch (error) {
