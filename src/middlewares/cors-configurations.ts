@@ -1,4 +1,4 @@
-import AppError from '@utils/app-errror';
+import AppError from '@utils/app-error';
 import cors, { CorsOptions, CorsOptionsDelegate } from 'cors';
 import { Request } from 'express';
 

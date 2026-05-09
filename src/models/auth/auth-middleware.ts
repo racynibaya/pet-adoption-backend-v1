@@ -13,7 +13,6 @@ export const verifyTokenMiddleware = async function (
   next: NextFunction,
 ) {
   const token = req.headers.authorization?.split(' ')[1];
-  console.log(token);
 
   try {
     if (!token) {
@@ -47,8 +46,6 @@ export const checkVerifiedUser = function (
 ) {
   try {
     if (!req.user) throw new UnauthorizedError('User is not authenticated');
-
-    console.log(req.user?.isVerified);
 
     if (!req.user?.isVerified)
       throw new ForbiddenError(

@@ -12,7 +12,7 @@ import authRoute from '@models/auth/auth-routes';
 import shelterRoute from '@models/shelter/shelter-routes';
 import petsRoute from '@models/pet/pet-routes';
 
-import AppError from '@utils/app-errror';
+import AppError from '@utils/app-error';
 
 const app = express();
 

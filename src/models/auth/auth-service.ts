@@ -45,11 +45,15 @@ class AuthService {
 
     if (!isPasswordMatched) throw new UnauthorizedError('Invalid credentials');
 
-    const accessToken = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
-      expiresIn: '1h',
-    });
+    const accessToken = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      JWT_SECRET,
+      {
+        expiresIn: '1h',
+      },
+    );
     const refreshToken = jwt.sign(
-      { id: user.id, role: user.role },
+      { id: user.id, role: user.role, email: user.email },
       JWT_SECRET,
       {
         expiresIn: '7d',
@@ -181,7 +185,7 @@ class AuthService {
       const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
       const accessToken = jwt.sign(
-        { id: decoded.id, role: decoded.role },
+        { id: decoded.id, role: decoded.role, email: decoded.email },
         JWT_SECRET,
         {
           expiresIn: '1h',

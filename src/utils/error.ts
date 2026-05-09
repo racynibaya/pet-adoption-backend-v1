@@ -1,5 +1,5 @@
 // src/utils/errors.ts
-import AppError from '@utils/app-errror';
+import AppError from '@utils/app-error';
 
 export class UnauthorizedError extends AppError {
   constructor(message = 'Unauthorized') {

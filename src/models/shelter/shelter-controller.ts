@@ -18,12 +18,24 @@ import { Shelter } from '../../../generated/prisma/client';
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const shelter = await shelterService.createShelter(req.body);
+      if (!req.user?.id) {
+        res.status(401).json({
+          success: false,
+          message: `You're unauthorized to create shelter`,
+        });
+      }
 
-      res.json({
-        message: 'YOURE AN ADMIN AND CAN ADD NEW SHELTERS',
+      const shelter = await shelterService.createShelter({
+        ...req.body,
+        ownerId: req.user?.id,
+      });
+
+      res.status(201).json({
+        success: true,
+        message: 'Shelter created successfully',
         data: shelter,
       });
+
       return;
     } catch (error) {
       if (
@@ -58,7 +70,7 @@ class ShelterController {
 
         res.status(200).json({
           success: true,
-          message: 'YOURE AN ADMIN AND CAN UPDATE SHELTERS',
+          message: `Shelter updated successfully`,
           data: updatedShelter,
         });
         return;
@@ -83,7 +95,7 @@ class ShelterController {
 
         res.json({
           success: true,
-          message: 'YOURE A STAFF AND CAN UPDATE YOUR OWN SHELTER',
+          message: 'Shelter updated successfully',
           data: updatedShelter,
         });
         return;
@@ -125,7 +137,7 @@ class ShelterController {
       const deletedShelter = await shelterService.deleteShelter(shelterId);
 
       res.status(200).json({
-        message: `SHELTER WITH ID ${shelterId} DELETED`,
+        message: `Shelter with ID: ${shelterId} deleted successfully`,
         data: deletedShelter,
       });
     } catch (error) {

@@ -129,8 +129,6 @@ class AuthController {
     try {
       const token = req.query.token;
 
-      console.log(token, 'LINE 136');
-
       if (typeof token !== 'string') {
         res.status(400).json({
           success: false,

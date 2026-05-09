@@ -19,6 +19,7 @@ export const EmailInput = UserT.pick({ email: true });
 export interface JwtPayload {
   id: number;
   role: Role;
+  email: string;
 }
 
 export interface CreateUserDTO {
