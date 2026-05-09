@@ -14,6 +14,7 @@ import {
 import shelterService from './shelter-service';
 import { Role } from '../../../generated/prisma/enums';
 import { Shelter } from '../../../generated/prisma/client';
+import { shelterPaginationSchema } from './shelter-types';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -147,10 +148,17 @@ class ShelterController {
 
   async getShelters(req: Request, res: Response, next: NextFunction) {
     try {
-      const shelters = await prisma.shelter.findMany();
-      res.json({
-        message: 'Message from shelter route',
+      const { page, limit } = shelterPaginationSchema.parse(req.query);
+      const { shelters, pagination } = await shelterService.findAllShelters(
+        page,
+        limit,
+      );
+
+      res.status(200).json({
+        success: true,
+        message: 'Hello from pet controller',
         data: shelters,
+        pagination,
       });
     } catch (error) {
       next(error);

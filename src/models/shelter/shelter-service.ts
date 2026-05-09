@@ -47,8 +47,25 @@ class ShelterService {
     });
   }
 
-  async findAllShelters() {
-    return await prisma.shelter.findMany();
+  async findAllShelters(page: number, limit: number) {
+    const skip = (page - 1) * limit;
+    const [shelters, total] = await prisma.$transaction([
+      prisma.shelter.findMany({
+        skip,
+        take: limit,
+      }),
+      prisma.shelter.count(),
+    ]);
+
+    return {
+      shelters,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async deleteShelter(shelterId: number) {
