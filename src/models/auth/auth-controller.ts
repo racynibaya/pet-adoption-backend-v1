@@ -73,13 +73,10 @@ class AuthController {
     try {
       if (refreshToken) await authService.clearRefreshToken(refreshToken);
 
-      res
-        .clearCookie('refreshToken', { path: '/' })
-        .status(200)
-        .json({
-          success: true,
-          message: 'User logged out successfully',
-        });
+      res.clearCookie('refreshToken', { path: '/' }).status(200).json({
+        success: true,
+        message: 'User logged out successfully',
+      });
     } catch (error) {
       next(error);
     }

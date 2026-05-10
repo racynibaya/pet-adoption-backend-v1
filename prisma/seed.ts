@@ -1,9 +1,7 @@
 import bcrypt from 'bcrypt';
-import crypto from 'node:crypto';
 import prisma from '@config/prisma';
 
-import { Role } from '../generated/prisma/enums';
-import { PetStatus } from '../generated/prisma/enums';
+import { Gender, PetStatus, Role, Size, Species } from '../generated/prisma/enums';
 
 function randomItem<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -57,61 +55,32 @@ const RABBIT_BREEDS = [
 ];
 
 const DOG_NAMES = [
-  'Max',
-  'Buddy',
-  'Charlie',
-  'Jack',
-  'Cooper',
-  'Rocky',
-  'Bear',
-  'Duke',
-  'Tucker',
-  'Oliver',
-  'Leo',
-  'Zeus',
-  'Buster',
-  'Teddy',
-  'Milo',
+  'Max', 'Buddy', 'Charlie', 'Jack', 'Cooper',
+  'Rocky', 'Bear', 'Duke', 'Tucker', 'Oliver',
+  'Leo', 'Zeus', 'Buster', 'Teddy', 'Milo',
 ];
 
 const CAT_NAMES = [
-  'Luna',
-  'Bella',
-  'Lucy',
-  'Kitty',
-  'Nala',
-  'Chloe',
-  'Lily',
-  'Zoe',
-  'Lola',
-  'Molly',
-  'Sophie',
-  'Cleo',
-  'Gracie',
-  'Ellie',
-  'Rosie',
+  'Luna', 'Bella', 'Lucy', 'Kitty', 'Nala',
+  'Chloe', 'Lily', 'Zoe', 'Lola', 'Molly',
+  'Sophie', 'Cleo', 'Gracie', 'Ellie', 'Rosie',
 ];
 
 const RABBIT_NAMES = [
-  'Thumper',
-  'Hazel',
-  'Peanut',
-  'Snowball',
-  'Daisy',
-  'Clover',
-  'Biscuit',
-  'Cocoa',
-  'Marshmallow',
-  'Pepper',
+  'Thumper', 'Hazel', 'Peanut', 'Snowball', 'Daisy',
+  'Clover', 'Biscuit', 'Cocoa', 'Marshmallow', 'Pepper',
 ];
 
 const PET_STATUSES: PetStatus[] = [
   PetStatus.AVAILABLE,
   PetStatus.AVAILABLE,
-  PetStatus.AVAILABLE, // weight AVAILABLE higher
+  PetStatus.AVAILABLE,
   PetStatus.PENDING,
   PetStatus.ADOPTED,
 ];
+
+const SIZES: Size[] = [Size.SMALL, Size.MEDIUM, Size.LARGE, Size.EXTRA_LARGE];
+const GENDERS: Gender[] = [Gender.MALE, Gender.FEMALE];
 
 const DESCRIPTIONS: Record<string, string[]> = {
   Dog: [
@@ -146,92 +115,29 @@ const PHOTO_URLS: Record<string, string> = {
 // ── User data ─────────────────────────────────────────────────────────────────
 
 const FIRST_NAMES = [
-  'James',
-  'Mary',
-  'John',
-  'Patricia',
-  'Robert',
-  'Jennifer',
-  'Michael',
-  'Linda',
-  'William',
-  'Barbara',
-  'David',
-  'Susan',
-  'Richard',
-  'Jessica',
-  'Joseph',
-  'Sarah',
-  'Thomas',
-  'Karen',
-  'Charles',
-  'Lisa',
-  'Christopher',
-  'Nancy',
-  'Daniel',
-  'Betty',
-  'Matthew',
-  'Margaret',
-  'Anthony',
-  'Sandra',
-  'Mark',
-  'Ashley',
-  'Donald',
-  'Dorothy',
-  'Steven',
-  'Kimberly',
-  'Paul',
-  'Emily',
-  'Andrew',
-  'Donna',
-  'Joshua',
-  'Michelle',
+  'James', 'Mary', 'John', 'Patricia', 'Robert',
+  'Jennifer', 'Michael', 'Linda', 'William', 'Barbara',
+  'David', 'Susan', 'Richard', 'Jessica', 'Joseph',
+  'Sarah', 'Thomas', 'Karen', 'Charles', 'Lisa',
+  'Christopher', 'Nancy', 'Daniel', 'Betty', 'Matthew',
+  'Margaret', 'Anthony', 'Sandra', 'Mark', 'Ashley',
+  'Donald', 'Dorothy', 'Steven', 'Kimberly', 'Paul',
+  'Emily', 'Andrew', 'Donna', 'Joshua', 'Michelle',
 ];
 
 const LAST_NAMES = [
-  'Smith',
-  'Johnson',
-  'Williams',
-  'Brown',
-  'Jones',
-  'Garcia',
-  'Miller',
-  'Davis',
-  'Rodriguez',
-  'Martinez',
-  'Hernandez',
-  'Lopez',
-  'Gonzalez',
-  'Wilson',
-  'Anderson',
-  'Thomas',
-  'Taylor',
-  'Moore',
-  'Jackson',
-  'Martin',
-  'Lee',
-  'Perez',
-  'Thompson',
-  'White',
-  'Harris',
-  'Sanchez',
-  'Clark',
-  'Ramirez',
-  'Lewis',
-  'Robinson',
+  'Smith', 'Johnson', 'Williams', 'Brown', 'Jones',
+  'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez',
+  'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson',
+  'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin',
+  'Lee', 'Perez', 'Thompson', 'White', 'Harris',
+  'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson',
 ];
 
 const ADDRESSES = [
-  '123 Maple St',
-  '456 Oak Ave',
-  '789 Pine Rd',
-  '321 Elm Blvd',
-  '654 Cedar Ln',
-  '987 Birch Dr',
-  '135 Willow Way',
-  '246 Spruce Ct',
-  '357 Poplar Pl',
-  '468 Ash St',
+  '123 Maple St', '456 Oak Ave', '789 Pine Rd',
+  '321 Elm Blvd', '654 Cedar Ln', '987 Birch Dr',
+  '135 Willow Way', '246 Spruce Ct', '357 Poplar Pl', '468 Ash St',
 ];
 
 const SHELTER_NAMES = [
@@ -247,37 +153,34 @@ const SHELTER_NAMES = [
 async function main() {
   console.log('🌱 Starting seed...');
 
-  // ── 1. Hash a shared password for all seeded users ────────────────────────
   const hashedPassword = await bcrypt.hash('Password123!', 10);
   const verifyTokenExpiry = randomFutureDate(7);
 
-  // ── 2. Create 100 regular USER accounts ──────────────────────────────────
+  // ── 1. Create 100 regular USER accounts ──────────────────────────────────
   console.log('👥 Creating 100 regular users...');
   await prisma.user.createMany({
-    data: Array.from({ length: 100 }, (_, i) => {
-      const firstName = randomItem(FIRST_NAMES);
-      const lastName = randomItem(LAST_NAMES);
-      return {
-        name: `${firstName} ${lastName}`,
-        email: `user${i + 1}@petadopt.com`,
-        hashedPassword,
-        role: Role.USER,
-        isVerified: true,
-        verifyToken: `verify-user-token-${i + 1}`,
-        verifyTokenExpiry,
-        address: `${randomItem(ADDRESSES)}, Unit ${i + 1}`,
-        phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
-      };
-    }),
+    data: Array.from({ length: 100 }, (_, i) => ({
+      firstName: randomItem(FIRST_NAMES),
+      lastName: randomItem(LAST_NAMES),
+      email: `user${i + 1}@petadopt.com`,
+      hashedPassword,
+      role: Role.USER,
+      isVerified: true,
+      verifyToken: `verify-user-token-${i + 1}`,
+      verifyTokenExpiry,
+      address: `${randomItem(ADDRESSES)}, Unit ${i + 1}`,
+      phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
+    })),
   });
 
-  // ── 3. Create STAFF users (one per shelter) ───────────────────────────────
+  // ── 2. Create STAFF users (one per shelter) ───────────────────────────────
   console.log('👤 Creating staff users...');
   const staffUsers = await Promise.all(
     Array.from({ length: 5 }, (_, i) =>
       prisma.user.create({
         data: {
-          name: `Shelter Staff ${i + 1}`,
+          firstName: 'Shelter',
+          lastName: `Staff ${i + 1}`,
           email: `staff${i + 1}@petadopt.com`,
           hashedPassword,
           role: Role.STAFF,
@@ -289,7 +192,7 @@ async function main() {
     ),
   );
 
-  // ── 4. Create 5 Shelters ──────────────────────────────────────────────────
+  // ── 3. Create 5 Shelters ──────────────────────────────────────────────────
   console.log('🏠 Creating shelters...');
   const shelters = await Promise.all(
     Array.from({ length: 5 }, (_, i) =>
@@ -297,64 +200,76 @@ async function main() {
         data: {
           name: SHELTER_NAMES[i],
           address: ADDRESSES[i],
-          contactEmail: `contact${i + 1}@${SHELTER_NAMES[i].toLowerCase().replace(/\s/g, '')}.com`,
+          contactEmail: `contact${i + 1}@${SHELTER_NAMES[i].toLowerCase().replace(/\s+/g, '')}.com`,
           phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
-          description: `Welcome to ${SHELTER_NAMES[i]}! We are dedicated to rescuing and rehoming pets in need. Our shelter provides a safe haven for dogs, cats, and rabbits, offering them love, care, and a second chance at life. Come visit us and find your new best friend!`,
+          description: `Welcome to ${SHELTER_NAMES[i]}! We are dedicated to rescuing and rehoming pets in need. Our shelter provides a safe haven for dogs, cats, and rabbits, offering them love, care, and a second chance at life.`,
           ownerId: staffUsers[i].id,
         },
       }),
     ),
   );
 
-  // ── 5. Assign each staff user to a shelter ────────────────────────────────
+  // ── 4. Assign each staff user to their shelter ────────────────────────────
   console.log('🔗 Assigning staff to shelters...');
   await Promise.all(
     shelters.map((shelter, i) =>
       prisma.shelterStaff.create({
-        data: {
-          userId: staffUsers[i].id,
-          shelterId: shelter.id,
-        },
+        data: { userId: staffUsers[i].id, shelterId: shelter.id },
       }),
     ),
   );
 
-  // ── 6. Create 100 Pets ────────────────────────────────────────────────────
+  // ── 5. Create 100 Pets with images ───────────────────────────────────────
   console.log('🐾 Creating 100 pets...');
 
-  const petData = Array.from({ length: 100 }, (_, i) => {
-    // Distribute species: 50 dogs, 35 cats, 15 rabbits
-    let species: string;
+  for (let i = 0; i < 100; i++) {
+    let species: Species;
     let breed: string;
     let name: string;
-    let shelterId: number = Math.floor(Math.random() * 5 + 1);
+    let descKey: string;
 
     if (i < 50) {
-      species = 'Dog';
+      species = Species.DOG;
       breed = randomItem(DOG_BREEDS);
       name = randomItem(DOG_NAMES);
+      descKey = 'Dog';
     } else if (i < 85) {
-      species = 'Cat';
+      species = Species.CAT;
       breed = randomItem(CAT_BREEDS);
       name = randomItem(CAT_NAMES);
+      descKey = 'Cat';
     } else {
-      species = 'Rabbit';
+      species = Species.RABBIT;
       breed = randomItem(RABBIT_BREEDS);
       name = randomItem(RABBIT_NAMES);
+      descKey = 'Rabbit';
     }
 
-    return {
-      name: `${name} #${i + 1}`,
-      species,
-      breed,
-      status: randomItem(PET_STATUSES),
-      photo: PHOTO_URLS[species],
-      description: randomItem(DESCRIPTIONS[species]),
-      shelterId,
-    };
-  });
+    const shelterId = shelters[Math.floor(Math.random() * shelters.length)].id;
 
-  await prisma.pet.createMany({ data: petData });
+    const pet = await prisma.pet.create({
+      data: {
+        name: `${name} #${i + 1}`,
+        species,
+        breed,
+        ageMonths: Math.floor(Math.random() * 96) + 3,
+        gender: randomItem(GENDERS),
+        size: randomItem(SIZES),
+        status: randomItem(PET_STATUSES),
+        description: randomItem(DESCRIPTIONS[descKey]),
+        shelterId,
+      },
+    });
+
+    await prisma.petImage.create({
+      data: {
+        petId: pet.id,
+        imageUrl: PHOTO_URLS[descKey],
+        publicId: `seed-pet-${pet.id}`,
+        isPrimary: true,
+      },
+    });
+  }
 
   // ── Summary ───────────────────────────────────────────────────────────────
   const [petCount, shelterCount, staffCount, userCount] = await Promise.all([
