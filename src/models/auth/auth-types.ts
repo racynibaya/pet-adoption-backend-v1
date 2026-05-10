@@ -6,7 +6,6 @@ export const UserT = z.object({
   email: z.email(),
   name: z.string().min(5),
   password: z.string(),
-  role: z.enum(['USER', 'STAFF', 'ADMIN']).default('USER').optional(),
 });
 
 export type CreateUserInput = {

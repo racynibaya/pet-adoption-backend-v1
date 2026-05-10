@@ -16,7 +16,8 @@ import { JwtPayload, CreateUserDTO, SanitizedUser } from './auth-types';
 
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET!;
+if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is required');
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
 class AuthService {
@@ -49,7 +50,7 @@ class AuthService {
       { id: user.id, email: user.email, role: user.role },
       JWT_SECRET,
       {
-        expiresIn: '1h',
+        expiresIn: 15 * 60,
       },
     );
     const refreshToken = jwt.sign(
@@ -180,19 +181,36 @@ class AuthService {
     return { token, link };
   }
 
-  async refreshAccessToken(token: string) {
+  async refreshAccessToken(
+    token: string,
+  ): Promise<{ accessToken: string; newRefreshToken: string }> {
     try {
       const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+
+      const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+
+      if (!user || user.refreshToken !== token) {
+        throw new UnauthorizedError('Invalid refresh token');
+      }
 
       const accessToken = jwt.sign(
         { id: decoded.id, role: decoded.role, email: decoded.email },
         JWT_SECRET,
-        {
-          expiresIn: '1h',
-        },
+        { expiresIn: 15 * 60 },
       );
 
-      return accessToken;
+      const newRefreshToken = jwt.sign(
+        { id: decoded.id, role: decoded.role, email: decoded.email },
+        JWT_SECRET,
+        { expiresIn: '7d' },
+      );
+
+      await prisma.user.update({
+        where: { id: decoded.id },
+        data: { refreshToken: newRefreshToken },
+      });
+
+      return { accessToken, newRefreshToken };
     } catch (error) {
       if (error instanceof TokenExpiredError) {
         throw new UnauthorizedError(

@@ -55,12 +55,12 @@ class AuthController {
           httpOnly: true,
           secure: true,
           sameSite: 'strict',
+          path: '/',
         })
         .json({
           success: true,
           message: 'Succesfully Logged in',
           accessToken,
-          refreshToken, //TODO: REMOVE IT IN PRODUCTION
         });
     } catch (error) {
       next(error);
@@ -74,7 +74,7 @@ class AuthController {
       if (refreshToken) await authService.clearRefreshToken(refreshToken);
 
       res
-        .clearCookie('refreshToken', { path: '/api/v1/auth' })
+        .clearCookie('refreshToken', { path: '/' })
         .status(200)
         .json({
           success: true,
@@ -91,7 +91,7 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { name, email, password, role } = UserT.parse(req.body);
+      const { name, email, password } = UserT.parse(req.body);
 
       const existingUser = await authService.isExistingEmail(email);
 
@@ -99,13 +99,10 @@ class AuthController {
         throw new ConflictError('User with this email already exists');
       }
 
-      // createUser
-      // remove token when deploying
       const { verifyToken: token, ...user } = await authService.createUser({
         name,
         email,
         password,
-        role,
       });
 
       res.status(201).json({
@@ -203,10 +200,9 @@ class AuthController {
     }
   }
 
-  // it handles when toekn is expired
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
-      const refreshToken = req.cookies.refreshToken; // from httpOnly cookie
+      const refreshToken = req.cookies.refreshToken;
 
       if (!refreshToken) {
         throw new UnauthorizedError(
@@ -214,9 +210,17 @@ class AuthController {
         );
       }
 
-      const accessToken = await authService.refreshAccessToken(refreshToken);
+      const { accessToken, newRefreshToken } =
+        await authService.refreshAccessToken(refreshToken);
 
-      res.json({ success: true, accessToken }); // ✅ send new accessToken
+      res
+        .cookie('refreshToken', newRefreshToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'strict',
+          path: '/',
+        })
+        .json({ success: true, accessToken });
     } catch (error) {
       next(error);
     }
