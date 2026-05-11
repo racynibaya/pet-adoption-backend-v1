@@ -1,4 +1,5 @@
-import { Router } from 'express';
+import { Router, Request } from 'express';
+import petController from './pet-controller';
 
 const router = Router();
 
@@ -14,12 +15,12 @@ const router = Router();
 
 router
   .route('/')
-  .get(() => {})
+  .get(petController.petsHandler)
   .post(() => {});
 
 router
   .route('/:id')
-  .get(() => {})
+  .get(petController.petByIDHandler)
   .patch(() => {})
   .delete(() => {});
 
