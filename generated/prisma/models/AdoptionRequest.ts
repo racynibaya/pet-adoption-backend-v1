@@ -267,7 +267,6 @@ export type AdoptionRequestOrderByWithRelationInput = {
 
 export type AdoptionRequestWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  userId_petId?: Prisma.AdoptionRequestUserIdPetIdCompoundUniqueInput
   AND?: Prisma.AdoptionRequestWhereInput | Prisma.AdoptionRequestWhereInput[]
   OR?: Prisma.AdoptionRequestWhereInput[]
   NOT?: Prisma.AdoptionRequestWhereInput | Prisma.AdoptionRequestWhereInput[]
@@ -280,7 +279,7 @@ export type AdoptionRequestWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
   pet?: Prisma.XOR<Prisma.PetScalarRelationFilter, Prisma.PetWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId_petId">
+}, "id">
 
 export type AdoptionRequestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -318,7 +317,7 @@ export type AdoptionRequestCreateInput = {
   status?: $Enums.AdoptionRequestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  pet: Prisma.PetCreateNestedOneWithoutAdoptionRequestInput
+  pet: Prisma.PetCreateNestedOneWithoutAdoptionRequestsInput
   user: Prisma.UserCreateNestedOneWithoutAdoptionRequestsInput
 }
 
@@ -339,7 +338,7 @@ export type AdoptionRequestUpdateInput = {
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pet?: Prisma.PetUpdateOneRequiredWithoutAdoptionRequestNestedInput
+  pet?: Prisma.PetUpdateOneRequiredWithoutAdoptionRequestsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutAdoptionRequestsNestedInput
 }
 
@@ -392,11 +391,6 @@ export type AdoptionRequestListRelationFilter = {
 
 export type AdoptionRequestOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type AdoptionRequestUserIdPetIdCompoundUniqueInput = {
-  userId: number
-  petId: number
 }
 
 export type AdoptionRequestCountOrderByAggregateInput = {
@@ -538,7 +532,7 @@ export type AdoptionRequestCreateWithoutUserInput = {
   status?: $Enums.AdoptionRequestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  pet: Prisma.PetCreateNestedOneWithoutAdoptionRequestInput
+  pet: Prisma.PetCreateNestedOneWithoutAdoptionRequestsInput
 }
 
 export type AdoptionRequestUncheckedCreateWithoutUserInput = {
@@ -652,7 +646,7 @@ export type AdoptionRequestUpdateWithoutUserInput = {
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pet?: Prisma.PetUpdateOneRequiredWithoutAdoptionRequestNestedInput
+  pet?: Prisma.PetUpdateOneRequiredWithoutAdoptionRequestsNestedInput
 }
 
 export type AdoptionRequestUncheckedUpdateWithoutUserInput = {

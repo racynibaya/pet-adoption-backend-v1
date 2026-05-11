@@ -99,13 +99,14 @@ class AuthService {
   async createUser(
     data: CreateUserDTO,
   ): Promise<SanitizedUser & { link: string }> {
-    const { name, email, password, role } = data;
+    const { firstName, lastName, email, password, role } = data;
     const token = crypto.randomBytes(32).toString('hex');
     const hashed = await bcrypt.hash(password, 10);
     try {
       const user = await prisma.user.create({
         data: {
-          name,
+          firstName,
+          lastName,
           email,
           hashedPassword: hashed,
           isVerified: false,

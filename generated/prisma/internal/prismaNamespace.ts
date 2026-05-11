@@ -386,10 +386,12 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Pet: 'Pet',
+  PetImage: 'PetImage',
   Booking: 'Booking',
   AdoptionRequest: 'AdoptionRequest',
   Shelter: 'Shelter',
-  ShelterStaff: 'ShelterStaff'
+  ShelterStaff: 'ShelterStaff',
+  Donation: 'Donation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "pet" | "booking" | "adoptionRequest" | "shelter" | "shelterStaff"
+    modelProps: "user" | "pet" | "petImage" | "booking" | "adoptionRequest" | "shelter" | "shelterStaff" | "donation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -554,6 +556,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PetCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PetCountAggregateOutputType> | number
+        }
+      }
+    }
+    PetImage: {
+      payload: Prisma.$PetImagePayload<ExtArgs>
+      fields: Prisma.PetImageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PetImageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PetImageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>
+        }
+        findFirst: {
+          args: Prisma.PetImageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PetImageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>
+        }
+        findMany: {
+          args: Prisma.PetImageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>[]
+        }
+        create: {
+          args: Prisma.PetImageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>
+        }
+        createMany: {
+          args: Prisma.PetImageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PetImageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>[]
+        }
+        delete: {
+          args: Prisma.PetImageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>
+        }
+        update: {
+          args: Prisma.PetImageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>
+        }
+        deleteMany: {
+          args: Prisma.PetImageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PetImageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PetImageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>[]
+        }
+        upsert: {
+          args: Prisma.PetImageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PetImagePayload>
+        }
+        aggregate: {
+          args: Prisma.PetImageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePetImage>
+        }
+        groupBy: {
+          args: Prisma.PetImageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetImageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PetImageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PetImageCountAggregateOutputType> | number
         }
       }
     }
@@ -853,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Donation: {
+      payload: Prisma.$DonationPayload<ExtArgs>
+      fields: Prisma.DonationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DonationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DonationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>
+        }
+        findFirst: {
+          args: Prisma.DonationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DonationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>
+        }
+        findMany: {
+          args: Prisma.DonationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>[]
+        }
+        create: {
+          args: Prisma.DonationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>
+        }
+        createMany: {
+          args: Prisma.DonationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DonationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>[]
+        }
+        delete: {
+          args: Prisma.DonationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>
+        }
+        update: {
+          args: Prisma.DonationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>
+        }
+        deleteMany: {
+          args: Prisma.DonationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DonationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DonationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>[]
+        }
+        upsert: {
+          args: Prisma.DonationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonationPayload>
+        }
+        aggregate: {
+          args: Prisma.DonationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDonation>
+        }
+        groupBy: {
+          args: Prisma.DonationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DonationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DonationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DonationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -896,7 +1046,8 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   hashedPassword: 'hashedPassword',
-  name: 'name',
+  firstName: 'firstName',
+  lastName: 'lastName',
   address: 'address',
   phoneNumber: 'phoneNumber',
   role: 'role',
@@ -915,9 +1066,11 @@ export const PetScalarFieldEnum = {
   id: 'id',
   name: 'name',
   status: 'status',
-  breed: 'breed',
   species: 'species',
-  photo: 'photo',
+  breed: 'breed',
+  ageMonths: 'ageMonths',
+  gender: 'gender',
+  size: 'size',
   description: 'description',
   shelterId: 'shelterId',
   createdAt: 'createdAt',
@@ -925,6 +1078,18 @@ export const PetScalarFieldEnum = {
 } as const
 
 export type PetScalarFieldEnum = (typeof PetScalarFieldEnum)[keyof typeof PetScalarFieldEnum]
+
+
+export const PetImageScalarFieldEnum = {
+  id: 'id',
+  petId: 'petId',
+  imageUrl: 'imageUrl',
+  publicId: 'publicId',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt'
+} as const
+
+export type PetImageScalarFieldEnum = (typeof PetImageScalarFieldEnum)[keyof typeof PetImageScalarFieldEnum]
 
 
 export const BookingScalarFieldEnum = {
@@ -979,6 +1144,23 @@ export const ShelterStaffScalarFieldEnum = {
 } as const
 
 export type ShelterStaffScalarFieldEnum = (typeof ShelterStaffScalarFieldEnum)[keyof typeof ShelterStaffScalarFieldEnum]
+
+
+export const DonationScalarFieldEnum = {
+  id: 'id',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  stripeSessionId: 'stripeSessionId',
+  message: 'message',
+  userId: 'userId',
+  shelterId: 'shelterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DonationScalarFieldEnum = (typeof DonationScalarFieldEnum)[keyof typeof DonationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1089,6 +1271,48 @@ export type ListEnumPetStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'Species'
+ */
+export type EnumSpeciesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Species'>
+    
+
+
+/**
+ * Reference to a field of type 'Species[]'
+ */
+export type ListEnumSpeciesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Species[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Gender'
+ */
+export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+/**
+ * Reference to a field of type 'Gender[]'
+ */
+export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Size'
+ */
+export type EnumSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Size'>
+    
+
+
+/**
+ * Reference to a field of type 'Size[]'
+ */
+export type ListEnumSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Size[]'>
+    
+
+
+/**
  * Reference to a field of type 'BookingStatus'
  */
 export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus'>
@@ -1113,6 +1337,20 @@ export type EnumAdoptionRequestStatusFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'AdoptionRequestStatus[]'
  */
 export type ListEnumAdoptionRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdoptionRequestStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DonationStatus'
+ */
+export type EnumDonationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DonationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DonationStatus[]'
+ */
+export type ListEnumDonationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DonationStatus[]'>
     
 
 
@@ -1241,10 +1479,12 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   pet?: Prisma.PetOmit
+  petImage?: Prisma.PetImageOmit
   booking?: Prisma.BookingOmit
   adoptionRequest?: Prisma.AdoptionRequestOmit
   shelter?: Prisma.ShelterOmit
   shelterStaff?: Prisma.ShelterStaffOmit
+  donation?: Prisma.DonationOmit
 }
 
 /* Types for Logging */

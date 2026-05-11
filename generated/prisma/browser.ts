@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type Pet = Prisma.PetModel
 /**
+ * Model PetImage
+ * 
+ */
+export type PetImage = Prisma.PetImageModel
+/**
  * Model Booking
  * 
  */
@@ -47,3 +52,8 @@ export type Shelter = Prisma.ShelterModel
  * 
  */
 export type ShelterStaff = Prisma.ShelterStaffModel
+/**
+ * Model Donation
+ * 
+ */
+export type Donation = Prisma.DonationModel

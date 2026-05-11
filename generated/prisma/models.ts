@@ -10,8 +10,10 @@
  */
 export type * from './models/User'
 export type * from './models/Pet'
+export type * from './models/PetImage'
 export type * from './models/Booking'
 export type * from './models/AdoptionRequest'
 export type * from './models/Shelter'
 export type * from './models/ShelterStaff'
+export type * from './models/Donation'
 export type * from './commonInputTypes'

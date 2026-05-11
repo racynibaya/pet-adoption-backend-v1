@@ -28,11 +28,13 @@ export type AggregatePet = {
 
 export type PetAvgAggregateOutputType = {
   id: number | null
+  ageMonths: number | null
   shelterId: number | null
 }
 
 export type PetSumAggregateOutputType = {
   id: number | null
+  ageMonths: number | null
   shelterId: number | null
 }
 
@@ -40,9 +42,11 @@ export type PetMinAggregateOutputType = {
   id: number | null
   name: string | null
   status: $Enums.PetStatus | null
+  species: $Enums.Species | null
   breed: string | null
-  species: string | null
-  photo: string | null
+  ageMonths: number | null
+  gender: $Enums.Gender | null
+  size: $Enums.Size | null
   description: string | null
   shelterId: number | null
   createdAt: Date | null
@@ -53,9 +57,11 @@ export type PetMaxAggregateOutputType = {
   id: number | null
   name: string | null
   status: $Enums.PetStatus | null
+  species: $Enums.Species | null
   breed: string | null
-  species: string | null
-  photo: string | null
+  ageMonths: number | null
+  gender: $Enums.Gender | null
+  size: $Enums.Size | null
   description: string | null
   shelterId: number | null
   createdAt: Date | null
@@ -66,9 +72,11 @@ export type PetCountAggregateOutputType = {
   id: number
   name: number
   status: number
-  breed: number
   species: number
-  photo: number
+  breed: number
+  ageMonths: number
+  gender: number
+  size: number
   description: number
   shelterId: number
   createdAt: number
@@ -79,11 +87,13 @@ export type PetCountAggregateOutputType = {
 
 export type PetAvgAggregateInputType = {
   id?: true
+  ageMonths?: true
   shelterId?: true
 }
 
 export type PetSumAggregateInputType = {
   id?: true
+  ageMonths?: true
   shelterId?: true
 }
 
@@ -91,9 +101,11 @@ export type PetMinAggregateInputType = {
   id?: true
   name?: true
   status?: true
-  breed?: true
   species?: true
-  photo?: true
+  breed?: true
+  ageMonths?: true
+  gender?: true
+  size?: true
   description?: true
   shelterId?: true
   createdAt?: true
@@ -104,9 +116,11 @@ export type PetMaxAggregateInputType = {
   id?: true
   name?: true
   status?: true
-  breed?: true
   species?: true
-  photo?: true
+  breed?: true
+  ageMonths?: true
+  gender?: true
+  size?: true
   description?: true
   shelterId?: true
   createdAt?: true
@@ -117,9 +131,11 @@ export type PetCountAggregateInputType = {
   id?: true
   name?: true
   status?: true
-  breed?: true
   species?: true
-  photo?: true
+  breed?: true
+  ageMonths?: true
+  gender?: true
+  size?: true
   description?: true
   shelterId?: true
   createdAt?: true
@@ -217,9 +233,11 @@ export type PetGroupByOutputType = {
   id: number
   name: string
   status: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   shelterId: number
   createdAt: Date
@@ -253,32 +271,38 @@ export type PetWhereInput = {
   id?: Prisma.IntFilter<"Pet"> | number
   name?: Prisma.StringFilter<"Pet"> | string
   status?: Prisma.EnumPetStatusFilter<"Pet"> | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFilter<"Pet"> | $Enums.Species
   breed?: Prisma.StringFilter<"Pet"> | string
-  species?: Prisma.StringFilter<"Pet"> | string
-  photo?: Prisma.StringFilter<"Pet"> | string
+  ageMonths?: Prisma.IntFilter<"Pet"> | number
+  gender?: Prisma.EnumGenderFilter<"Pet"> | $Enums.Gender
+  size?: Prisma.EnumSizeFilter<"Pet"> | $Enums.Size
   description?: Prisma.StringFilter<"Pet"> | string
   shelterId?: Prisma.IntFilter<"Pet"> | number
   createdAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
   shelter?: Prisma.XOR<Prisma.ShelterScalarRelationFilter, Prisma.ShelterWhereInput>
+  images?: Prisma.PetImageListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
-  adoptionRequest?: Prisma.AdoptionRequestListRelationFilter
+  adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
 }
 
 export type PetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  breed?: Prisma.SortOrder
   species?: Prisma.SortOrder
-  photo?: Prisma.SortOrder
+  breed?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   description?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   shelter?: Prisma.ShelterOrderByWithRelationInput
+  images?: Prisma.PetImageOrderByRelationAggregateInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
-  adoptionRequest?: Prisma.AdoptionRequestOrderByRelationAggregateInput
+  adoptionRequests?: Prisma.AdoptionRequestOrderByRelationAggregateInput
 }
 
 export type PetWhereUniqueInput = Prisma.AtLeast<{
@@ -288,25 +312,30 @@ export type PetWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PetWhereInput | Prisma.PetWhereInput[]
   name?: Prisma.StringFilter<"Pet"> | string
   status?: Prisma.EnumPetStatusFilter<"Pet"> | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFilter<"Pet"> | $Enums.Species
   breed?: Prisma.StringFilter<"Pet"> | string
-  species?: Prisma.StringFilter<"Pet"> | string
-  photo?: Prisma.StringFilter<"Pet"> | string
+  ageMonths?: Prisma.IntFilter<"Pet"> | number
+  gender?: Prisma.EnumGenderFilter<"Pet"> | $Enums.Gender
+  size?: Prisma.EnumSizeFilter<"Pet"> | $Enums.Size
   description?: Prisma.StringFilter<"Pet"> | string
   shelterId?: Prisma.IntFilter<"Pet"> | number
   createdAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
   shelter?: Prisma.XOR<Prisma.ShelterScalarRelationFilter, Prisma.ShelterWhereInput>
+  images?: Prisma.PetImageListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
-  adoptionRequest?: Prisma.AdoptionRequestListRelationFilter
+  adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
 }, "id">
 
 export type PetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  breed?: Prisma.SortOrder
   species?: Prisma.SortOrder
-  photo?: Prisma.SortOrder
+  breed?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   description?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -325,9 +354,11 @@ export type PetScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Pet"> | number
   name?: Prisma.StringWithAggregatesFilter<"Pet"> | string
   status?: Prisma.EnumPetStatusWithAggregatesFilter<"Pet"> | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesWithAggregatesFilter<"Pet"> | $Enums.Species
   breed?: Prisma.StringWithAggregatesFilter<"Pet"> | string
-  species?: Prisma.StringWithAggregatesFilter<"Pet"> | string
-  photo?: Prisma.StringWithAggregatesFilter<"Pet"> | string
+  ageMonths?: Prisma.IntWithAggregatesFilter<"Pet"> | number
+  gender?: Prisma.EnumGenderWithAggregatesFilter<"Pet"> | $Enums.Gender
+  size?: Prisma.EnumSizeWithAggregatesFilter<"Pet"> | $Enums.Size
   description?: Prisma.StringWithAggregatesFilter<"Pet"> | string
   shelterId?: Prisma.IntWithAggregatesFilter<"Pet"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Pet"> | Date | string
@@ -337,68 +368,82 @@ export type PetScalarWhereWithAggregatesInput = {
 export type PetCreateInput = {
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
   shelter: Prisma.ShelterCreateNestedOneWithoutPetsInput
+  images?: Prisma.PetImageCreateNestedManyWithoutPetInput
   bookings?: Prisma.BookingCreateNestedManyWithoutPetInput
-  adoptionRequest?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateInput = {
   id?: number
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   shelterId: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.PetImageUncheckedCreateNestedManyWithoutPetInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPetInput
-  adoptionRequest?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shelter?: Prisma.ShelterUpdateOneRequiredWithoutPetsNestedInput
+  images?: Prisma.PetImageUpdateManyWithoutPetNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutPetNestedInput
-  adoptionRequest?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   shelterId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.PetImageUncheckedUpdateManyWithoutPetNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutPetNestedInput
-  adoptionRequest?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetCreateManyInput = {
   id?: number
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   shelterId: number
   createdAt?: Date | string
@@ -408,9 +453,11 @@ export type PetCreateManyInput = {
 export type PetUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -420,9 +467,11 @@ export type PetUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   shelterId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -433,9 +482,11 @@ export type PetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  breed?: Prisma.SortOrder
   species?: Prisma.SortOrder
-  photo?: Prisma.SortOrder
+  breed?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   description?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -444,6 +495,7 @@ export type PetCountOrderByAggregateInput = {
 
 export type PetAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
 }
 
@@ -451,9 +503,11 @@ export type PetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  breed?: Prisma.SortOrder
   species?: Prisma.SortOrder
-  photo?: Prisma.SortOrder
+  breed?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   description?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -464,9 +518,11 @@ export type PetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  breed?: Prisma.SortOrder
   species?: Prisma.SortOrder
-  photo?: Prisma.SortOrder
+  breed?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  size?: Prisma.SortOrder
   description?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -475,6 +531,7 @@ export type PetMinOrderByAggregateInput = {
 
 export type PetSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  ageMonths?: Prisma.SortOrder
   shelterId?: Prisma.SortOrder
 }
 
@@ -497,6 +554,32 @@ export type EnumPetStatusFieldUpdateOperationsInput = {
   set?: $Enums.PetStatus
 }
 
+export type EnumSpeciesFieldUpdateOperationsInput = {
+  set?: $Enums.Species
+}
+
+export type EnumGenderFieldUpdateOperationsInput = {
+  set?: $Enums.Gender
+}
+
+export type EnumSizeFieldUpdateOperationsInput = {
+  set?: $Enums.Size
+}
+
+export type PetCreateNestedOneWithoutImagesInput = {
+  create?: Prisma.XOR<Prisma.PetCreateWithoutImagesInput, Prisma.PetUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.PetCreateOrConnectWithoutImagesInput
+  connect?: Prisma.PetWhereUniqueInput
+}
+
+export type PetUpdateOneRequiredWithoutImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.PetCreateWithoutImagesInput, Prisma.PetUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.PetCreateOrConnectWithoutImagesInput
+  upsert?: Prisma.PetUpsertWithoutImagesInput
+  connect?: Prisma.PetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PetUpdateToOneWithWhereWithoutImagesInput, Prisma.PetUpdateWithoutImagesInput>, Prisma.PetUncheckedUpdateWithoutImagesInput>
+}
+
 export type PetCreateNestedOneWithoutBookingsInput = {
   create?: Prisma.XOR<Prisma.PetCreateWithoutBookingsInput, Prisma.PetUncheckedCreateWithoutBookingsInput>
   connectOrCreate?: Prisma.PetCreateOrConnectWithoutBookingsInput
@@ -511,18 +594,18 @@ export type PetUpdateOneRequiredWithoutBookingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PetUpdateToOneWithWhereWithoutBookingsInput, Prisma.PetUpdateWithoutBookingsInput>, Prisma.PetUncheckedUpdateWithoutBookingsInput>
 }
 
-export type PetCreateNestedOneWithoutAdoptionRequestInput = {
-  create?: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestInput>
-  connectOrCreate?: Prisma.PetCreateOrConnectWithoutAdoptionRequestInput
+export type PetCreateNestedOneWithoutAdoptionRequestsInput = {
+  create?: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestsInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestsInput>
+  connectOrCreate?: Prisma.PetCreateOrConnectWithoutAdoptionRequestsInput
   connect?: Prisma.PetWhereUniqueInput
 }
 
-export type PetUpdateOneRequiredWithoutAdoptionRequestNestedInput = {
-  create?: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestInput>
-  connectOrCreate?: Prisma.PetCreateOrConnectWithoutAdoptionRequestInput
-  upsert?: Prisma.PetUpsertWithoutAdoptionRequestInput
+export type PetUpdateOneRequiredWithoutAdoptionRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestsInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestsInput>
+  connectOrCreate?: Prisma.PetCreateOrConnectWithoutAdoptionRequestsInput
+  upsert?: Prisma.PetUpsertWithoutAdoptionRequestsInput
   connect?: Prisma.PetWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PetUpdateToOneWithWhereWithoutAdoptionRequestInput, Prisma.PetUpdateWithoutAdoptionRequestInput>, Prisma.PetUncheckedUpdateWithoutAdoptionRequestInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PetUpdateToOneWithWhereWithoutAdoptionRequestsInput, Prisma.PetUpdateWithoutAdoptionRequestsInput>, Prisma.PetUncheckedUpdateWithoutAdoptionRequestsInput>
 }
 
 export type PetCreateNestedManyWithoutShelterInput = {
@@ -567,31 +650,119 @@ export type PetUncheckedUpdateManyWithoutShelterNestedInput = {
   deleteMany?: Prisma.PetScalarWhereInput | Prisma.PetScalarWhereInput[]
 }
 
-export type PetCreateWithoutBookingsInput = {
+export type PetCreateWithoutImagesInput = {
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
   shelter: Prisma.ShelterCreateNestedOneWithoutPetsInput
-  adoptionRequest?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
+}
+
+export type PetUncheckedCreateWithoutImagesInput = {
+  id?: number
+  name: string
+  status?: $Enums.PetStatus
+  species: $Enums.Species
+  breed: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
+  description: string
+  shelterId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
+}
+
+export type PetCreateOrConnectWithoutImagesInput = {
+  where: Prisma.PetWhereUniqueInput
+  create: Prisma.XOR<Prisma.PetCreateWithoutImagesInput, Prisma.PetUncheckedCreateWithoutImagesInput>
+}
+
+export type PetUpsertWithoutImagesInput = {
+  update: Prisma.XOR<Prisma.PetUpdateWithoutImagesInput, Prisma.PetUncheckedUpdateWithoutImagesInput>
+  create: Prisma.XOR<Prisma.PetCreateWithoutImagesInput, Prisma.PetUncheckedCreateWithoutImagesInput>
+  where?: Prisma.PetWhereInput
+}
+
+export type PetUpdateToOneWithWhereWithoutImagesInput = {
+  where?: Prisma.PetWhereInput
+  data: Prisma.XOR<Prisma.PetUpdateWithoutImagesInput, Prisma.PetUncheckedUpdateWithoutImagesInput>
+}
+
+export type PetUpdateWithoutImagesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+  breed?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shelter?: Prisma.ShelterUpdateOneRequiredWithoutPetsNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
+}
+
+export type PetUncheckedUpdateWithoutImagesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+  breed?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  shelterId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
+}
+
+export type PetCreateWithoutBookingsInput = {
+  name: string
+  status?: $Enums.PetStatus
+  species: $Enums.Species
+  breed: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shelter: Prisma.ShelterCreateNestedOneWithoutPetsInput
+  images?: Prisma.PetImageCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateWithoutBookingsInput = {
   id?: number
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   shelterId: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  adoptionRequest?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
+  images?: Prisma.PetImageUncheckedCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetCreateOrConnectWithoutBookingsInput = {
@@ -613,125 +784,149 @@ export type PetUpdateToOneWithWhereWithoutBookingsInput = {
 export type PetUpdateWithoutBookingsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shelter?: Prisma.ShelterUpdateOneRequiredWithoutPetsNestedInput
-  adoptionRequest?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
+  images?: Prisma.PetImageUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   shelterId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  adoptionRequest?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
+  images?: Prisma.PetImageUncheckedUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
 }
 
-export type PetCreateWithoutAdoptionRequestInput = {
+export type PetCreateWithoutAdoptionRequestsInput = {
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
   shelter: Prisma.ShelterCreateNestedOneWithoutPetsInput
+  images?: Prisma.PetImageCreateNestedManyWithoutPetInput
   bookings?: Prisma.BookingCreateNestedManyWithoutPetInput
 }
 
-export type PetUncheckedCreateWithoutAdoptionRequestInput = {
+export type PetUncheckedCreateWithoutAdoptionRequestsInput = {
   id?: number
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   shelterId: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.PetImageUncheckedCreateNestedManyWithoutPetInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPetInput
 }
 
-export type PetCreateOrConnectWithoutAdoptionRequestInput = {
+export type PetCreateOrConnectWithoutAdoptionRequestsInput = {
   where: Prisma.PetWhereUniqueInput
-  create: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestInput>
+  create: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestsInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestsInput>
 }
 
-export type PetUpsertWithoutAdoptionRequestInput = {
-  update: Prisma.XOR<Prisma.PetUpdateWithoutAdoptionRequestInput, Prisma.PetUncheckedUpdateWithoutAdoptionRequestInput>
-  create: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestInput>
+export type PetUpsertWithoutAdoptionRequestsInput = {
+  update: Prisma.XOR<Prisma.PetUpdateWithoutAdoptionRequestsInput, Prisma.PetUncheckedUpdateWithoutAdoptionRequestsInput>
+  create: Prisma.XOR<Prisma.PetCreateWithoutAdoptionRequestsInput, Prisma.PetUncheckedCreateWithoutAdoptionRequestsInput>
   where?: Prisma.PetWhereInput
 }
 
-export type PetUpdateToOneWithWhereWithoutAdoptionRequestInput = {
+export type PetUpdateToOneWithWhereWithoutAdoptionRequestsInput = {
   where?: Prisma.PetWhereInput
-  data: Prisma.XOR<Prisma.PetUpdateWithoutAdoptionRequestInput, Prisma.PetUncheckedUpdateWithoutAdoptionRequestInput>
+  data: Prisma.XOR<Prisma.PetUpdateWithoutAdoptionRequestsInput, Prisma.PetUncheckedUpdateWithoutAdoptionRequestsInput>
 }
 
-export type PetUpdateWithoutAdoptionRequestInput = {
+export type PetUpdateWithoutAdoptionRequestsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shelter?: Prisma.ShelterUpdateOneRequiredWithoutPetsNestedInput
+  images?: Prisma.PetImageUpdateManyWithoutPetNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutPetNestedInput
 }
 
-export type PetUncheckedUpdateWithoutAdoptionRequestInput = {
+export type PetUncheckedUpdateWithoutAdoptionRequestsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   shelterId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.PetImageUncheckedUpdateManyWithoutPetNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetCreateWithoutShelterInput = {
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.PetImageCreateNestedManyWithoutPetInput
   bookings?: Prisma.BookingCreateNestedManyWithoutPetInput
-  adoptionRequest?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateWithoutShelterInput = {
   id?: number
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.PetImageUncheckedCreateNestedManyWithoutPetInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutPetInput
-  adoptionRequest?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetCreateOrConnectWithoutShelterInput = {
@@ -767,9 +962,11 @@ export type PetScalarWhereInput = {
   id?: Prisma.IntFilter<"Pet"> | number
   name?: Prisma.StringFilter<"Pet"> | string
   status?: Prisma.EnumPetStatusFilter<"Pet"> | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFilter<"Pet"> | $Enums.Species
   breed?: Prisma.StringFilter<"Pet"> | string
-  species?: Prisma.StringFilter<"Pet"> | string
-  photo?: Prisma.StringFilter<"Pet"> | string
+  ageMonths?: Prisma.IntFilter<"Pet"> | number
+  gender?: Prisma.EnumGenderFilter<"Pet"> | $Enums.Gender
+  size?: Prisma.EnumSizeFilter<"Pet"> | $Enums.Size
   description?: Prisma.StringFilter<"Pet"> | string
   shelterId?: Prisma.IntFilter<"Pet"> | number
   createdAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
@@ -780,9 +977,11 @@ export type PetCreateManyShelterInput = {
   id?: number
   name: string
   status?: $Enums.PetStatus
+  species: $Enums.Species
   breed: string
-  species: string
-  photo: string
+  ageMonths: number
+  gender: $Enums.Gender
+  size: $Enums.Size
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -791,37 +990,45 @@ export type PetCreateManyShelterInput = {
 export type PetUpdateWithoutShelterInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.PetImageUpdateManyWithoutPetNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutPetNestedInput
-  adoptionRequest?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateWithoutShelterInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.PetImageUncheckedUpdateManyWithoutPetNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutPetNestedInput
-  adoptionRequest?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateManyWithoutShelterInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumPetStatusFieldUpdateOperationsInput | $Enums.PetStatus
+  species?: Prisma.EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
   breed?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  photo?: Prisma.StringFieldUpdateOperationsInput | string
+  ageMonths?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -833,13 +1040,15 @@ export type PetUncheckedUpdateManyWithoutShelterInput = {
  */
 
 export type PetCountOutputType = {
+  images: number
   bookings: number
-  adoptionRequest: number
+  adoptionRequests: number
 }
 
 export type PetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  images?: boolean | PetCountOutputTypeCountImagesArgs
   bookings?: boolean | PetCountOutputTypeCountBookingsArgs
-  adoptionRequest?: boolean | PetCountOutputTypeCountAdoptionRequestArgs
+  adoptionRequests?: boolean | PetCountOutputTypeCountAdoptionRequestsArgs
 }
 
 /**
@@ -855,6 +1064,13 @@ export type PetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * PetCountOutputType without action
  */
+export type PetCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PetImageWhereInput
+}
+
+/**
+ * PetCountOutputType without action
+ */
 export type PetCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.BookingWhereInput
 }
@@ -862,7 +1078,7 @@ export type PetCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Ex
 /**
  * PetCountOutputType without action
  */
-export type PetCountOutputTypeCountAdoptionRequestArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type PetCountOutputTypeCountAdoptionRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AdoptionRequestWhereInput
 }
 
@@ -871,16 +1087,19 @@ export type PetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   id?: boolean
   name?: boolean
   status?: boolean
-  breed?: boolean
   species?: boolean
-  photo?: boolean
+  breed?: boolean
+  ageMonths?: boolean
+  gender?: boolean
+  size?: boolean
   description?: boolean
   shelterId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   shelter?: boolean | Prisma.ShelterDefaultArgs<ExtArgs>
+  images?: boolean | Prisma.Pet$imagesArgs<ExtArgs>
   bookings?: boolean | Prisma.Pet$bookingsArgs<ExtArgs>
-  adoptionRequest?: boolean | Prisma.Pet$adoptionRequestArgs<ExtArgs>
+  adoptionRequests?: boolean | Prisma.Pet$adoptionRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.PetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pet"]>
 
@@ -888,9 +1107,11 @@ export type PetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   id?: boolean
   name?: boolean
   status?: boolean
-  breed?: boolean
   species?: boolean
-  photo?: boolean
+  breed?: boolean
+  ageMonths?: boolean
+  gender?: boolean
+  size?: boolean
   description?: boolean
   shelterId?: boolean
   createdAt?: boolean
@@ -902,9 +1123,11 @@ export type PetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   id?: boolean
   name?: boolean
   status?: boolean
-  breed?: boolean
   species?: boolean
-  photo?: boolean
+  breed?: boolean
+  ageMonths?: boolean
+  gender?: boolean
+  size?: boolean
   description?: boolean
   shelterId?: boolean
   createdAt?: boolean
@@ -916,20 +1139,23 @@ export type PetSelectScalar = {
   id?: boolean
   name?: boolean
   status?: boolean
-  breed?: boolean
   species?: boolean
-  photo?: boolean
+  breed?: boolean
+  ageMonths?: boolean
+  gender?: boolean
+  size?: boolean
   description?: boolean
   shelterId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "status" | "breed" | "species" | "photo" | "description" | "shelterId" | "createdAt" | "updatedAt", ExtArgs["result"]["pet"]>
+export type PetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "status" | "species" | "breed" | "ageMonths" | "gender" | "size" | "description" | "shelterId" | "createdAt" | "updatedAt", ExtArgs["result"]["pet"]>
 export type PetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shelter?: boolean | Prisma.ShelterDefaultArgs<ExtArgs>
+  images?: boolean | Prisma.Pet$imagesArgs<ExtArgs>
   bookings?: boolean | Prisma.Pet$bookingsArgs<ExtArgs>
-  adoptionRequest?: boolean | Prisma.Pet$adoptionRequestArgs<ExtArgs>
+  adoptionRequests?: boolean | Prisma.Pet$adoptionRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.PetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -943,16 +1169,19 @@ export type $PetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name: "Pet"
   objects: {
     shelter: Prisma.$ShelterPayload<ExtArgs>
+    images: Prisma.$PetImagePayload<ExtArgs>[]
     bookings: Prisma.$BookingPayload<ExtArgs>[]
-    adoptionRequest: Prisma.$AdoptionRequestPayload<ExtArgs>[]
+    adoptionRequests: Prisma.$AdoptionRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     status: $Enums.PetStatus
+    species: $Enums.Species
     breed: string
-    species: string
-    photo: string
+    ageMonths: number
+    gender: $Enums.Gender
+    size: $Enums.Size
     description: string
     shelterId: number
     createdAt: Date
@@ -1352,8 +1581,9 @@ readonly fields: PetFieldRefs;
 export interface Prisma__PetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   shelter<T extends Prisma.ShelterDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShelterDefaultArgs<ExtArgs>>): Prisma.Prisma__ShelterClient<runtime.Types.Result.GetResult<Prisma.$ShelterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  images<T extends Prisma.Pet$imagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pet$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PetImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookings<T extends Prisma.Pet$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pet$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  adoptionRequest<T extends Prisma.Pet$adoptionRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pet$adoptionRequestArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdoptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adoptionRequests<T extends Prisma.Pet$adoptionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pet$adoptionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdoptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1386,9 +1616,11 @@ export interface PetFieldRefs {
   readonly id: Prisma.FieldRef<"Pet", 'Int'>
   readonly name: Prisma.FieldRef<"Pet", 'String'>
   readonly status: Prisma.FieldRef<"Pet", 'PetStatus'>
+  readonly species: Prisma.FieldRef<"Pet", 'Species'>
   readonly breed: Prisma.FieldRef<"Pet", 'String'>
-  readonly species: Prisma.FieldRef<"Pet", 'String'>
-  readonly photo: Prisma.FieldRef<"Pet", 'String'>
+  readonly ageMonths: Prisma.FieldRef<"Pet", 'Int'>
+  readonly gender: Prisma.FieldRef<"Pet", 'Gender'>
+  readonly size: Prisma.FieldRef<"Pet", 'Size'>
   readonly description: Prisma.FieldRef<"Pet", 'String'>
   readonly shelterId: Prisma.FieldRef<"Pet", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Pet", 'DateTime'>
@@ -1794,6 +2026,30 @@ export type PetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * Pet.images
+ */
+export type Pet$imagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PetImage
+   */
+  select?: Prisma.PetImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PetImage
+   */
+  omit?: Prisma.PetImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PetImageInclude<ExtArgs> | null
+  where?: Prisma.PetImageWhereInput
+  orderBy?: Prisma.PetImageOrderByWithRelationInput | Prisma.PetImageOrderByWithRelationInput[]
+  cursor?: Prisma.PetImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PetImageScalarFieldEnum | Prisma.PetImageScalarFieldEnum[]
+}
+
+/**
  * Pet.bookings
  */
 export type Pet$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1818,9 +2074,9 @@ export type Pet$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 /**
- * Pet.adoptionRequest
+ * Pet.adoptionRequests
  */
-export type Pet$adoptionRequestArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Pet$adoptionRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the AdoptionRequest
    */

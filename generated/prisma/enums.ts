@@ -9,16 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const BookingStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  CANCELLED: 'CANCELLED'
-} as const
-
-export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
-
-
 export const Role = {
   USER: 'USER',
   STAFF: 'STAFF',
@@ -37,6 +27,16 @@ export const PetStatus = {
 export type PetStatus = (typeof PetStatus)[keyof typeof PetStatus]
 
 
+export const BookingStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
+
+
 export const AdoptionRequestStatus = {
   PENDING: 'PENDING',
   REVIEWING: 'REVIEWING',
@@ -46,3 +46,42 @@ export const AdoptionRequestStatus = {
 } as const
 
 export type AdoptionRequestStatus = (typeof AdoptionRequestStatus)[keyof typeof AdoptionRequestStatus]
+
+
+export const DonationStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type DonationStatus = (typeof DonationStatus)[keyof typeof DonationStatus]
+
+
+export const Species = {
+  DOG: 'DOG',
+  CAT: 'CAT',
+  RABBIT: 'RABBIT',
+  BIRD: 'BIRD',
+  OTHER: 'OTHER'
+} as const
+
+export type Species = (typeof Species)[keyof typeof Species]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const Size = {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+  EXTRA_LARGE: 'EXTRA_LARGE'
+} as const
+
+export type Size = (typeof Size)[keyof typeof Size]

@@ -11,7 +11,7 @@ import {
 } from '@utils/error';
 
 import authService from './auth-service';
-import { UserT, LoginSchema, EmailInput } from './auth-types';
+import { userSchema, EmailInput, LoginSchema } from './auth-types';
 
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -88,7 +88,9 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { name, email, password } = UserT.parse(req.body);
+      const { firstName, lastName, email, password, role } = userSchema.parse(
+        req.body,
+      );
 
       const existingUser = await authService.isExistingEmail(email);
 
@@ -97,9 +99,11 @@ class AuthController {
       }
 
       const { verifyToken: token, ...user } = await authService.createUser({
-        name,
+        firstName,
+        lastName,
         email,
         password,
+        role,
       });
 
       res.status(201).json({

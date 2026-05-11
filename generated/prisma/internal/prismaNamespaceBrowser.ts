@@ -53,10 +53,12 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Pet: 'Pet',
+  PetImage: 'PetImage',
   Booking: 'Booking',
   AdoptionRequest: 'AdoptionRequest',
   Shelter: 'Shelter',
-  ShelterStaff: 'ShelterStaff'
+  ShelterStaff: 'ShelterStaff',
+  Donation: 'Donation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -79,7 +81,8 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   hashedPassword: 'hashedPassword',
-  name: 'name',
+  firstName: 'firstName',
+  lastName: 'lastName',
   address: 'address',
   phoneNumber: 'phoneNumber',
   role: 'role',
@@ -98,9 +101,11 @@ export const PetScalarFieldEnum = {
   id: 'id',
   name: 'name',
   status: 'status',
-  breed: 'breed',
   species: 'species',
-  photo: 'photo',
+  breed: 'breed',
+  ageMonths: 'ageMonths',
+  gender: 'gender',
+  size: 'size',
   description: 'description',
   shelterId: 'shelterId',
   createdAt: 'createdAt',
@@ -108,6 +113,18 @@ export const PetScalarFieldEnum = {
 } as const
 
 export type PetScalarFieldEnum = (typeof PetScalarFieldEnum)[keyof typeof PetScalarFieldEnum]
+
+
+export const PetImageScalarFieldEnum = {
+  id: 'id',
+  petId: 'petId',
+  imageUrl: 'imageUrl',
+  publicId: 'publicId',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt'
+} as const
+
+export type PetImageScalarFieldEnum = (typeof PetImageScalarFieldEnum)[keyof typeof PetImageScalarFieldEnum]
 
 
 export const BookingScalarFieldEnum = {
@@ -162,6 +179,23 @@ export const ShelterStaffScalarFieldEnum = {
 } as const
 
 export type ShelterStaffScalarFieldEnum = (typeof ShelterStaffScalarFieldEnum)[keyof typeof ShelterStaffScalarFieldEnum]
+
+
+export const DonationScalarFieldEnum = {
+  id: 'id',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  stripeSessionId: 'stripeSessionId',
+  message: 'message',
+  userId: 'userId',
+  shelterId: 'shelterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DonationScalarFieldEnum = (typeof DonationScalarFieldEnum)[keyof typeof DonationScalarFieldEnum]
 
 
 export const SortOrder = {

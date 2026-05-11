@@ -38,7 +38,8 @@ export type UserMinAggregateOutputType = {
   id: number | null
   email: string | null
   hashedPassword: string | null
-  name: string | null
+  firstName: string | null
+  lastName: string | null
   address: string | null
   phoneNumber: string | null
   role: $Enums.Role | null
@@ -54,7 +55,8 @@ export type UserMaxAggregateOutputType = {
   id: number | null
   email: string | null
   hashedPassword: string | null
-  name: string | null
+  firstName: string | null
+  lastName: string | null
   address: string | null
   phoneNumber: string | null
   role: $Enums.Role | null
@@ -70,7 +72,8 @@ export type UserCountAggregateOutputType = {
   id: number
   email: number
   hashedPassword: number
-  name: number
+  firstName: number
+  lastName: number
   address: number
   phoneNumber: number
   role: number
@@ -96,7 +99,8 @@ export type UserMinAggregateInputType = {
   id?: true
   email?: true
   hashedPassword?: true
-  name?: true
+  firstName?: true
+  lastName?: true
   address?: true
   phoneNumber?: true
   role?: true
@@ -112,7 +116,8 @@ export type UserMaxAggregateInputType = {
   id?: true
   email?: true
   hashedPassword?: true
-  name?: true
+  firstName?: true
+  lastName?: true
   address?: true
   phoneNumber?: true
   role?: true
@@ -128,7 +133,8 @@ export type UserCountAggregateInputType = {
   id?: true
   email?: true
   hashedPassword?: true
-  name?: true
+  firstName?: true
+  lastName?: true
   address?: true
   phoneNumber?: true
   role?: true
@@ -231,7 +237,8 @@ export type UserGroupByOutputType = {
   id: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address: string | null
   phoneNumber: string | null
   role: $Enums.Role
@@ -270,7 +277,8 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
   hashedPassword?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringFilter<"User"> | string
+  firstName?: Prisma.StringFilter<"User"> | string
+  lastName?: Prisma.StringFilter<"User"> | string
   address?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
@@ -284,13 +292,15 @@ export type UserWhereInput = {
   adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
   shelters?: Prisma.ShelterListRelationFilter
+  donations?: Prisma.DonationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -304,6 +314,7 @@ export type UserOrderByWithRelationInput = {
   adoptionRequests?: Prisma.AdoptionRequestOrderByRelationAggregateInput
   shelterStaffs?: Prisma.ShelterStaffOrderByRelationAggregateInput
   shelters?: Prisma.ShelterOrderByRelationAggregateInput
+  donations?: Prisma.DonationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -313,7 +324,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   hashedPassword?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringFilter<"User"> | string
+  firstName?: Prisma.StringFilter<"User"> | string
+  lastName?: Prisma.StringFilter<"User"> | string
   address?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
@@ -327,13 +339,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   adoptionRequests?: Prisma.AdoptionRequestListRelationFilter
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
   shelters?: Prisma.ShelterListRelationFilter
+  donations?: Prisma.DonationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -357,7 +371,8 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   hashedPassword?: Prisma.StringWithAggregatesFilter<"User"> | string
-  name?: Prisma.StringWithAggregatesFilter<"User"> | string
+  firstName?: Prisma.StringWithAggregatesFilter<"User"> | string
+  lastName?: Prisma.StringWithAggregatesFilter<"User"> | string
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
@@ -372,7 +387,8 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -386,13 +402,15 @@ export type UserCreateInput = {
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -406,12 +424,14 @@ export type UserUncheckedCreateInput = {
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -425,13 +445,15 @@ export type UserUpdateInput = {
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -445,13 +467,15 @@ export type UserUncheckedUpdateInput = {
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -466,7 +490,8 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -482,7 +507,8 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -498,7 +524,8 @@ export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -518,7 +545,8 @@ export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -534,7 +562,8 @@ export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   hashedPassword?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -553,6 +582,11 @@ export type UserSumOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -643,10 +677,27 @@ export type UserUpdateOneRequiredWithoutShelterStaffsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShelterStaffsInput, Prisma.UserUpdateWithoutShelterStaffsInput>, Prisma.UserUncheckedUpdateWithoutShelterStaffsInput>
 }
 
+export type UserCreateNestedOneWithoutDonationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDonationsInput, Prisma.UserUncheckedCreateWithoutDonationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDonationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDonationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDonationsInput, Prisma.UserUncheckedCreateWithoutDonationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDonationsInput
+  upsert?: Prisma.UserUpsertWithoutDonationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDonationsInput, Prisma.UserUpdateWithoutDonationsInput>, Prisma.UserUncheckedUpdateWithoutDonationsInput>
+}
+
 export type UserCreateWithoutBookingsInput = {
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -659,13 +710,15 @@ export type UserCreateWithoutBookingsInput = {
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
   id?: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -678,6 +731,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -699,7 +753,8 @@ export type UserUpdateToOneWithWhereWithoutBookingsInput = {
 export type UserUpdateWithoutBookingsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -712,13 +767,15 @@ export type UserUpdateWithoutBookingsInput = {
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -731,12 +788,14 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAdoptionRequestsInput = {
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -749,13 +808,15 @@ export type UserCreateWithoutAdoptionRequestsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
   id?: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -768,6 +829,7 @@ export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAdoptionRequestsInput = {
@@ -789,7 +851,8 @@ export type UserUpdateToOneWithWhereWithoutAdoptionRequestsInput = {
 export type UserUpdateWithoutAdoptionRequestsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -802,13 +865,15 @@ export type UserUpdateWithoutAdoptionRequestsInput = {
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -821,12 +886,14 @@ export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSheltersInput = {
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -839,13 +906,15 @@ export type UserCreateWithoutSheltersInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
+  donations?: Prisma.DonationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSheltersInput = {
   id?: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -858,6 +927,7 @@ export type UserUncheckedCreateWithoutSheltersInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
+  donations?: Prisma.DonationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSheltersInput = {
@@ -879,7 +949,8 @@ export type UserUpdateToOneWithWhereWithoutSheltersInput = {
 export type UserUpdateWithoutSheltersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -892,13 +963,15 @@ export type UserUpdateWithoutSheltersInput = {
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
+  donations?: Prisma.DonationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSheltersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -911,12 +984,14 @@ export type UserUncheckedUpdateWithoutSheltersInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
+  donations?: Prisma.DonationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShelterStaffsInput = {
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -929,13 +1004,15 @@ export type UserCreateWithoutShelterStaffsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShelterStaffsInput = {
   id?: number
   email: string
   hashedPassword: string
-  name: string
+  firstName: string
+  lastName: string
   address?: string | null
   phoneNumber?: string | null
   role?: $Enums.Role
@@ -948,6 +1025,7 @@ export type UserUncheckedCreateWithoutShelterStaffsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
+  donations?: Prisma.DonationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShelterStaffsInput = {
@@ -969,7 +1047,8 @@ export type UserUpdateToOneWithWhereWithoutShelterStaffsInput = {
 export type UserUpdateWithoutShelterStaffsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -982,13 +1061,15 @@ export type UserUpdateWithoutShelterStaffsInput = {
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShelterStaffsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -1000,6 +1081,105 @@ export type UserUncheckedUpdateWithoutShelterStaffsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
+  donations?: Prisma.DonationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDonationsInput = {
+  email: string
+  hashedPassword: string
+  firstName: string
+  lastName: string
+  address?: string | null
+  phoneNumber?: string | null
+  role?: $Enums.Role
+  isVerified?: boolean
+  verifyToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutDonationsInput = {
+  id?: number
+  email: string
+  hashedPassword: string
+  firstName: string
+  lastName: string
+  address?: string | null
+  phoneNumber?: string | null
+  role?: $Enums.Role
+  isVerified?: boolean
+  verifyToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  refreshToken?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutUserInput
+  shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutDonationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDonationsInput, Prisma.UserUncheckedCreateWithoutDonationsInput>
+}
+
+export type UserUpsertWithoutDonationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDonationsInput, Prisma.UserUncheckedUpdateWithoutDonationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDonationsInput, Prisma.UserUncheckedCreateWithoutDonationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDonationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDonationsInput, Prisma.UserUncheckedUpdateWithoutDonationsInput>
+}
+
+export type UserUpdateWithoutDonationsInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutUserNestedInput
+  shelters?: Prisma.ShelterUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDonationsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
+  shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
@@ -1013,6 +1193,7 @@ export type UserCountOutputType = {
   adoptionRequests: number
   shelterStaffs: number
   shelters: number
+  donations: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1020,6 +1201,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   adoptionRequests?: boolean | UserCountOutputTypeCountAdoptionRequestsArgs
   shelterStaffs?: boolean | UserCountOutputTypeCountShelterStaffsArgs
   shelters?: boolean | UserCountOutputTypeCountSheltersArgs
+  donations?: boolean | UserCountOutputTypeCountDonationsArgs
 }
 
 /**
@@ -1060,12 +1242,20 @@ export type UserCountOutputTypeCountSheltersArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.ShelterWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDonationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DonationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   hashedPassword?: boolean
-  name?: boolean
+  firstName?: boolean
+  lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
   role?: boolean
@@ -1079,6 +1269,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.User$shelterStaffsArgs<ExtArgs>
   shelters?: boolean | Prisma.User$sheltersArgs<ExtArgs>
+  donations?: boolean | Prisma.User$donationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1086,7 +1277,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   email?: boolean
   hashedPassword?: boolean
-  name?: boolean
+  firstName?: boolean
+  lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
   role?: boolean
@@ -1102,7 +1294,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   email?: boolean
   hashedPassword?: boolean
-  name?: boolean
+  firstName?: boolean
+  lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
   role?: boolean
@@ -1118,7 +1311,8 @@ export type UserSelectScalar = {
   id?: boolean
   email?: boolean
   hashedPassword?: boolean
-  name?: boolean
+  firstName?: boolean
+  lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
   role?: boolean
@@ -1130,12 +1324,13 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "name" | "address" | "phoneNumber" | "role" | "isVerified" | "verifyToken" | "verifyTokenExpiry" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "firstName" | "lastName" | "address" | "phoneNumber" | "role" | "isVerified" | "verifyToken" | "verifyTokenExpiry" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.User$shelterStaffsArgs<ExtArgs>
   shelters?: boolean | Prisma.User$sheltersArgs<ExtArgs>
+  donations?: boolean | Prisma.User$donationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1148,12 +1343,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     adoptionRequests: Prisma.$AdoptionRequestPayload<ExtArgs>[]
     shelterStaffs: Prisma.$ShelterStaffPayload<ExtArgs>[]
     shelters: Prisma.$ShelterPayload<ExtArgs>[]
+    donations: Prisma.$DonationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     email: string
     hashedPassword: string
-    name: string
+    firstName: string
+    lastName: string
     address: string | null
     phoneNumber: string | null
     role: $Enums.Role
@@ -1561,6 +1758,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   adoptionRequests<T extends Prisma.User$adoptionRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adoptionRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdoptionRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shelterStaffs<T extends Prisma.User$shelterStaffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shelterStaffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shelters<T extends Prisma.User$sheltersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sheltersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  donations<T extends Prisma.User$donationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$donationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DonationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1593,7 +1791,8 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly hashedPassword: Prisma.FieldRef<"User", 'String'>
-  readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly firstName: Prisma.FieldRef<"User", 'String'>
+  readonly lastName: Prisma.FieldRef<"User", 'String'>
   readonly address: Prisma.FieldRef<"User", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
@@ -2089,6 +2288,30 @@ export type User$sheltersArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.ShelterScalarFieldEnum | Prisma.ShelterScalarFieldEnum[]
+}
+
+/**
+ * User.donations
+ */
+export type User$donationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Donation
+   */
+  select?: Prisma.DonationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Donation
+   */
+  omit?: Prisma.DonationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DonationInclude<ExtArgs> | null
+  where?: Prisma.DonationWhereInput
+  orderBy?: Prisma.DonationOrderByWithRelationInput | Prisma.DonationOrderByWithRelationInput[]
+  cursor?: Prisma.DonationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DonationScalarFieldEnum | Prisma.DonationScalarFieldEnum[]
 }
 
 /**

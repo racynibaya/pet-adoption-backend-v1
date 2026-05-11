@@ -240,6 +240,7 @@ export type ShelterStaffOrderByWithRelationInput = {
 
 export type ShelterStaffWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  userId_shelterId?: Prisma.ShelterStaffUserIdShelterIdCompoundUniqueInput
   AND?: Prisma.ShelterStaffWhereInput | Prisma.ShelterStaffWhereInput[]
   OR?: Prisma.ShelterStaffWhereInput[]
   NOT?: Prisma.ShelterStaffWhereInput | Prisma.ShelterStaffWhereInput[]
@@ -249,7 +250,7 @@ export type ShelterStaffWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"ShelterStaff"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shelter?: Prisma.XOR<Prisma.ShelterScalarRelationFilter, Prisma.ShelterWhereInput>
-}, "id">
+}, "id" | "userId_shelterId">
 
 export type ShelterStaffOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -334,6 +335,11 @@ export type ShelterStaffListRelationFilter = {
 
 export type ShelterStaffOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ShelterStaffUserIdShelterIdCompoundUniqueInput = {
+  userId: number
+  shelterId: number
 }
 
 export type ShelterStaffCountOrderByAggregateInput = {

@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
 import prisma from '@config/prisma';
-import { ForbiddenError, UnauthorizedError } from '@utils/error';
+import {
+  BadRequestError,
+  ForbiddenError,
+  NotFoundError,
+  UnauthorizedError,
+} from '@utils/error';
 
 import { Role } from '../../../generated/prisma/client';
 import authService from './auth-service';
@@ -23,6 +28,7 @@ export const verifyTokenMiddleware = async function (
     const user: SanitizedUser = (await prisma.user.findUnique({
       where: { id: payload.id },
       omit: {
+        refreshToken: true,
         hashedPassword: true,
         verifyToken: true,
         verifyTokenExpiry: true,
@@ -30,8 +36,9 @@ export const verifyTokenMiddleware = async function (
     })) as SanitizedUser;
 
     if (!user) {
-      return;
+      throw new UnauthorizedError(`User doesn't exists`);
     }
+
     req.user = user;
     next();
   } catch (error) {
@@ -49,7 +56,7 @@ export const checkVerifiedUser = function (
 
     if (!req.user?.isVerified)
       throw new ForbiddenError(
-        'Please verify your email to access this resouce',
+        'Please verify your email to access this resource',
       );
 
     next();
@@ -60,16 +67,20 @@ export const checkVerifiedUser = function (
 
 export const authorizeRole = (...allowedRoles: Role[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user) {
-      throw new UnauthorizedError('User is not authenticated');
-    }
+    try {
+      if (!req.user) {
+        throw new UnauthorizedError('User is not authenticated');
+      }
 
-    if (!allowedRoles.includes(req.user.role)) {
-      throw new ForbiddenError(
-        'You do not have permission to access this resource',
-      );
-    }
+      if (!allowedRoles.includes(req.user.role)) {
+        throw new ForbiddenError(
+          'You do not have permission to access this resource',
+        );
+      }
 
-    next();
+      next();
+    } catch (error) {
+      next(error);
+    }
   };
 };

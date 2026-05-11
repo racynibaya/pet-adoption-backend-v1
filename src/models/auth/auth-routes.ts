@@ -11,11 +11,16 @@ const router = Router();
 
 router
   .route('/')
-  .get((req, res) => {
-    res.json({
-      message: 'Message from auth route',
-    });
-  })
+  .get(
+    verifyTokenMiddleware,
+    checkVerifiedUser,
+    authorizeRole('ADMIN'),
+    (req, res) => {
+      res.json({
+        message: 'Message from auth route',
+      });
+    },
+  )
   .post((req, res) => {
     res.json({ message: 'POST request to auth route' });
   });
