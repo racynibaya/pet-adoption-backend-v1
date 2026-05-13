@@ -1,7 +1,7 @@
 {
   "name": "pet-adoption-backend-v1",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec tsx src/server.ts",
