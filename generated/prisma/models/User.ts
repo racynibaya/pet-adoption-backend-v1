@@ -37,16 +37,16 @@ export type UserSumAggregateOutputType = {
 export type UserMinAggregateOutputType = {
   id: number | null
   email: string | null
-  hashedPassword: string | null
   firstName: string | null
   lastName: string | null
   address: string | null
   phoneNumber: string | null
-  role: $Enums.Role | null
   isVerified: boolean | null
+  hashedPassword: string | null
   verifyToken: string | null
-  verifyTokenExpiry: Date | null
   refreshToken: string | null
+  verifyTokenExpiry: Date | null
+  role: $Enums.Role | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,16 +54,16 @@ export type UserMinAggregateOutputType = {
 export type UserMaxAggregateOutputType = {
   id: number | null
   email: string | null
-  hashedPassword: string | null
   firstName: string | null
   lastName: string | null
   address: string | null
   phoneNumber: string | null
-  role: $Enums.Role | null
   isVerified: boolean | null
+  hashedPassword: string | null
   verifyToken: string | null
-  verifyTokenExpiry: Date | null
   refreshToken: string | null
+  verifyTokenExpiry: Date | null
+  role: $Enums.Role | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -71,16 +71,16 @@ export type UserMaxAggregateOutputType = {
 export type UserCountAggregateOutputType = {
   id: number
   email: number
-  hashedPassword: number
   firstName: number
   lastName: number
   address: number
   phoneNumber: number
-  role: number
   isVerified: number
+  hashedPassword: number
   verifyToken: number
-  verifyTokenExpiry: number
   refreshToken: number
+  verifyTokenExpiry: number
+  role: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -98,16 +98,16 @@ export type UserSumAggregateInputType = {
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
-  hashedPassword?: true
   firstName?: true
   lastName?: true
   address?: true
   phoneNumber?: true
-  role?: true
   isVerified?: true
+  hashedPassword?: true
   verifyToken?: true
-  verifyTokenExpiry?: true
   refreshToken?: true
+  verifyTokenExpiry?: true
+  role?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -115,16 +115,16 @@ export type UserMinAggregateInputType = {
 export type UserMaxAggregateInputType = {
   id?: true
   email?: true
-  hashedPassword?: true
   firstName?: true
   lastName?: true
   address?: true
   phoneNumber?: true
-  role?: true
   isVerified?: true
+  hashedPassword?: true
   verifyToken?: true
-  verifyTokenExpiry?: true
   refreshToken?: true
+  verifyTokenExpiry?: true
+  role?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -132,16 +132,16 @@ export type UserMaxAggregateInputType = {
 export type UserCountAggregateInputType = {
   id?: true
   email?: true
-  hashedPassword?: true
   firstName?: true
   lastName?: true
   address?: true
   phoneNumber?: true
-  role?: true
   isVerified?: true
+  hashedPassword?: true
   verifyToken?: true
-  verifyTokenExpiry?: true
   refreshToken?: true
+  verifyTokenExpiry?: true
+  role?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -236,16 +236,16 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address: string | null
   phoneNumber: string | null
-  role: $Enums.Role
   isVerified: boolean
+  hashedPassword: string
   verifyToken: string | null
-  verifyTokenExpiry: Date | null
   refreshToken: string | null
+  verifyTokenExpiry: Date | null
+  role: $Enums.Role
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -276,16 +276,16 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
-  hashedPassword?: Prisma.StringFilter<"User"> | string
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
   address?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  hashedPassword?: Prisma.StringFilter<"User"> | string
   verifyToken?: Prisma.StringNullableFilter<"User"> | string | null
-  verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
@@ -298,16 +298,16 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  hashedPassword?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  hashedPassword?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
@@ -323,16 +323,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  hashedPassword?: Prisma.StringFilter<"User"> | string
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
   address?: Prisma.StringNullableFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  hashedPassword?: Prisma.StringFilter<"User"> | string
   verifyToken?: Prisma.StringNullableFilter<"User"> | string | null
-  verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  verifyTokenExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   bookings?: Prisma.BookingListRelationFilter
@@ -345,16 +345,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  hashedPassword?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  hashedPassword?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -370,32 +370,32 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  hashedPassword?: Prisma.StringWithAggregatesFilter<"User"> | string
   firstName?: Prisma.StringWithAggregatesFilter<"User"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"User"> | string
   address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  hashedPassword?: Prisma.StringWithAggregatesFilter<"User"> | string
   verifyToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  verifyTokenExpiry?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  verifyTokenExpiry?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -408,16 +408,16 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -429,16 +429,16 @@ export type UserUncheckedCreateInput = {
 
 export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -451,16 +451,16 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -473,32 +473,32 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -506,16 +506,16 @@ export type UserUpdateManyMutationInput = {
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -523,16 +523,16 @@ export type UserUncheckedUpdateManyInput = {
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  hashedPassword?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  hashedPassword?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -544,16 +544,16 @@ export type UserAvgOrderByAggregateInput = {
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  hashedPassword?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  hashedPassword?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -561,16 +561,16 @@ export type UserMaxOrderByAggregateInput = {
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  hashedPassword?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  hashedPassword?: Prisma.SortOrder
   verifyToken?: Prisma.SortOrder
-  verifyTokenExpiry?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  verifyTokenExpiry?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -597,16 +597,16 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type EnumRoleFieldUpdateOperationsInput = {
-  set?: $Enums.Role
-}
-
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -695,16 +695,16 @@ export type UserUpdateOneWithoutDonationsNestedInput = {
 
 export type UserCreateWithoutBookingsInput = {
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestCreateNestedManyWithoutUserInput
@@ -716,16 +716,16 @@ export type UserCreateWithoutBookingsInput = {
 export type UserUncheckedCreateWithoutBookingsInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedCreateNestedManyWithoutUserInput
@@ -752,16 +752,16 @@ export type UserUpdateToOneWithWhereWithoutBookingsInput = {
 
 export type UserUpdateWithoutBookingsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUpdateManyWithoutUserNestedInput
@@ -773,16 +773,16 @@ export type UserUpdateWithoutBookingsInput = {
 export type UserUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   adoptionRequests?: Prisma.AdoptionRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -793,16 +793,16 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
 
 export type UserCreateWithoutAdoptionRequestsInput = {
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -814,16 +814,16 @@ export type UserCreateWithoutAdoptionRequestsInput = {
 export type UserUncheckedCreateWithoutAdoptionRequestsInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -850,16 +850,16 @@ export type UserUpdateToOneWithWhereWithoutAdoptionRequestsInput = {
 
 export type UserUpdateWithoutAdoptionRequestsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -871,16 +871,16 @@ export type UserUpdateWithoutAdoptionRequestsInput = {
 export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -891,16 +891,16 @@ export type UserUncheckedUpdateWithoutAdoptionRequestsInput = {
 
 export type UserCreateWithoutSheltersInput = {
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -912,16 +912,16 @@ export type UserCreateWithoutSheltersInput = {
 export type UserUncheckedCreateWithoutSheltersInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -948,16 +948,16 @@ export type UserUpdateToOneWithWhereWithoutSheltersInput = {
 
 export type UserUpdateWithoutSheltersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -969,16 +969,16 @@ export type UserUpdateWithoutSheltersInput = {
 export type UserUncheckedUpdateWithoutSheltersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -989,16 +989,16 @@ export type UserUncheckedUpdateWithoutSheltersInput = {
 
 export type UserCreateWithoutShelterStaffsInput = {
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -1010,16 +1010,16 @@ export type UserCreateWithoutShelterStaffsInput = {
 export type UserUncheckedCreateWithoutShelterStaffsInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -1046,16 +1046,16 @@ export type UserUpdateToOneWithWhereWithoutShelterStaffsInput = {
 
 export type UserUpdateWithoutShelterStaffsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -1067,16 +1067,16 @@ export type UserUpdateWithoutShelterStaffsInput = {
 export type UserUncheckedUpdateWithoutShelterStaffsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -1087,16 +1087,16 @@ export type UserUncheckedUpdateWithoutShelterStaffsInput = {
 
 export type UserCreateWithoutDonationsInput = {
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
@@ -1108,16 +1108,16 @@ export type UserCreateWithoutDonationsInput = {
 export type UserUncheckedCreateWithoutDonationsInput = {
   id?: number
   email: string
-  hashedPassword: string
   firstName: string
   lastName: string
   address?: string | null
   phoneNumber?: string | null
-  role?: $Enums.Role
   isVerified?: boolean
+  hashedPassword: string
   verifyToken?: string | null
-  verifyTokenExpiry?: Date | string | null
   refreshToken?: string | null
+  verifyTokenExpiry?: Date | string | null
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
@@ -1144,16 +1144,16 @@ export type UserUpdateToOneWithWhereWithoutDonationsInput = {
 
 export type UserUpdateWithoutDonationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
@@ -1165,16 +1165,16 @@ export type UserUpdateWithoutDonationsInput = {
 export type UserUncheckedUpdateWithoutDonationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifyTokenExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
@@ -1253,16 +1253,16 @@ export type UserCountOutputTypeCountDonationsArgs<ExtArgs extends runtime.Types.
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  hashedPassword?: boolean
   firstName?: boolean
   lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
-  role?: boolean
   isVerified?: boolean
+  hashedPassword?: boolean
   verifyToken?: boolean
-  verifyTokenExpiry?: boolean
   refreshToken?: boolean
+  verifyTokenExpiry?: boolean
+  role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
@@ -1276,16 +1276,16 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  hashedPassword?: boolean
   firstName?: boolean
   lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
-  role?: boolean
   isVerified?: boolean
+  hashedPassword?: boolean
   verifyToken?: boolean
-  verifyTokenExpiry?: boolean
   refreshToken?: boolean
+  verifyTokenExpiry?: boolean
+  role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1293,16 +1293,16 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  hashedPassword?: boolean
   firstName?: boolean
   lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
-  role?: boolean
   isVerified?: boolean
+  hashedPassword?: boolean
   verifyToken?: boolean
-  verifyTokenExpiry?: boolean
   refreshToken?: boolean
+  verifyTokenExpiry?: boolean
+  role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1310,21 +1310,21 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectScalar = {
   id?: boolean
   email?: boolean
-  hashedPassword?: boolean
   firstName?: boolean
   lastName?: boolean
   address?: boolean
   phoneNumber?: boolean
-  role?: boolean
   isVerified?: boolean
+  hashedPassword?: boolean
   verifyToken?: boolean
-  verifyTokenExpiry?: boolean
   refreshToken?: boolean
+  verifyTokenExpiry?: boolean
+  role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "hashedPassword" | "firstName" | "lastName" | "address" | "phoneNumber" | "role" | "isVerified" | "verifyToken" | "verifyTokenExpiry" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "firstName" | "lastName" | "address" | "phoneNumber" | "isVerified" | "hashedPassword" | "verifyToken" | "refreshToken" | "verifyTokenExpiry" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   adoptionRequests?: boolean | Prisma.User$adoptionRequestsArgs<ExtArgs>
@@ -1348,16 +1348,16 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     email: string
-    hashedPassword: string
     firstName: string
     lastName: string
     address: string | null
     phoneNumber: string | null
-    role: $Enums.Role
     isVerified: boolean
+    hashedPassword: string
     verifyToken: string | null
-    verifyTokenExpiry: Date | null
     refreshToken: string | null
+    verifyTokenExpiry: Date | null
+    role: $Enums.Role
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1790,16 +1790,16 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly hashedPassword: Prisma.FieldRef<"User", 'String'>
   readonly firstName: Prisma.FieldRef<"User", 'String'>
   readonly lastName: Prisma.FieldRef<"User", 'String'>
   readonly address: Prisma.FieldRef<"User", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"User", 'String'>
-  readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly hashedPassword: Prisma.FieldRef<"User", 'String'>
   readonly verifyToken: Prisma.FieldRef<"User", 'String'>
-  readonly verifyTokenExpiry: Prisma.FieldRef<"User", 'DateTime'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
+  readonly verifyTokenExpiry: Prisma.FieldRef<"User", 'DateTime'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

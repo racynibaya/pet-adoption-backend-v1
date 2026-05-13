@@ -1,7 +1,13 @@
 import bcrypt from 'bcrypt';
 import prisma from '@config/prisma';
 
-import { Gender, PetStatus, Role, Size, Species } from '../generated/prisma/enums';
+import {
+  Gender,
+  PetStatus,
+  Role,
+  Size,
+  Species,
+} from '../generated/prisma/enums';
 
 function randomItem<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -55,20 +61,52 @@ const RABBIT_BREEDS = [
 ];
 
 const DOG_NAMES = [
-  'Max', 'Buddy', 'Charlie', 'Jack', 'Cooper',
-  'Rocky', 'Bear', 'Duke', 'Tucker', 'Oliver',
-  'Leo', 'Zeus', 'Buster', 'Teddy', 'Milo',
+  'Max',
+  'Buddy',
+  'Charlie',
+  'Jack',
+  'Cooper',
+  'Rocky',
+  'Bear',
+  'Duke',
+  'Tucker',
+  'Oliver',
+  'Leo',
+  'Zeus',
+  'Buster',
+  'Teddy',
+  'Milo',
 ];
 
 const CAT_NAMES = [
-  'Luna', 'Bella', 'Lucy', 'Kitty', 'Nala',
-  'Chloe', 'Lily', 'Zoe', 'Lola', 'Molly',
-  'Sophie', 'Cleo', 'Gracie', 'Ellie', 'Rosie',
+  'Luna',
+  'Bella',
+  'Lucy',
+  'Kitty',
+  'Nala',
+  'Chloe',
+  'Lily',
+  'Zoe',
+  'Lola',
+  'Molly',
+  'Sophie',
+  'Cleo',
+  'Gracie',
+  'Ellie',
+  'Rosie',
 ];
 
 const RABBIT_NAMES = [
-  'Thumper', 'Hazel', 'Peanut', 'Snowball', 'Daisy',
-  'Clover', 'Biscuit', 'Cocoa', 'Marshmallow', 'Pepper',
+  'Thumper',
+  'Hazel',
+  'Peanut',
+  'Snowball',
+  'Daisy',
+  'Clover',
+  'Biscuit',
+  'Cocoa',
+  'Marshmallow',
+  'Pepper',
 ];
 
 const PET_STATUSES: PetStatus[] = [
@@ -115,29 +153,92 @@ const PHOTO_URLS: Record<string, string> = {
 // ── User data ─────────────────────────────────────────────────────────────────
 
 const FIRST_NAMES = [
-  'James', 'Mary', 'John', 'Patricia', 'Robert',
-  'Jennifer', 'Michael', 'Linda', 'William', 'Barbara',
-  'David', 'Susan', 'Richard', 'Jessica', 'Joseph',
-  'Sarah', 'Thomas', 'Karen', 'Charles', 'Lisa',
-  'Christopher', 'Nancy', 'Daniel', 'Betty', 'Matthew',
-  'Margaret', 'Anthony', 'Sandra', 'Mark', 'Ashley',
-  'Donald', 'Dorothy', 'Steven', 'Kimberly', 'Paul',
-  'Emily', 'Andrew', 'Donna', 'Joshua', 'Michelle',
+  'James',
+  'Mary',
+  'John',
+  'Patricia',
+  'Robert',
+  'Jennifer',
+  'Michael',
+  'Linda',
+  'William',
+  'Barbara',
+  'David',
+  'Susan',
+  'Richard',
+  'Jessica',
+  'Joseph',
+  'Sarah',
+  'Thomas',
+  'Karen',
+  'Charles',
+  'Lisa',
+  'Christopher',
+  'Nancy',
+  'Daniel',
+  'Betty',
+  'Matthew',
+  'Margaret',
+  'Anthony',
+  'Sandra',
+  'Mark',
+  'Ashley',
+  'Donald',
+  'Dorothy',
+  'Steven',
+  'Kimberly',
+  'Paul',
+  'Emily',
+  'Andrew',
+  'Donna',
+  'Joshua',
+  'Michelle',
 ];
 
 const LAST_NAMES = [
-  'Smith', 'Johnson', 'Williams', 'Brown', 'Jones',
-  'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez',
-  'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson',
-  'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin',
-  'Lee', 'Perez', 'Thompson', 'White', 'Harris',
-  'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson',
+  'Smith',
+  'Johnson',
+  'Williams',
+  'Brown',
+  'Jones',
+  'Garcia',
+  'Miller',
+  'Davis',
+  'Rodriguez',
+  'Martinez',
+  'Hernandez',
+  'Lopez',
+  'Gonzalez',
+  'Wilson',
+  'Anderson',
+  'Thomas',
+  'Taylor',
+  'Moore',
+  'Jackson',
+  'Martin',
+  'Lee',
+  'Perez',
+  'Thompson',
+  'White',
+  'Harris',
+  'Sanchez',
+  'Clark',
+  'Ramirez',
+  'Lewis',
+  'Robinson',
 ];
 
 const ADDRESSES = [
-  '123 Maple St', '456 Oak Ave', '789 Pine Rd',
-  '321 Elm Blvd', '654 Cedar Ln', '987 Birch Dr',
-  '135 Willow Way', '246 Spruce Ct', '357 Poplar Pl', '468 Ash St',
+  '123 Maple St',
+  '456 Oak Ave',
+  '789 Pine Rd',
+  '321 Elm Blvd',
+  '654 Cedar Ln',
+  '987 Birch Dr',
+  '135 Willow Way',
+  '246 Spruce Ct',
+  '357 Poplar Pl',
+  '468 Ash St',
 ];
 
 const SHELTER_NAMES = [
@@ -156,21 +257,41 @@ async function main() {
   const hashedPassword = await bcrypt.hash('Password123!', 10);
   const verifyTokenExpiry = randomFutureDate(7);
 
+  // -- 0. Create ADMIN
+  console.log('Creating ADMIN user');
+  await prisma.user.create({
+    data: {
+      id: 0,
+      firstName: 'Racyn',
+      lastName: 'Ibaya',
+      email: `admin@petadopt.com`,
+      hashedPassword,
+      role: Role.ADMIN,
+      isVerified: true,
+      verifyToken: `verify-user-token-${0}`,
+      verifyTokenExpiry,
+      address: `${randomItem(ADDRESSES)}, Unit ${0}`,
+      phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
+    },
+  });
+
   // ── 1. Create 100 regular USER accounts ──────────────────────────────────
   console.log('👥 Creating 100 regular users...');
   await prisma.user.createMany({
-    data: Array.from({ length: 100 }, (_, i) => ({
-      firstName: randomItem(FIRST_NAMES),
-      lastName: randomItem(LAST_NAMES),
-      email: `user${i + 1}@petadopt.com`,
-      hashedPassword,
-      role: Role.USER,
-      isVerified: true,
-      verifyToken: `verify-user-token-${i + 1}`,
-      verifyTokenExpiry,
-      address: `${randomItem(ADDRESSES)}, Unit ${i + 1}`,
-      phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
-    })),
+    data: Array.from({ length: 100 }, (_, i) => {
+      return {
+        firstName: randomItem(FIRST_NAMES),
+        lastName: randomItem(LAST_NAMES),
+        email: `user${i + 1}@petadopt.com`,
+        hashedPassword,
+        role: Role.USER,
+        isVerified: true,
+        verifyToken: `verify-user-token-${i + 1}`,
+        verifyTokenExpiry,
+        address: `${randomItem(ADDRESSES)}, Unit ${i + 1}`,
+        phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
+      };
+    }),
   });
 
   // ── 2. Create STAFF users (one per shelter) ───────────────────────────────

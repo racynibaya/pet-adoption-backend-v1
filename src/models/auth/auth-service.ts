@@ -17,6 +17,9 @@ import { JwtPayload, CreateUserDTO, SanitizedUser } from './auth-types';
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
 const JWT_SECRET = process.env.JWT_SECRET!;
+
+console.log(JWT_SECRET);
+
 if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is required');
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
@@ -99,7 +102,7 @@ class AuthService {
   async createUser(
     data: CreateUserDTO,
   ): Promise<SanitizedUser & { link: string }> {
-    const { firstName, lastName, email, password, role } = data;
+    const { firstName, lastName, email, password } = data;
     const token = crypto.randomBytes(32).toString('hex');
     const hashed = await bcrypt.hash(password, 10);
     try {
@@ -112,13 +115,13 @@ class AuthService {
           isVerified: false,
           verifyToken: token,
           verifyTokenExpiry: new Date(Date.now() + ONE_HOUR_MS), //1hr
-          role: role || 'USER',
         },
         omit: {
           verifyTokenExpiry: true,
           hashedPassword: true,
         },
       });
+      console.log(process.env.BASE_URL);
 
       const link = `${process.env.BASE_URL}/auth/verify?token=${token}`;
 

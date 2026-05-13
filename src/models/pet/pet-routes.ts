@@ -1,22 +1,27 @@
-import { Router, Request } from 'express';
+import { Router } from 'express';
+
+import {
+  authorizeRole,
+  checkVerifiedUser,
+  verifyTokenMiddleware,
+} from '@models/auth/auth-middleware';
+
+import { Role } from '../../../generated/prisma/client';
 import petController from './pet-controller';
+import { uploadPetImages } from './pet-middleware';
 
 const router = Router();
-
-// whatever staff can do, admin can
-// GET/pets (public) + filters
-// POST/pets (staff only)
-
-// GET/pets/:id (public)
-// PATCH/pets/:id (staff only)
-// DEL/pets/:id delete (staff)
-
-// POST/pets/:id/images (staff only)
 
 router
   .route('/')
   .get(petController.petsHandler)
-  .post(() => {});
+  .post(
+    verifyTokenMiddleware,
+    checkVerifiedUser,
+    authorizeRole(Role.STAFF, Role.ADMIN),
+    uploadPetImages,
+    petController.createPetHandler,
+  );
 
 router
   .route('/:id')

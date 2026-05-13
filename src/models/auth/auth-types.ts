@@ -7,7 +7,6 @@ export const userSchema = z.object({
   firstName: z.string().min(2),
   lastName: z.string().min(2),
   password: z.string(),
-  role: z.enum(Role).optional(),
 });
 
 export type CreateUserInput = {

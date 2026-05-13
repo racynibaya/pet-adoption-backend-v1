@@ -3,7 +3,11 @@ import cors, { CorsOptions, CorsOptionsDelegate } from 'cors';
 import { Request } from 'express';
 
 // Move outside (not recreated every request)
-const allowedOrigins = ['http://localhost:3001', 'http://yourcustomdomain.com'];
+const allowedOrigins = [
+  'http://localhost:3001',
+  'http://localhost:5173',
+  'https://koda-nest.vercel.app',
+];
 
 // Properly typed delegate function
 const corsOptionsDelegate: CorsOptionsDelegate<Request> = (req, callback) => {

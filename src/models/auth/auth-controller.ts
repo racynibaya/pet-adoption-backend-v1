@@ -88,7 +88,7 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { firstName, lastName, email, password, role } = userSchema.parse(
+      const { firstName, lastName, email, password } = userSchema.parse(
         req.body,
       );
 
@@ -103,7 +103,6 @@ class AuthController {
         lastName,
         email,
         password,
-        role,
       });
 
       res.status(201).json({
