@@ -112,7 +112,7 @@ class AuthService {
           lastName,
           email,
           hashedPassword: hashed,
-          isVerified: false,
+          isVerified: true, //TODO: set to false kapag meron na ung email feature
           verifyToken: token,
           verifyTokenExpiry: new Date(Date.now() + ONE_HOUR_MS), //1hr
         },

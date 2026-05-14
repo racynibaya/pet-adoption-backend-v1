@@ -254,7 +254,7 @@ const SHELTER_NAMES = [
 async function main() {
   console.log('🌱 Starting seed...');
 
-  const hashedPassword = await bcrypt.hash('Password123!', 10);
+  const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD!, 10);
   const verifyTokenExpiry = randomFutureDate(7);
 
   // -- 0. Create ADMIN
@@ -275,24 +275,24 @@ async function main() {
     },
   });
 
-  // ── 1. Create 100 regular USER accounts ──────────────────────────────────
-  console.log('👥 Creating 100 regular users...');
-  await prisma.user.createMany({
-    data: Array.from({ length: 100 }, (_, i) => {
-      return {
-        firstName: randomItem(FIRST_NAMES),
-        lastName: randomItem(LAST_NAMES),
-        email: `user${i + 1}@petadopt.com`,
-        hashedPassword,
-        role: Role.USER,
-        isVerified: true,
-        verifyToken: `verify-user-token-${i + 1}`,
-        verifyTokenExpiry,
-        address: `${randomItem(ADDRESSES)}, Unit ${i + 1}`,
-        phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
-      };
-    }),
-  });
+  // // ── 1. Create 100 regular USER accounts ──────────────────────────────────
+  // console.log('👥 Creating 100 regular users...');
+  // await prisma.user.createMany({
+  //   data: Array.from({ length: 100 }, (_, i) => {
+  //     return {
+  //       firstName: randomItem(FIRST_NAMES),
+  //       lastName: randomItem(LAST_NAMES),
+  //       email: `user${i + 1}@petadopt.com`,
+  //       hashedPassword,
+  //       role: Role.USER,
+  //       isVerified: true,
+  //       verifyToken: `verify-user-token-${i + 1}`,
+  //       verifyTokenExpiry,
+  //       address: `${randomItem(ADDRESSES)}, Unit ${i + 1}`,
+  //       phoneNumber: `+1${String(Math.floor(Math.random() * 9000000000) + 1000000000)}`,
+  //     };
+  //   }),
+  // });
 
   // ── 2. Create STAFF users (one per shelter) ───────────────────────────────
   console.log('👤 Creating staff users...');
