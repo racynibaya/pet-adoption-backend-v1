@@ -111,12 +111,13 @@ model AdoptionRequest {
 }
 
 model Shelter {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   name         String
   description  String
-  address      String @unique
-  contactEmail String @unique
+  address      String  @unique
+  contactEmail String  @unique
   phoneNumber  String
+  imageUrl     String?
   ownerId      Int
 
   owner         User           @relation(fields: [ownerId], references: [id], onDelete: Restrict)

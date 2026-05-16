@@ -16,7 +16,7 @@ import AppError from '@utils/app-error';
 
 const app = express();
 
-const BASE_ROUTE = process.env.BASE_ROUTE || '/api/v1';
+const BASE_ROUTE = '/api/v1';
 
 // Express middlewares
 app.use(express.json());
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(morgan('dev'));
 
-app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
+app.use(rateLimiter(10000, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
 
 app.use('/uploads', express.static('uploads'));
 

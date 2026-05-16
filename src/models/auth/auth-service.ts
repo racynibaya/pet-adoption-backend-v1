@@ -18,8 +18,6 @@ const { TokenExpiredError, JsonWebTokenError } = jwt;
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-console.log(JWT_SECRET);
-
 if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is required');
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
@@ -121,7 +119,6 @@ class AuthService {
           hashedPassword: true,
         },
       });
-      console.log(process.env.BASE_URL);
 
       const link = `${process.env.BASE_URL}/auth/verify?token=${token}`;
 

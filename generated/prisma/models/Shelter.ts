@@ -43,6 +43,7 @@ export type ShelterMinAggregateOutputType = {
   address: string | null
   contactEmail: string | null
   phoneNumber: string | null
+  imageUrl: string | null
   ownerId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,6 +56,7 @@ export type ShelterMaxAggregateOutputType = {
   address: string | null
   contactEmail: string | null
   phoneNumber: string | null
+  imageUrl: string | null
   ownerId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -67,6 +69,7 @@ export type ShelterCountAggregateOutputType = {
   address: number
   contactEmail: number
   phoneNumber: number
+  imageUrl: number
   ownerId: number
   createdAt: number
   updatedAt: number
@@ -91,6 +94,7 @@ export type ShelterMinAggregateInputType = {
   address?: true
   contactEmail?: true
   phoneNumber?: true
+  imageUrl?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -103,6 +107,7 @@ export type ShelterMaxAggregateInputType = {
   address?: true
   contactEmail?: true
   phoneNumber?: true
+  imageUrl?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -115,6 +120,7 @@ export type ShelterCountAggregateInputType = {
   address?: true
   contactEmail?: true
   phoneNumber?: true
+  imageUrl?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
@@ -214,6 +220,7 @@ export type ShelterGroupByOutputType = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl: string | null
   ownerId: number
   createdAt: Date
   updatedAt: Date
@@ -249,6 +256,7 @@ export type ShelterWhereInput = {
   address?: Prisma.StringFilter<"Shelter"> | string
   contactEmail?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Shelter"> | string | null
   ownerId?: Prisma.IntFilter<"Shelter"> | number
   createdAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
@@ -265,6 +273,7 @@ export type ShelterOrderByWithRelationInput = {
   address?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -284,6 +293,7 @@ export type ShelterWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Shelter"> | string
   description?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Shelter"> | string | null
   ownerId?: Prisma.IntFilter<"Shelter"> | number
   createdAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
@@ -300,6 +310,7 @@ export type ShelterOrderByWithAggregationInput = {
   address?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -320,6 +331,7 @@ export type ShelterScalarWhereWithAggregatesInput = {
   address?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
   contactEmail?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Shelter"> | string | null
   ownerId?: Prisma.IntWithAggregatesFilter<"Shelter"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shelter"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shelter"> | Date | string
@@ -331,6 +343,7 @@ export type ShelterCreateInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutSheltersInput
@@ -346,6 +359,7 @@ export type ShelterUncheckedCreateInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -360,6 +374,7 @@ export type ShelterUpdateInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
@@ -375,6 +390,7 @@ export type ShelterUncheckedUpdateInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -390,6 +406,7 @@ export type ShelterCreateManyInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -401,6 +418,7 @@ export type ShelterUpdateManyMutationInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -412,6 +430,7 @@ export type ShelterUncheckedUpdateManyInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,6 +458,7 @@ export type ShelterCountOrderByAggregateInput = {
   address?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -456,6 +476,7 @@ export type ShelterMaxOrderByAggregateInput = {
   address?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -468,6 +489,7 @@ export type ShelterMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -575,6 +597,7 @@ export type ShelterCreateWithoutOwnerInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shelterStaffs?: Prisma.ShelterStaffCreateNestedManyWithoutShelterInput
@@ -589,6 +612,7 @@ export type ShelterUncheckedCreateWithoutOwnerInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shelterStaffs?: Prisma.ShelterStaffUncheckedCreateNestedManyWithoutShelterInput
@@ -632,6 +656,7 @@ export type ShelterScalarWhereInput = {
   address?: Prisma.StringFilter<"Shelter"> | string
   contactEmail?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Shelter"> | string | null
   ownerId?: Prisma.IntFilter<"Shelter"> | number
   createdAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shelter"> | Date | string
@@ -643,6 +668,7 @@ export type ShelterCreateWithoutPetsInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutSheltersInput
@@ -657,6 +683,7 @@ export type ShelterUncheckedCreateWithoutPetsInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -686,6 +713,7 @@ export type ShelterUpdateWithoutPetsInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
@@ -700,6 +728,7 @@ export type ShelterUncheckedUpdateWithoutPetsInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -713,6 +742,7 @@ export type ShelterCreateWithoutShelterStaffsInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutSheltersInput
@@ -727,6 +757,7 @@ export type ShelterUncheckedCreateWithoutShelterStaffsInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -756,6 +787,7 @@ export type ShelterUpdateWithoutShelterStaffsInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
@@ -770,6 +802,7 @@ export type ShelterUncheckedUpdateWithoutShelterStaffsInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -783,6 +816,7 @@ export type ShelterCreateWithoutDonationsInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutSheltersInput
@@ -797,6 +831,7 @@ export type ShelterUncheckedCreateWithoutDonationsInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   ownerId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -826,6 +861,7 @@ export type ShelterUpdateWithoutDonationsInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutSheltersNestedInput
@@ -840,6 +876,7 @@ export type ShelterUncheckedUpdateWithoutDonationsInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -854,6 +891,7 @@ export type ShelterCreateManyOwnerInput = {
   address: string
   contactEmail: string
   phoneNumber: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -864,6 +902,7 @@ export type ShelterUpdateWithoutOwnerInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shelterStaffs?: Prisma.ShelterStaffUpdateManyWithoutShelterNestedInput
@@ -878,6 +917,7 @@ export type ShelterUncheckedUpdateWithoutOwnerInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shelterStaffs?: Prisma.ShelterStaffUncheckedUpdateManyWithoutShelterNestedInput
@@ -892,6 +932,7 @@ export type ShelterUncheckedUpdateManyWithoutOwnerInput = {
   address?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -952,6 +993,7 @@ export type ShelterSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   address?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -969,6 +1011,7 @@ export type ShelterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   address?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -982,6 +1025,7 @@ export type ShelterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   address?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -995,12 +1039,13 @@ export type ShelterSelectScalar = {
   address?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
+  imageUrl?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ShelterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "contactEmail" | "phoneNumber" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["shelter"]>
+export type ShelterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "contactEmail" | "phoneNumber" | "imageUrl" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["shelter"]>
 export type ShelterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.Shelter$shelterStaffsArgs<ExtArgs>
@@ -1030,6 +1075,7 @@ export type $ShelterPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     address: string
     contactEmail: string
     phoneNumber: string
+    imageUrl: string | null
     ownerId: number
     createdAt: Date
     updatedAt: Date
@@ -1466,6 +1512,7 @@ export interface ShelterFieldRefs {
   readonly address: Prisma.FieldRef<"Shelter", 'String'>
   readonly contactEmail: Prisma.FieldRef<"Shelter", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"Shelter", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"Shelter", 'String'>
   readonly ownerId: Prisma.FieldRef<"Shelter", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Shelter", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Shelter", 'DateTime'>

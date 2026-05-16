@@ -13,6 +13,14 @@ class PetService {
 
     const [pets, total] = await prisma.$transaction([
       prisma.pet.findMany({
+        where: {
+          status: {
+            not: 'ADOPTED',
+          },
+        },
+        include: {
+          images: true,
+        },
         skip,
         take: limit,
       }),

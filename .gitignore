@@ -8,3 +8,4 @@ dist/
 
 uploads/pets/*
 !uploads/pets/.gitkeep
+my-seniors-advice.md

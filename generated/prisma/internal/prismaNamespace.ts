@@ -1127,6 +1127,7 @@ export const ShelterScalarFieldEnum = {
   address: 'address',
   contactEmail: 'contactEmail',
   phoneNumber: 'phoneNumber',
+  imageUrl: 'imageUrl',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

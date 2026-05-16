@@ -10,6 +10,9 @@ class UserServices {
         verifyToken: true,
         verifyTokenExpiry: true,
       },
+      include: {
+        shelterStaffs: { select: { shelterId: true } },
+      },
     });
   }
 }
