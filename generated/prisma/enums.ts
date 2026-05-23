@@ -85,3 +85,12 @@ export const Size = {
 } as const
 
 export type Size = (typeof Size)[keyof typeof Size]
+
+
+export const HomeType = {
+  HOUSE: 'HOUSE',
+  APARTMENT: 'APARTMENT',
+  CONDO: 'CONDO'
+} as const
+
+export type HomeType = (typeof HomeType)[keyof typeof HomeType]

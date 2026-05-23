@@ -30,21 +30,41 @@ export type AdoptionRequestAvgAggregateOutputType = {
   id: number | null
   petId: number | null
   userId: number | null
+  householdSize: number | null
+  yearsOfExperience: number | null
+  hoursAwayPerDay: number | null
 }
 
 export type AdoptionRequestSumAggregateOutputType = {
   id: number | null
   petId: number | null
   userId: number | null
+  householdSize: number | null
+  yearsOfExperience: number | null
+  hoursAwayPerDay: number | null
 }
 
 export type AdoptionRequestMinAggregateOutputType = {
   id: number | null
   petId: number | null
   userId: number | null
-  message: string | null
   rejectionReason: string | null
   status: $Enums.AdoptionRequestStatus | null
+  message: string | null
+  homeType: $Enums.HomeType | null
+  hasYard: boolean | null
+  yardFenced: boolean | null
+  ownsHome: boolean | null
+  landlordAllowPets: boolean | null
+  householdSize: number | null
+  hasChildren: boolean | null
+  hasPreviousPetExperience: boolean | null
+  yearsOfExperience: number | null
+  hoursAwayPerDay: number | null
+  hasOtherPetsNow: boolean | null
+  reasonForAdopting: string | null
+  hasBackupCarePlan: boolean | null
+  awareOfMonthlyCosts: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,9 +73,23 @@ export type AdoptionRequestMaxAggregateOutputType = {
   id: number | null
   petId: number | null
   userId: number | null
-  message: string | null
   rejectionReason: string | null
   status: $Enums.AdoptionRequestStatus | null
+  message: string | null
+  homeType: $Enums.HomeType | null
+  hasYard: boolean | null
+  yardFenced: boolean | null
+  ownsHome: boolean | null
+  landlordAllowPets: boolean | null
+  householdSize: number | null
+  hasChildren: boolean | null
+  hasPreviousPetExperience: boolean | null
+  yearsOfExperience: number | null
+  hoursAwayPerDay: number | null
+  hasOtherPetsNow: boolean | null
+  reasonForAdopting: string | null
+  hasBackupCarePlan: boolean | null
+  awareOfMonthlyCosts: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,9 +98,23 @@ export type AdoptionRequestCountAggregateOutputType = {
   id: number
   petId: number
   userId: number
-  message: number
   rejectionReason: number
   status: number
+  message: number
+  homeType: number
+  hasYard: number
+  yardFenced: number
+  ownsHome: number
+  landlordAllowPets: number
+  householdSize: number
+  hasChildren: number
+  hasPreviousPetExperience: number
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: number
+  reasonForAdopting: number
+  hasBackupCarePlan: number
+  awareOfMonthlyCosts: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -77,21 +125,41 @@ export type AdoptionRequestAvgAggregateInputType = {
   id?: true
   petId?: true
   userId?: true
+  householdSize?: true
+  yearsOfExperience?: true
+  hoursAwayPerDay?: true
 }
 
 export type AdoptionRequestSumAggregateInputType = {
   id?: true
   petId?: true
   userId?: true
+  householdSize?: true
+  yearsOfExperience?: true
+  hoursAwayPerDay?: true
 }
 
 export type AdoptionRequestMinAggregateInputType = {
   id?: true
   petId?: true
   userId?: true
-  message?: true
   rejectionReason?: true
   status?: true
+  message?: true
+  homeType?: true
+  hasYard?: true
+  yardFenced?: true
+  ownsHome?: true
+  landlordAllowPets?: true
+  householdSize?: true
+  hasChildren?: true
+  hasPreviousPetExperience?: true
+  yearsOfExperience?: true
+  hoursAwayPerDay?: true
+  hasOtherPetsNow?: true
+  reasonForAdopting?: true
+  hasBackupCarePlan?: true
+  awareOfMonthlyCosts?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,9 +168,23 @@ export type AdoptionRequestMaxAggregateInputType = {
   id?: true
   petId?: true
   userId?: true
-  message?: true
   rejectionReason?: true
   status?: true
+  message?: true
+  homeType?: true
+  hasYard?: true
+  yardFenced?: true
+  ownsHome?: true
+  landlordAllowPets?: true
+  householdSize?: true
+  hasChildren?: true
+  hasPreviousPetExperience?: true
+  yearsOfExperience?: true
+  hoursAwayPerDay?: true
+  hasOtherPetsNow?: true
+  reasonForAdopting?: true
+  hasBackupCarePlan?: true
+  awareOfMonthlyCosts?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -111,9 +193,23 @@ export type AdoptionRequestCountAggregateInputType = {
   id?: true
   petId?: true
   userId?: true
-  message?: true
   rejectionReason?: true
   status?: true
+  message?: true
+  homeType?: true
+  hasYard?: true
+  yardFenced?: true
+  ownsHome?: true
+  landlordAllowPets?: true
+  householdSize?: true
+  hasChildren?: true
+  hasPreviousPetExperience?: true
+  yearsOfExperience?: true
+  hoursAwayPerDay?: true
+  hasOtherPetsNow?: true
+  reasonForAdopting?: true
+  hasBackupCarePlan?: true
+  awareOfMonthlyCosts?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -209,9 +305,23 @@ export type AdoptionRequestGroupByOutputType = {
   id: number
   petId: number
   userId: number
-  message: string | null
   rejectionReason: string | null
   status: $Enums.AdoptionRequestStatus
+  message: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced: boolean | null
+  ownsHome: boolean
+  landlordAllowPets: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt: Date
   updatedAt: Date
   _count: AdoptionRequestCountAggregateOutputType | null
@@ -243,9 +353,23 @@ export type AdoptionRequestWhereInput = {
   id?: Prisma.IntFilter<"AdoptionRequest"> | number
   petId?: Prisma.IntFilter<"AdoptionRequest"> | number
   userId?: Prisma.IntFilter<"AdoptionRequest"> | number
-  message?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
   status?: Prisma.EnumAdoptionRequestStatusFilter<"AdoptionRequest"> | $Enums.AdoptionRequestStatus
+  message?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
+  homeType?: Prisma.EnumHomeTypeFilter<"AdoptionRequest"> | $Enums.HomeType
+  hasYard?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  yardFenced?: Prisma.BoolNullableFilter<"AdoptionRequest"> | boolean | null
+  ownsHome?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  landlordAllowPets?: Prisma.BoolNullableFilter<"AdoptionRequest"> | boolean | null
+  householdSize?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hasChildren?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  hasPreviousPetExperience?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  yearsOfExperience?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hoursAwayPerDay?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hasOtherPetsNow?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  reasonForAdopting?: Prisma.StringFilter<"AdoptionRequest"> | string
+  hasBackupCarePlan?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
   pet?: Prisma.XOR<Prisma.PetScalarRelationFilter, Prisma.PetWhereInput>
@@ -256,9 +380,23 @@ export type AdoptionRequestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  message?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
+  homeType?: Prisma.SortOrder
+  hasYard?: Prisma.SortOrder
+  yardFenced?: Prisma.SortOrderInput | Prisma.SortOrder
+  ownsHome?: Prisma.SortOrder
+  landlordAllowPets?: Prisma.SortOrderInput | Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  hasChildren?: Prisma.SortOrder
+  hasPreviousPetExperience?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
+  hasOtherPetsNow?: Prisma.SortOrder
+  reasonForAdopting?: Prisma.SortOrder
+  hasBackupCarePlan?: Prisma.SortOrder
+  awareOfMonthlyCosts?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   pet?: Prisma.PetOrderByWithRelationInput
@@ -272,9 +410,23 @@ export type AdoptionRequestWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AdoptionRequestWhereInput | Prisma.AdoptionRequestWhereInput[]
   petId?: Prisma.IntFilter<"AdoptionRequest"> | number
   userId?: Prisma.IntFilter<"AdoptionRequest"> | number
-  message?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
   status?: Prisma.EnumAdoptionRequestStatusFilter<"AdoptionRequest"> | $Enums.AdoptionRequestStatus
+  message?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
+  homeType?: Prisma.EnumHomeTypeFilter<"AdoptionRequest"> | $Enums.HomeType
+  hasYard?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  yardFenced?: Prisma.BoolNullableFilter<"AdoptionRequest"> | boolean | null
+  ownsHome?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  landlordAllowPets?: Prisma.BoolNullableFilter<"AdoptionRequest"> | boolean | null
+  householdSize?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hasChildren?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  hasPreviousPetExperience?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  yearsOfExperience?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hoursAwayPerDay?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hasOtherPetsNow?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  reasonForAdopting?: Prisma.StringFilter<"AdoptionRequest"> | string
+  hasBackupCarePlan?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
   pet?: Prisma.XOR<Prisma.PetScalarRelationFilter, Prisma.PetWhereInput>
@@ -285,9 +437,23 @@ export type AdoptionRequestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  message?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
+  homeType?: Prisma.SortOrder
+  hasYard?: Prisma.SortOrder
+  yardFenced?: Prisma.SortOrderInput | Prisma.SortOrder
+  ownsHome?: Prisma.SortOrder
+  landlordAllowPets?: Prisma.SortOrderInput | Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  hasChildren?: Prisma.SortOrder
+  hasPreviousPetExperience?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
+  hasOtherPetsNow?: Prisma.SortOrder
+  reasonForAdopting?: Prisma.SortOrder
+  hasBackupCarePlan?: Prisma.SortOrder
+  awareOfMonthlyCosts?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.AdoptionRequestCountOrderByAggregateInput
@@ -304,17 +470,45 @@ export type AdoptionRequestScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"AdoptionRequest"> | number
   petId?: Prisma.IntWithAggregatesFilter<"AdoptionRequest"> | number
   userId?: Prisma.IntWithAggregatesFilter<"AdoptionRequest"> | number
-  message?: Prisma.StringNullableWithAggregatesFilter<"AdoptionRequest"> | string | null
   rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"AdoptionRequest"> | string | null
   status?: Prisma.EnumAdoptionRequestStatusWithAggregatesFilter<"AdoptionRequest"> | $Enums.AdoptionRequestStatus
+  message?: Prisma.StringNullableWithAggregatesFilter<"AdoptionRequest"> | string | null
+  homeType?: Prisma.EnumHomeTypeWithAggregatesFilter<"AdoptionRequest"> | $Enums.HomeType
+  hasYard?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
+  yardFenced?: Prisma.BoolNullableWithAggregatesFilter<"AdoptionRequest"> | boolean | null
+  ownsHome?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
+  landlordAllowPets?: Prisma.BoolNullableWithAggregatesFilter<"AdoptionRequest"> | boolean | null
+  householdSize?: Prisma.IntWithAggregatesFilter<"AdoptionRequest"> | number
+  hasChildren?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
+  hasPreviousPetExperience?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
+  yearsOfExperience?: Prisma.IntWithAggregatesFilter<"AdoptionRequest"> | number
+  hoursAwayPerDay?: Prisma.IntWithAggregatesFilter<"AdoptionRequest"> | number
+  hasOtherPetsNow?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
+  reasonForAdopting?: Prisma.StringWithAggregatesFilter<"AdoptionRequest"> | string
+  hasBackupCarePlan?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
+  awareOfMonthlyCosts?: Prisma.BoolWithAggregatesFilter<"AdoptionRequest"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AdoptionRequest"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AdoptionRequest"> | Date | string
 }
 
 export type AdoptionRequestCreateInput = {
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   pet: Prisma.PetCreateNestedOneWithoutAdoptionRequestsInput
@@ -325,17 +519,45 @@ export type AdoptionRequestUncheckedCreateInput = {
   id?: number
   petId: number
   userId: number
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AdoptionRequestUpdateInput = {
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pet?: Prisma.PetUpdateOneRequiredWithoutAdoptionRequestsNestedInput
@@ -346,9 +568,23 @@ export type AdoptionRequestUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   petId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -357,17 +593,45 @@ export type AdoptionRequestCreateManyInput = {
   id?: number
   petId: number
   userId: number
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AdoptionRequestUpdateManyMutationInput = {
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -376,9 +640,23 @@ export type AdoptionRequestUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   petId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -397,9 +675,23 @@ export type AdoptionRequestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  message?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  message?: Prisma.SortOrder
+  homeType?: Prisma.SortOrder
+  hasYard?: Prisma.SortOrder
+  yardFenced?: Prisma.SortOrder
+  ownsHome?: Prisma.SortOrder
+  landlordAllowPets?: Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  hasChildren?: Prisma.SortOrder
+  hasPreviousPetExperience?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
+  hasOtherPetsNow?: Prisma.SortOrder
+  reasonForAdopting?: Prisma.SortOrder
+  hasBackupCarePlan?: Prisma.SortOrder
+  awareOfMonthlyCosts?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -408,15 +700,32 @@ export type AdoptionRequestAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
 }
 
 export type AdoptionRequestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  message?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  message?: Prisma.SortOrder
+  homeType?: Prisma.SortOrder
+  hasYard?: Prisma.SortOrder
+  yardFenced?: Prisma.SortOrder
+  ownsHome?: Prisma.SortOrder
+  landlordAllowPets?: Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  hasChildren?: Prisma.SortOrder
+  hasPreviousPetExperience?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
+  hasOtherPetsNow?: Prisma.SortOrder
+  reasonForAdopting?: Prisma.SortOrder
+  hasBackupCarePlan?: Prisma.SortOrder
+  awareOfMonthlyCosts?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -425,9 +734,23 @@ export type AdoptionRequestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  message?: Prisma.SortOrder
   rejectionReason?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  message?: Prisma.SortOrder
+  homeType?: Prisma.SortOrder
+  hasYard?: Prisma.SortOrder
+  yardFenced?: Prisma.SortOrder
+  ownsHome?: Prisma.SortOrder
+  landlordAllowPets?: Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  hasChildren?: Prisma.SortOrder
+  hasPreviousPetExperience?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
+  hasOtherPetsNow?: Prisma.SortOrder
+  reasonForAdopting?: Prisma.SortOrder
+  hasBackupCarePlan?: Prisma.SortOrder
+  awareOfMonthlyCosts?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -436,6 +759,9 @@ export type AdoptionRequestSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   petId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  householdSize?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  hoursAwayPerDay?: Prisma.SortOrder
 }
 
 export type AdoptionRequestCreateNestedManyWithoutUserInput = {
@@ -526,10 +852,32 @@ export type EnumAdoptionRequestStatusFieldUpdateOperationsInput = {
   set?: $Enums.AdoptionRequestStatus
 }
 
+export type EnumHomeTypeFieldUpdateOperationsInput = {
+  set?: $Enums.HomeType
+}
+
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
 export type AdoptionRequestCreateWithoutUserInput = {
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   pet: Prisma.PetCreateNestedOneWithoutAdoptionRequestsInput
@@ -538,9 +886,23 @@ export type AdoptionRequestCreateWithoutUserInput = {
 export type AdoptionRequestUncheckedCreateWithoutUserInput = {
   id?: number
   petId: number
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -578,17 +940,45 @@ export type AdoptionRequestScalarWhereInput = {
   id?: Prisma.IntFilter<"AdoptionRequest"> | number
   petId?: Prisma.IntFilter<"AdoptionRequest"> | number
   userId?: Prisma.IntFilter<"AdoptionRequest"> | number
-  message?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
   rejectionReason?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
   status?: Prisma.EnumAdoptionRequestStatusFilter<"AdoptionRequest"> | $Enums.AdoptionRequestStatus
+  message?: Prisma.StringNullableFilter<"AdoptionRequest"> | string | null
+  homeType?: Prisma.EnumHomeTypeFilter<"AdoptionRequest"> | $Enums.HomeType
+  hasYard?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  yardFenced?: Prisma.BoolNullableFilter<"AdoptionRequest"> | boolean | null
+  ownsHome?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  landlordAllowPets?: Prisma.BoolNullableFilter<"AdoptionRequest"> | boolean | null
+  householdSize?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hasChildren?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  hasPreviousPetExperience?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  yearsOfExperience?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hoursAwayPerDay?: Prisma.IntFilter<"AdoptionRequest"> | number
+  hasOtherPetsNow?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  reasonForAdopting?: Prisma.StringFilter<"AdoptionRequest"> | string
+  hasBackupCarePlan?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFilter<"AdoptionRequest"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdoptionRequest"> | Date | string
 }
 
 export type AdoptionRequestCreateWithoutPetInput = {
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutAdoptionRequestsInput
@@ -597,9 +987,23 @@ export type AdoptionRequestCreateWithoutPetInput = {
 export type AdoptionRequestUncheckedCreateWithoutPetInput = {
   id?: number
   userId: number
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -633,17 +1037,45 @@ export type AdoptionRequestUpdateManyWithWhereWithoutPetInput = {
 export type AdoptionRequestCreateManyUserInput = {
   id?: number
   petId: number
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AdoptionRequestUpdateWithoutUserInput = {
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pet?: Prisma.PetUpdateOneRequiredWithoutAdoptionRequestsNestedInput
@@ -652,9 +1084,23 @@ export type AdoptionRequestUpdateWithoutUserInput = {
 export type AdoptionRequestUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   petId?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -662,9 +1108,23 @@ export type AdoptionRequestUncheckedUpdateWithoutUserInput = {
 export type AdoptionRequestUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   petId?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -672,17 +1132,45 @@ export type AdoptionRequestUncheckedUpdateManyWithoutUserInput = {
 export type AdoptionRequestCreateManyPetInput = {
   id?: number
   userId: number
-  message?: string | null
   rejectionReason?: string | null
   status?: $Enums.AdoptionRequestStatus
+  message?: string | null
+  homeType: $Enums.HomeType
+  hasYard: boolean
+  yardFenced?: boolean | null
+  ownsHome: boolean
+  landlordAllowPets?: boolean | null
+  householdSize: number
+  hasChildren: boolean
+  hasPreviousPetExperience: boolean
+  yearsOfExperience: number
+  hoursAwayPerDay: number
+  hasOtherPetsNow: boolean
+  reasonForAdopting: string
+  hasBackupCarePlan: boolean
+  awareOfMonthlyCosts: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type AdoptionRequestUpdateWithoutPetInput = {
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutAdoptionRequestsNestedInput
@@ -691,9 +1179,23 @@ export type AdoptionRequestUpdateWithoutPetInput = {
 export type AdoptionRequestUncheckedUpdateWithoutPetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -701,9 +1203,23 @@ export type AdoptionRequestUncheckedUpdateWithoutPetInput = {
 export type AdoptionRequestUncheckedUpdateManyWithoutPetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAdoptionRequestStatusFieldUpdateOperationsInput | $Enums.AdoptionRequestStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  homeType?: Prisma.EnumHomeTypeFieldUpdateOperationsInput | $Enums.HomeType
+  hasYard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yardFenced?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  ownsHome?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  landlordAllowPets?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  householdSize?: Prisma.IntFieldUpdateOperationsInput | number
+  hasChildren?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hasPreviousPetExperience?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  hoursAwayPerDay?: Prisma.IntFieldUpdateOperationsInput | number
+  hasOtherPetsNow?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reasonForAdopting?: Prisma.StringFieldUpdateOperationsInput | string
+  hasBackupCarePlan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  awareOfMonthlyCosts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -714,9 +1230,23 @@ export type AdoptionRequestSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   petId?: boolean
   userId?: boolean
-  message?: boolean
   rejectionReason?: boolean
   status?: boolean
+  message?: boolean
+  homeType?: boolean
+  hasYard?: boolean
+  yardFenced?: boolean
+  ownsHome?: boolean
+  landlordAllowPets?: boolean
+  householdSize?: boolean
+  hasChildren?: boolean
+  hasPreviousPetExperience?: boolean
+  yearsOfExperience?: boolean
+  hoursAwayPerDay?: boolean
+  hasOtherPetsNow?: boolean
+  reasonForAdopting?: boolean
+  hasBackupCarePlan?: boolean
+  awareOfMonthlyCosts?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   pet?: boolean | Prisma.PetDefaultArgs<ExtArgs>
@@ -727,9 +1257,23 @@ export type AdoptionRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   petId?: boolean
   userId?: boolean
-  message?: boolean
   rejectionReason?: boolean
   status?: boolean
+  message?: boolean
+  homeType?: boolean
+  hasYard?: boolean
+  yardFenced?: boolean
+  ownsHome?: boolean
+  landlordAllowPets?: boolean
+  householdSize?: boolean
+  hasChildren?: boolean
+  hasPreviousPetExperience?: boolean
+  yearsOfExperience?: boolean
+  hoursAwayPerDay?: boolean
+  hasOtherPetsNow?: boolean
+  reasonForAdopting?: boolean
+  hasBackupCarePlan?: boolean
+  awareOfMonthlyCosts?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   pet?: boolean | Prisma.PetDefaultArgs<ExtArgs>
@@ -740,9 +1284,23 @@ export type AdoptionRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   petId?: boolean
   userId?: boolean
-  message?: boolean
   rejectionReason?: boolean
   status?: boolean
+  message?: boolean
+  homeType?: boolean
+  hasYard?: boolean
+  yardFenced?: boolean
+  ownsHome?: boolean
+  landlordAllowPets?: boolean
+  householdSize?: boolean
+  hasChildren?: boolean
+  hasPreviousPetExperience?: boolean
+  yearsOfExperience?: boolean
+  hoursAwayPerDay?: boolean
+  hasOtherPetsNow?: boolean
+  reasonForAdopting?: boolean
+  hasBackupCarePlan?: boolean
+  awareOfMonthlyCosts?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   pet?: boolean | Prisma.PetDefaultArgs<ExtArgs>
@@ -753,14 +1311,28 @@ export type AdoptionRequestSelectScalar = {
   id?: boolean
   petId?: boolean
   userId?: boolean
-  message?: boolean
   rejectionReason?: boolean
   status?: boolean
+  message?: boolean
+  homeType?: boolean
+  hasYard?: boolean
+  yardFenced?: boolean
+  ownsHome?: boolean
+  landlordAllowPets?: boolean
+  householdSize?: boolean
+  hasChildren?: boolean
+  hasPreviousPetExperience?: boolean
+  yearsOfExperience?: boolean
+  hoursAwayPerDay?: boolean
+  hasOtherPetsNow?: boolean
+  reasonForAdopting?: boolean
+  hasBackupCarePlan?: boolean
+  awareOfMonthlyCosts?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AdoptionRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "petId" | "userId" | "message" | "rejectionReason" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["adoptionRequest"]>
+export type AdoptionRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "petId" | "userId" | "rejectionReason" | "status" | "message" | "homeType" | "hasYard" | "yardFenced" | "ownsHome" | "landlordAllowPets" | "householdSize" | "hasChildren" | "hasPreviousPetExperience" | "yearsOfExperience" | "hoursAwayPerDay" | "hasOtherPetsNow" | "reasonForAdopting" | "hasBackupCarePlan" | "awareOfMonthlyCosts" | "createdAt" | "updatedAt", ExtArgs["result"]["adoptionRequest"]>
 export type AdoptionRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pet?: boolean | Prisma.PetDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -784,9 +1356,23 @@ export type $AdoptionRequestPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: number
     petId: number
     userId: number
-    message: string | null
     rejectionReason: string | null
     status: $Enums.AdoptionRequestStatus
+    message: string | null
+    homeType: $Enums.HomeType
+    hasYard: boolean
+    yardFenced: boolean | null
+    ownsHome: boolean
+    landlordAllowPets: boolean | null
+    householdSize: number
+    hasChildren: boolean
+    hasPreviousPetExperience: boolean
+    yearsOfExperience: number
+    hoursAwayPerDay: number
+    hasOtherPetsNow: boolean
+    reasonForAdopting: string
+    hasBackupCarePlan: boolean
+    awareOfMonthlyCosts: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["adoptionRequest"]>
@@ -1217,9 +1803,23 @@ export interface AdoptionRequestFieldRefs {
   readonly id: Prisma.FieldRef<"AdoptionRequest", 'Int'>
   readonly petId: Prisma.FieldRef<"AdoptionRequest", 'Int'>
   readonly userId: Prisma.FieldRef<"AdoptionRequest", 'Int'>
-  readonly message: Prisma.FieldRef<"AdoptionRequest", 'String'>
   readonly rejectionReason: Prisma.FieldRef<"AdoptionRequest", 'String'>
   readonly status: Prisma.FieldRef<"AdoptionRequest", 'AdoptionRequestStatus'>
+  readonly message: Prisma.FieldRef<"AdoptionRequest", 'String'>
+  readonly homeType: Prisma.FieldRef<"AdoptionRequest", 'HomeType'>
+  readonly hasYard: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly yardFenced: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly ownsHome: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly landlordAllowPets: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly householdSize: Prisma.FieldRef<"AdoptionRequest", 'Int'>
+  readonly hasChildren: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly hasPreviousPetExperience: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly yearsOfExperience: Prisma.FieldRef<"AdoptionRequest", 'Int'>
+  readonly hoursAwayPerDay: Prisma.FieldRef<"AdoptionRequest", 'Int'>
+  readonly hasOtherPetsNow: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly reasonForAdopting: Prisma.FieldRef<"AdoptionRequest", 'String'>
+  readonly hasBackupCarePlan: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
+  readonly awareOfMonthlyCosts: Prisma.FieldRef<"AdoptionRequest", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"AdoptionRequest", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"AdoptionRequest", 'DateTime'>
 }

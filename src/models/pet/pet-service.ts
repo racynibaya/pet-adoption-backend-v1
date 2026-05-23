@@ -20,11 +20,18 @@ class PetService {
         },
         include: {
           images: true,
+          shelter: true,
         },
         skip,
         take: limit,
       }),
-      prisma.pet.count(),
+      prisma.pet.count({
+        where: {
+          status: {
+            not: 'ADOPTED',
+          },
+        },
+      }),
     ]);
 
     return {

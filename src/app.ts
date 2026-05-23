@@ -11,6 +11,7 @@ import userRoute from '@models/user/user-routes';
 import authRoute from '@models/auth/auth-routes';
 import shelterRoute from '@models/shelter/shelter-routes';
 import petsRoute from '@models/pet/pet-routes';
+import adoptionRequestRoute from '@models/adoption-request/adoption-request-routes';
 
 import AppError from '@utils/app-error';
 
@@ -24,12 +25,12 @@ app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(morgan('dev'));
 
-app.use(rateLimiter(10000, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
+app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
 
 app.use('/uploads', express.static('uploads'));
 
 // Test Route: Entry POINT
-app.get('/api/v1/', verifyTokenMiddleware, (req: Request, res: Response) => {
+app.get(BASE_ROUTE, verifyTokenMiddleware, (req: Request, res: Response) => {
   res.json({
     message: 'hello',
   });
@@ -39,6 +40,8 @@ app.use(`${BASE_ROUTE}/users`, userRoute);
 app.use(`${BASE_ROUTE}/auth`, authRoute);
 app.use(`${BASE_ROUTE}/shelters`, shelterRoute);
 app.use(`${BASE_ROUTE}/pets`, petsRoute);
+
+app.use(`${BASE_ROUTE}/adoption-requests`, adoptionRequestRoute);
 
 // Global Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

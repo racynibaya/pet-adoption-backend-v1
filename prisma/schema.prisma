@@ -92,15 +92,32 @@ model Booking {
 }
 
 model AdoptionRequest {
-  id              Int                   @id @default(autoincrement())
-  petId           Int
-  userId          Int
-  message         String?
+  id     Int @id @default(autoincrement())
+  petId  Int
+  userId Int
+
   rejectionReason String?
   status          AdoptionRequestStatus @default(PENDING)
 
   pet  Pet  @relation(fields: [petId], references: [id], onDelete: Restrict)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // questions
+  message                  String?
+  homeType                 HomeType
+  hasYard                  Boolean
+  yardFenced               Boolean?
+  ownsHome                 Boolean
+  landlordAllowPets        Boolean?
+  householdSize            Int
+  hasChildren              Boolean
+  hasPreviousPetExperience Boolean
+  yearsOfExperience        Int
+  hoursAwayPerDay          Int
+  hasOtherPetsNow          Boolean
+  reasonForAdopting        String
+  hasBackupCarePlan        Boolean
+  awareOfMonthlyCosts      Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -220,4 +237,10 @@ enum Size {
   MEDIUM
   LARGE
   EXTRA_LARGE
+}
+
+enum HomeType {
+  HOUSE
+  APARTMENT
+  CONDO
 }

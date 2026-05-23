@@ -1110,9 +1110,23 @@ export const AdoptionRequestScalarFieldEnum = {
   id: 'id',
   petId: 'petId',
   userId: 'userId',
-  message: 'message',
   rejectionReason: 'rejectionReason',
   status: 'status',
+  message: 'message',
+  homeType: 'homeType',
+  hasYard: 'hasYard',
+  yardFenced: 'yardFenced',
+  ownsHome: 'ownsHome',
+  landlordAllowPets: 'landlordAllowPets',
+  householdSize: 'householdSize',
+  hasChildren: 'hasChildren',
+  hasPreviousPetExperience: 'hasPreviousPetExperience',
+  yearsOfExperience: 'yearsOfExperience',
+  hoursAwayPerDay: 'hoursAwayPerDay',
+  hasOtherPetsNow: 'hasOtherPetsNow',
+  reasonForAdopting: 'reasonForAdopting',
+  hasBackupCarePlan: 'hasBackupCarePlan',
+  awareOfMonthlyCosts: 'awareOfMonthlyCosts',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1338,6 +1352,20 @@ export type EnumAdoptionRequestStatusFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'AdoptionRequestStatus[]'
  */
 export type ListEnumAdoptionRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdoptionRequestStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'HomeType'
+ */
+export type EnumHomeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HomeType'>
+    
+
+
+/**
+ * Reference to a field of type 'HomeType[]'
+ */
+export type ListEnumHomeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HomeType[]'>
     
 
 
