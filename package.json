@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "dist/src/server.js",
   "scripts": {
-    "dev": "nodemon --exec tsx src/server.ts",
+    "dev": "NODE_ENV=development nodemon --exec tsx src/server.ts",
     "build": "prisma generate && tsc && tsc-alias --outDir dist/src",
-    "start": "node ./dist/src/server.js"
+    "start": "NODE_ENV=production node ./dist/src/server.js",
+    "perf:seed": "tsx prisma/seed-perf.ts",
+    "perf:test": "tsx scripts/load-test.ts"
   },
   "prisma": {
     "config": "prisma.config.ts",
@@ -31,6 +33,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@types/autocannon": "^7.12.7",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
@@ -40,6 +43,7 @@
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.1.0",
     "@types/node": "^25.6.0",
+    "autocannon": "^8.0.0",
     "nodemon": "^3.1.14",
     "prisma": "^7.8.0",
     "tsc-alias": "^1.8.17",

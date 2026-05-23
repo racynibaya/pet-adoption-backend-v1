@@ -6,6 +6,7 @@ import {
   BookingStatus,
   DonationStatus,
   Gender,
+  HomeType,
   PetStatus,
   Role,
   Size,
@@ -579,6 +580,35 @@ async function main() {
     'Living situation did not meet shelter requirements.',
   ];
 
+  const ADOPTION_REASONS = [
+    'I want to give a rescued animal a loving home.',
+    'My kids have been asking for a pet for years.',
+    'I recently lost my pet and am ready for a new one.',
+    'Looking for a companion.',
+  ];
+
+  function randomAdoptionFields() {
+    const homeType = randomItem([HomeType.HOUSE, HomeType.APARTMENT, HomeType.CONDO]);
+    const hasYard = homeType === HomeType.HOUSE && Math.random() > 0.3;
+    const ownsHome = Math.random() > 0.4;
+    return {
+      homeType,
+      hasYard,
+      yardFenced: hasYard ? Math.random() > 0.3 : null,
+      ownsHome,
+      landlordAllowPets: ownsHome ? null : Math.random() > 0.2,
+      householdSize: randomInt(1, 5),
+      hasChildren: Math.random() > 0.5,
+      hasPreviousPetExperience: Math.random() > 0.4,
+      yearsOfExperience: randomInt(0, 10),
+      hoursAwayPerDay: randomInt(2, 10),
+      hasOtherPetsNow: Math.random() > 0.5,
+      reasonForAdopting: randomItem(ADOPTION_REASONS),
+      hasBackupCarePlan: Math.random() > 0.3,
+      awareOfMonthlyCosts: Math.random() > 0.1,
+    };
+  }
+
   for (const pet of createdPets) {
     if (pet.status === PetStatus.ADOPTED) {
       const pickedUsers = shuffle(regularUserIds).slice(0, randomInt(1, 3));
@@ -590,6 +620,7 @@ async function main() {
           userId: approvedUserId,
           status: AdoptionRequestStatus.APPROVED,
           message: randomItem(ADOPTION_MESSAGES),
+          ...randomAdoptionFields(),
         },
       });
 
@@ -601,6 +632,7 @@ async function main() {
             status: AdoptionRequestStatus.REJECTED,
             message: randomItem(ADOPTION_MESSAGES),
             rejectionReason: randomItem(REJECTION_REASONS),
+            ...randomAdoptionFields(),
           })),
         });
       }
@@ -614,6 +646,7 @@ async function main() {
             AdoptionRequestStatus.REVIEWING,
           ]),
           message: randomItem(ADOPTION_MESSAGES),
+          ...randomAdoptionFields(),
         },
       });
     } else if (Math.random() < 0.3) {
@@ -623,6 +656,7 @@ async function main() {
           userId: randomItem(regularUserIds),
           status: AdoptionRequestStatus.PENDING,
           message: randomItem(ADOPTION_MESSAGES),
+          ...randomAdoptionFields(),
         },
       });
     }
