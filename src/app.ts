@@ -25,7 +25,8 @@ app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(morgan('dev'));
 
-app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
+if (process.env.NODE_ENV === 'production')
+  app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
 
 app.use('/uploads', express.static('uploads'));
 

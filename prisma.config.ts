@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
+config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
 config();
-config({ path: `.env.${process.env.NODE_ENV || 'development'}`, override: true });
 import { defineConfig, env } from 'prisma/config';
 
 export default defineConfig({

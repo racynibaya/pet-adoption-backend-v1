@@ -7,8 +7,10 @@ import { config } from 'dotenv';
 // e.g. NODE_ENV=development → also loads .env.development (DATABASE_URL for local Docker)
 //      NODE_ENV=production  → dotenv silently skips the missing file;
 //                             DATABASE_URL comes from the platform's dashboard instead.
+// Load env-specific file first, then base .env.
+// Neither call uses override — so shell/platform vars always win.
+config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
 config();
-config({ path: `.env.${process.env.NODE_ENV || 'development'}`, override: true });
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,

@@ -1,14 +1,12 @@
 # 🐾 Pet Adoption Platform — Backend API
 
-A RESTful backend API for a **multi-shelter pet adoption platform**. Built as a portfolio project to demonstrate production-level backend engineering practices including role-based access control, multi-tenancy, business rule enforcement, and clean architecture.
+A RESTful backend API for a **multi-shelter pet adoption platform**. Built as a portfolio project demonstrating role-based access control, multi-tenancy, JWT auth with refresh token rotation, and clean feature-module architecture.
 
 ---
 
 ## 📌 Project Overview
 
-People who want to adopt pets have no easy way to browse available animals, and shelters struggle to manage adoption applications efficiently. This platform bridges that gap — allowing shelters to list pets and manage applications, while adopters can discover pets and submit proof-backed adoption requests.
-
-### Core Loop
+Shelters can list pets and manage adoption applications. Adopters can browse available pets and submit structured adoption requests. Admins manage the platform.
 
 ```
 Shelter posts pet → Adopter finds pet → Adopter applies → Shelter reviews → Adoption complete
@@ -16,268 +14,245 @@ Shelter posts pet → Adopter finds pet → Adopter applies → Shelter reviews 
 
 ---
 
-## 🧑‍🤝‍🧑 Actors
+## 🧑‍🤝‍🧑 Roles
 
-| Actor            | Role     | Description                                      |
-| ---------------- | -------- | ------------------------------------------------ |
-| 👤 Guest         | `PUBLIC` | Browse and discover pets without an account      |
-| 🐾 Adopter       | `USER`   | Apply for pets, track applications, get notified |
-| 🏠 Shelter Staff | `STAFF`  | Manage pet listings and review applications      |
-| 👑 Super Admin   | `ADMIN`  | Manage shelters, users, roles, and platform      |
+| Role           | Description                                            |
+|----------------|--------------------------------------------------------|
+| `PUBLIC`       | Browse pets and shelters without an account            |
+| `USER`         | Submit adoption requests, manage their own profile     |
+| `STAFF`        | Add/manage pet listings for their shelter              |
+| `ADMIN`        | Manage shelters, users, and the full platform          |
 
 ---
 
-## ✨ Features
+## ✅ Implementation Status
 
-### V1 — Core (Current)
+### Done
+- JWT auth — register, login, logout, email verification, refresh token rotation
+- Role-based access control (USER / STAFF / ADMIN)
+- Multi-shelter platform support
+- Pet listings with image upload (Staff/Admin only)
+- Paginated pet list (`GET /pets`) — excludes adopted pets
+- Single pet detail (`GET /pets/:id`)
+- Paginated shelter list + shelter CRUD (Admin only)
+- Adoption request submission with structured questionnaire
+- Global error handling with typed error classes
+- Rate limiting & CORS
 
-- ✅ Auth — register, login, logout with JWT (access + refresh tokens)
-- ✅ Email verification on registration
-- ✅ Role-based access control (USER, STAFF, ADMIN)
-- ✅ Multi-shelter platform support
-- ✅ Pet listings with image upload
-- ✅ Search & filter pets by type, age, gender, location
-- ✅ Adoption application with proof-of-care form
-- ✅ Approve / reject / cancel applications
-- ✅ Auto-reject other applications when one is approved
-- ✅ Email notifications on application status change
-- ✅ Global error handling with custom error classes
-- ✅ Rate limiting & CORS configuration
-
-### V2 — Coming Soon
-
-- ⏳ Application history & tracking page for adopters
-- ⏳ Staff dashboard per shelter
-- ⏳ Super admin dashboard with platform overview
-- ⏳ Pagination on pet listings
-
-### V3 — Planned
-
-- 🔮 Favorites / saved pets
-- 🔮 Staff notes on applications
-- 🔮 Analytics & reporting
+### Stubbed (routes exist, not yet implemented)
+- `PATCH /pets/:id`, `DELETE /pets/:id`, `POST /pets/:id/images`
+- `GET /shelters/:id`
+- Booking and Donation modules (schema only)
 
 ---
 
 ## 🏗️ Tech Stack
 
 | Layer      | Technology                                    |
-| ---------- | --------------------------------------------- |
+|------------|-----------------------------------------------|
 | Runtime    | Node.js + TypeScript                          |
 | Framework  | Express.js v5                                 |
-| ORM        | Prisma v7                                     |
-| Database   | PostgreSQL (via Docker)                       |
+| ORM        | Prisma v7 (custom output path + pg adapter)   |
+| Database   | PostgreSQL 16                                 |
 | Auth       | JWT — access + refresh token rotation         |
 | Validation | Zod                                           |
 | Security   | bcrypt, httpOnly cookies, rate limiting, CORS |
-| Email      | Nodemailer                                    |
-| Dev Tools  | tsx, Morgan, Docker Compose                   |
+| Dev Tools  | tsx, nodemon, Morgan, Docker Compose          |
 
 ---
 
 ## 📋 Prerequisites
 
-- [Node.js](https://nodejs.org/) v18+
-- [Docker](https://www.docker.com/) + Docker Compose
-- [npm](https://www.npmjs.com/)
+- Node.js v18+
+- Docker + Docker Compose
+- npm
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
+### 1. Clone and install
 
 ```bash
 git clone https://github.com/racynibaya/pet-adoption-backend-v1.git
 cd pet-adoption-backend-v1
-```
-
-### 2. Install dependencies
-
-```bash
 npm install
 ```
 
-### 3. Set up environment variables
+### 2. Set up environment files
 
+This project uses two env files. Neither is committed to git.
+
+**`.env`** — shared settings (copy from example):
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` with your values:
-
+Fill in `.env`:
 ```env
-DATABASE_URL="postgresql://user:pass@localhost:5432/pet_adoption"
-POSTGRES_USER=user
-POSTGRES_PASSWORD=pass
+NODE_ENV=development
+
+POSTGRES_USER=racyn
+POSTGRES_PASSWORD=secret
 POSTGRES_DB=pet_adoption
 
 JWT_SECRET=your-super-secret-jwt-key
 JWT_REFRESH_SECRET=your-super-secret-refresh-key
-BASE_URL=http://localhost:3000/api/v1
-NODE_ENV=development
 
-SMTP_HOST=smtp.example.com
+SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your@email.com
-SMTP_PASS=your-email-password
+SMTP_PASS=your-app-password
+
+BASE_URL=http://localhost:3000
+ADMIN_PASSWORD=Password123!
 ```
 
-### 4. Start the database
+**`.env.development`** — local database URL:
+```env
+DATABASE_URL="postgresql://racyn:secret@localhost:5432/pet_adoption"
+```
+
+> **Why two files?** `DATABASE_URL` is environment-specific. `npm run dev` automatically picks up `.env.development`. On a deployment platform (Render, Railway, etc.), set `DATABASE_URL` in the platform's environment variable dashboard instead — no file needed.
+
+### 3. Start the database
 
 ```bash
 docker compose up -d
 ```
 
-### 5. Run migrations
+### 4. Run migrations
 
 ```bash
 npx prisma migrate dev
 ```
 
-### 6. Seed the database
+### 5. Seed the database
 
 ```bash
 npx prisma db seed
 ```
 
-**Seeded accounts:**
+Seeded accounts (password for all: `Password123!`):
 
-| Role  | Email                 | Password       |
-| ----- | --------------------- | -------------- |
-| User  | `user1@petadopt.com`  | `Password123!` |
-| Staff | `staff1@petadopt.com` | `Password123!` |
-| Admin | `admin@petadopt.com`  | `Password123!` |
+| Role  | Email                  |
+|-------|------------------------|
+| Admin | `admin@petadopt.com`   |
+| User  | `user1@petadopt.com`   |
+| Staff | `staff1@petadopt.com`  |
 
-### 7. Start the development server
+### 6. Start the dev server
 
 ```bash
 npm run dev
 ```
 
-Server runs at: `http://localhost:3000`
+Server: `http://localhost:3000`  
+Base route: `http://localhost:3000/api/v1`
 
 ---
 
 ## 📡 API Reference
 
-**Base URL:** `http://localhost:3000/api/v1`
+### Auth — `/api/v1/auth`
 
-### Auth
+| Method | Endpoint                    | Access  | Description                        |
+|--------|-----------------------------|---------|------------------------------------|
+| `POST` | `/auth/register`            | Public  | Register a new user                |
+| `POST` | `/auth/login`               | Public  | Login — returns access token + sets refresh token cookie |
+| `POST` | `/auth/logout`              | Public  | Logout — clears refresh token cookie |
+| `GET`  | `/auth/refresh`             | Public  | Exchange refresh token for new access token |
+| `GET`  | `/auth/verify?token=`       | Public  | Verify email address               |
+| `POST` | `/auth/resend-verification` | Public  | Resend verification email          |
 
-| Method | Endpoint                    | Access        | Description               |
-| ------ | --------------------------- | ------------- | ------------------------- |
-| `POST` | `/auth/register`            | Public        | Register a new user       |
-| `POST` | `/auth/login`               | Public        | Login and receive tokens  |
-| `POST` | `/auth/logout`              | Authenticated | Logout and clear tokens   |
-| `GET`  | `/auth/refresh`             | Public        | Refresh access token      |
-| `GET`  | `/auth/verify?token=`       | Public        | Verify email address      |
-| `POST` | `/auth/resend-verification` | Public        | Resend verification email |
-| `GET`  | `/auth/me`                  | Authenticated | Get current user          |
-
-### Shelters
-
-| Method   | Endpoint        | Access     | Description            |
-| -------- | --------------- | ---------- | ---------------------- |
-| `GET`    | `/shelters`     | Public     | Get all shelters       |
-| `GET`    | `/shelters/:id` | Public     | Get a single shelter   |
-| `POST`   | `/shelters`     | Admin only | Create a new shelter   |
-| `PATCH`  | `/shelters/:id` | Admin only | Update shelter details |
-| `DELETE` | `/shelters/:id` | Admin only | Delete a shelter       |
-
-### Pets
-
-| Method   | Endpoint          | Access     | Description                           |
-| -------- | ----------------- | ---------- | ------------------------------------- |
-| `GET`    | `/pets`           | Public     | Get all available pets (with filters) |
-| `GET`    | `/pets/:id`       | Public     | Get a single pet                      |
-| `POST`   | `/pets`           | Staff only | Add a new pet listing                 |
-| `PATCH`  | `/pets/:id`       | Staff only | Update pet details                    |
-| `DELETE` | `/pets/:id`       | Staff only | Remove a pet listing                  |
-| `POST`   | `/pets/:id/image` | Staff only | Upload pet image                      |
-
-### Applications
-
-| Method   | Endpoint                    | Access           | Description                 |
-| -------- | --------------------------- | ---------------- | --------------------------- |
-| `POST`   | `/applications`             | Adopter          | Submit adoption application |
-| `GET`    | `/applications/mine`        | Adopter          | Get my applications         |
-| `GET`    | `/applications/:id`         | Adopter or Staff | Get a single application    |
-| `DELETE` | `/applications/:id`         | Adopter          | Cancel application          |
-| `PATCH`  | `/applications/:id/approve` | Staff only       | Approve application         |
-| `PATCH`  | `/applications/:id/reject`  | Staff only       | Reject application          |
-
-### Users (Admin)
-
-| Method   | Endpoint          | Access     | Description      |
-| -------- | ----------------- | ---------- | ---------------- |
-| `GET`    | `/users`          | Admin only | Get all users    |
-| `PATCH`  | `/users/:id/role` | Admin only | Update user role |
-| `DELETE` | `/users/:id`      | Admin only | Delete a user    |
-
----
-
-## 🔐 Authentication Flow
-
-```
-Register → Verify Email → Login → Access Token + Refresh Token (httpOnly cookie)
-        → Use Access Token → Token expires → Call /auth/refresh → New Access Token
-```
-
-**Using the access token:**
-
+**Token usage:**
 ```
 Authorization: Bearer <access_token>
 ```
 
+### Users — `/api/v1/users`
+
+| Method | Endpoint    | Access                  | Description              |
+|--------|-------------|-------------------------|--------------------------|
+| `GET`  | `/users/me` | Authenticated + verified | Get current user profile |
+
+### Shelters — `/api/v1/shelters`
+
+| Method   | Endpoint        | Access     | Description            |
+|----------|-----------------|------------|------------------------|
+| `GET`    | `/shelters`     | Public     | Paginated shelter list |
+| `POST`   | `/shelters`     | Admin only | Create a shelter       |
+| `PATCH`  | `/shelters/:id` | Admin/Staff + verified | Update shelter |
+| `DELETE` | `/shelters/:id` | Admin only | Delete a shelter       |
+
+### Pets — `/api/v1/pets`
+
+| Method | Endpoint    | Access             | Description                                      |
+|--------|-------------|--------------------|--------------------------------------------------|
+| `GET`  | `/pets`     | Public             | Paginated list — excludes adopted pets           |
+| `GET`  | `/pets/:id` | Public             | Single pet with images and shelter               |
+| `POST` | `/pets`     | Staff/Admin + verified | Create pet listing with images (multipart) |
+
+**Pagination params** (both `GET /pets` and `GET /shelters`):
+
+| Param   | Default | Max | Description       |
+|---------|---------|-----|-------------------|
+| `page`  | `1`     | —   | Page number       |
+| `limit` | `10`    | `100` | Results per page |
+
+### Adoption Requests — `/api/v1/adoption-requests`
+
+| Method | Endpoint             | Access                  | Description                    |
+|--------|----------------------|-------------------------|--------------------------------|
+| `POST` | `/adoption-requests` | Authenticated + verified | Submit an adoption application |
+
+The request body requires a structured questionnaire about the applicant's living situation, experience, and household.
+
 ---
 
-## 📐 Business Rules
-
-> **Rule 1 — Auto-reject on approval**
-> When an application is approved, all other pending applications for that pet are automatically rejected and the pet status changes to `ADOPTED`.
-
-> **Rule 2 — Cancellation policy**
-> An adopter can cancel their application at any time, as long as it has not already been approved.
-
-> **Rule 3 — No application limit**
-> An adopter can apply for multiple pets simultaneously with no limit, but must submit proof they can care for each pet via the application form.
-
-> **Rule 4 — Proof of care required**
-> Every adoption application must include an `AdopterProfile` with living situation, outdoor space, other pets at home, experience, working hours, and reason to adopt.
-
----
-
-## 🗃️ Data Model
+## 🔐 Auth Flow
 
 ```
-Shelter
-  └── has many Pets
-  └── has many Staff (Users with STAFF role)
+Register → Verify Email → Login
+                            ↓
+              Access Token (Authorization header)
+              Refresh Token (httpOnly cookie)
+                            ↓
+              Token expires → GET /auth/refresh → new Access Token
+```
 
+---
+
+## 🗃️ Data Model (simplified)
+
+```
 User
-  └── has many AdoptionApplications (as adopter)
-  └── may belong to a Shelter (as staff)
+  ├── role: USER | STAFF | ADMIN
+  ├── many AdoptionRequests (as adopter)
+  ├── many ShelterStaff memberships
+  └── many Shelters (as owner)
+
+Shelter
+  ├── owner: User
+  ├── many ShelterStaff
+  └── many Pets
 
 Pet
-  └── belongs to Shelter
-  └── has many AdoptionApplications
-  └── Status: AVAILABLE | PENDING | ADOPTED
+  ├── belongs to Shelter
+  ├── status: AVAILABLE | PENDING | ADOPTED
+  ├── many PetImages
+  └── many AdoptionRequests
 
-AdoptionApplication
-  └── belongs to User (adopter)
-  └── belongs to Pet
-  └── has one AdopterProfile
-  └── Status: PENDING | APPROVED | REJECTED | CANCELLED
-
-AdopterProfile
-  └── livingSituation
-  └── hasOutdoorSpace
-  └── otherPets
-  └── experience
-  └── workingHours
-  └── reasonToAdopt
+AdoptionRequest
+  ├── belongs to User + Pet
+  ├── status: PENDING | REVIEWING | APPROVED | REJECTED | CANCELLED
+  └── inline questionnaire fields (homeType, hasYard, householdSize, etc.)
 ```
+
+**Key cascade rules:**
+- Deleting a `Pet` or `Shelter` that has adoption history is blocked (`onDelete: Restrict`)
+- Deleting a `User` cascades through their adoption requests
+- `PetImage` and `ShelterStaff` cascade-delete with their parent
 
 ---
 
@@ -286,30 +261,33 @@ AdopterProfile
 ```
 pet-adoption-backend-v1/
 ├── prisma/
-│   ├── schema.prisma           # Database schema & relationships
-│   ├── seed.ts                 # Database seeder
-│   └── migrations/             # Migration history
+│   ├── schema.prisma       # Database schema
+│   ├── seed.ts             # Dev seed (~16 users, 30 pets)
+│   └── seed-perf.ts        # Performance seed (1 000 users, 1 000 pets)
+├── scripts/
+│   └── load-test.ts        # autocannon HTTP load test
 ├── src/
-│   ├── app.ts                  # Express app — middleware & routes
-│   ├── server.ts               # HTTP server entry point
+│   ├── app.ts              # Express app — middleware & routes
+│   ├── server.ts           # HTTP server entry point
 │   ├── config/
-│   │   └── prisma.ts           # Prisma client singleton
+│   │   └── prisma.ts       # Prisma client singleton + dotenv cascade
 │   ├── middlewares/
 │   │   ├── cors-configurations.ts
 │   │   ├── rate-limiter.ts
 │   │   └── index.ts
-│   ├── models/                 # Feature modules
-│   │   ├── auth/               # register, login, logout, verify
-│   │   ├── user/               # user management
-│   │   ├── shelter/            # shelter CRUD
-│   │   ├── pet/                # pet listings
-│   │   └── application/        # adoption applications
+│   ├── models/             # Feature modules
+│   │   ├── auth/
+│   │   ├── user/
+│   │   ├── shelter/
+│   │   ├── pet/
+│   │   └── adoption-request/
 │   └── utils/
-│       ├── app-error.ts        # Base AppError class
-│       └── error.ts            # NotFoundError, UnauthorizedError, etc.
-├── docker-compose.yml
-├── prisma.config.ts
+│       ├── app-error.ts    # Base AppError class
+│       └── error.ts        # BadRequestError, NotFoundError, etc.
+├── prisma.config.ts        # Prisma v7 config
 ├── .env.example
+├── .env                    # Shared settings (not committed)
+├── .env.development        # Local DATABASE_URL (not committed)
 └── tsconfig.json
 ```
 
@@ -318,35 +296,49 @@ pet-adoption-backend-v1/
 ## 🛠️ Scripts
 
 ```bash
-npm run dev              # Start dev server with hot reload
-npm run build            # Compile TypeScript to dist/
-npm run start            # Run compiled production build
+npm run dev              # Start dev server with hot reload (NODE_ENV=development)
+npm run build            # Compile TypeScript → dist/
+npm run start            # Run production build (NODE_ENV=production)
 
-npx prisma migrate dev   # Run database migrations
-npx prisma db seed       # Seed the database
-npx prisma studio        # Open visual database browser
+npm run perf:seed        # Seed 1 000 users + 1 000 pets for load testing
+npm run perf:test        # Run autocannon load test (server must be running)
+
+npx prisma migrate dev   # Apply pending migrations
+npx prisma db seed       # Run dev seed
+npx prisma studio        # Open visual DB browser
+```
+
+**Seed the production database** (from local machine):
+```bash
+DATABASE_URL='your-production-url' npx prisma migrate deploy
+DATABASE_URL='your-production-url' npx prisma db seed
 ```
 
 ---
 
 ## 🌐 Environment Variables
 
-| Variable            | Description                          |
-| ------------------- | ------------------------------------ |
-| `DATABASE_URL`      | PostgreSQL connection string         |
-| `POSTGRES_USER`     | Docker Postgres username             |
-| `POSTGRES_PASSWORD` | Docker Postgres password             |
-| `POSTGRES_DB`       | Docker Postgres database name        |
-| `JWT_SECRET`        | Secret key for signing access tokens |
-| `BASE_URL`          | Base Route URL                       |
-| `NODE_ENV`          | `development` or `production`        |
+| Variable            | File                | Description                              |
+|---------------------|---------------------|------------------------------------------|
+| `DATABASE_URL`      | `.env.development`  | PostgreSQL connection string             |
+| `NODE_ENV`          | `.env`              | `development` or `production`            |
+| `POSTGRES_USER`     | `.env`              | Docker Postgres username                 |
+| `POSTGRES_PASSWORD` | `.env`              | Docker Postgres password                 |
+| `POSTGRES_DB`       | `.env`              | Docker Postgres database name            |
+| `JWT_SECRET`        | `.env`              | Secret for signing access tokens         |
+| `JWT_REFRESH_SECRET`| `.env`              | Secret for signing refresh tokens        |
+| `SMTP_HOST`         | `.env`              | Email host                               |
+| `SMTP_PORT`         | `.env`              | Email port                               |
+| `SMTP_USER`         | `.env`              | Email address                            |
+| `SMTP_PASS`         | `.env`              | Email app password                       |
+| `BASE_URL`          | `.env`              | Server base URL                          |
+| `ADMIN_PASSWORD`    | `.env`              | Password used for the seeded admin user  |
 
 ---
 
 ## 👨‍💻 Author
 
 **Racyn Ibaya**
-
 - GitHub: [@racynibaya](https://github.com/racynibaya)
 
 ---
