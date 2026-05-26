@@ -1,8 +1,12 @@
 import z from 'zod';
+import { Gender, Size, Species } from '../../../generated/prisma/enums';
 
 export const petPaginationSchema = z.object({
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).max(100).default(10),
+  species: z.enum(Species).optional(),
+  size: z.enum(Size).optional(),
+  gender: z.enum(Gender).optional(),
 });
 
 export const createPetBodySchema = z.object({
@@ -18,3 +22,8 @@ export const createPetBodySchema = z.object({
 });
 
 export type CreatePetDTO = z.infer<typeof createPetBodySchema>;
+
+export type PetFilters = Pick<
+  z.infer<typeof petPaginationSchema>,
+  'species' | 'size' | 'gender'
+>;

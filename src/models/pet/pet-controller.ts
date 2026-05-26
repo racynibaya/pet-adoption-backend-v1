@@ -10,9 +10,17 @@ import { createPetBodySchema, petPaginationSchema } from './pet-types';
 class PetController {
   async petsHandler(req: Request, res: Response, next: NextFunction) {
     try {
-      const { page, limit } = petPaginationSchema.parse(req.query);
+      const { page, limit, species, size, gender } = petPaginationSchema.parse(
+        req.query,
+      );
 
-      const { pets, pagination } = await petService.getAllPets(page, limit);
+      console.log(species, size, gender);
+
+      const { pets, pagination } = await petService.getAllPets(page, limit, {
+        species,
+        size,
+        gender,
+      });
 
       res.status(200).json({
         success: true,

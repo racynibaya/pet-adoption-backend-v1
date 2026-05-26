@@ -4,20 +4,25 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import prisma from '@config/prisma';
 import { BadRequestError, ForbiddenError } from '@utils/error';
 
-import { Role } from '../../../generated/prisma/client';
-import { CreatePetDTO } from './pet-types';
+import { PetStatus, Role } from '../../../generated/prisma/client';
+import { CreatePetDTO, PetFilters } from './pet-types';
 
 class PetService {
-  async getAllPets(page: number, limit: number) {
+  async getAllPets(page: number, limit: number, filters: PetFilters) {
     const skip = (page - 1) * limit;
+
+    const whereCondition = {
+      status: {
+        not: PetStatus.ADOPTED,
+      },
+      species: filters.species,
+      size: filters.size,
+      gender: filters.gender,
+    };
 
     const [pets, total] = await prisma.$transaction([
       prisma.pet.findMany({
-        where: {
-          status: {
-            not: 'ADOPTED',
-          },
-        },
+        where: whereCondition,
         include: {
           images: true,
           shelter: true,
@@ -26,11 +31,7 @@ class PetService {
         take: limit,
       }),
       prisma.pet.count({
-        where: {
-          status: {
-            not: 'ADOPTED',
-          },
-        },
+        where: whereCondition,
       }),
     ]);
 
