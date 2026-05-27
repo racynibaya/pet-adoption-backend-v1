@@ -5,18 +5,11 @@ import multer, { FileFilterCallback, MulterError } from 'multer';
 
 import { BadRequestError } from '@utils/error';
 
-const PET_UPLOAD_DIR = 'uploads/pets';
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
 const MAX_FILE_COUNT = 10;
 const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, PET_UPLOAD_DIR),
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `${crypto.randomUUID()}${ext}`);
-  },
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (
   _req: Request,

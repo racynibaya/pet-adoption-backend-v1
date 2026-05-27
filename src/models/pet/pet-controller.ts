@@ -2,10 +2,14 @@ import fs from 'node:fs/promises';
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 
-import { BadRequestError, UnauthorizedError } from '@utils/error';
+import { BadRequestError, NotFoundError, UnauthorizedError } from '@utils/error';
 
 import petService from './pet-service';
-import { createPetBodySchema, petPaginationSchema } from './pet-types';
+import {
+  createPetBodySchema,
+  petIdParamSchema,
+  petPaginationSchema,
+} from './pet-types';
 
 class PetController {
   async petsHandler(req: Request, res: Response, next: NextFunction) {
@@ -13,8 +17,6 @@ class PetController {
       const { page, limit, species, size, gender } = petPaginationSchema.parse(
         req.query,
       );
-
-      console.log(species, size, gender);
 
       const { pets, pagination } = await petService.getAllPets(page, limit, {
         species,
@@ -36,7 +38,26 @@ class PetController {
     }
   }
 
-  petByIDHandler(req: Request, res: Response, next: NextFunction) {}
+  async petByIDHandler(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = petIdParamSchema.parse(req.params);
+
+      const pet = await petService.getPetById(id);
+
+      if (!pet) throw new NotFoundError('Pet not found');
+
+      res.status(200).json({
+        success: true,
+        message: 'Pet retrieved',
+        data: pet,
+      });
+    } catch (error) {
+      if (error instanceof ZodError)
+        return next(new BadRequestError('Invalid pet id'));
+
+      next(error);
+    }
+  }
 
   async createPetHandler(req: Request, res: Response, next: NextFunction) {
     const files = (req.files as Express.Multer.File[]) ?? [];
@@ -57,10 +78,6 @@ class PetController {
         data: pet,
       });
     } catch (error) {
-      await Promise.all(
-        files.map((f) => fs.unlink(f.path).catch(() => undefined)),
-      );
-
       if (error instanceof ZodError) {
         return next(new BadRequestError('Invalid request body'));
       }

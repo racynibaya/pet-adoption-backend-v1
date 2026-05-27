@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 
 import prisma from '@config/prisma';
@@ -6,6 +5,7 @@ import { BadRequestError, ForbiddenError } from '@utils/error';
 
 import { PetStatus, Role } from '../../../generated/prisma/client';
 import { CreatePetDTO, PetFilters } from './pet-types';
+import cloudinary from '@config/cloudinary';
 
 class PetService {
   async getAllPets(page: number, limit: number, filters: PetFilters) {
@@ -46,6 +46,13 @@ class PetService {
     };
   }
 
+  async getPetById(id: number) {
+    return prisma.pet.findUnique({
+      where: { id },
+      include: { images: true, shelter: true },
+    });
+  }
+
   private async assertStaffBelongsToShelter(
     userId: number,
     shelterId: number,
@@ -62,6 +69,21 @@ class PetService {
     }
   }
 
+  private async uploadToCloudinary(
+    buffer: Buffer,
+  ): Promise<{ publicId: string; secureUrl: string }> {
+    return new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: 'pet-adoption' },
+        (error, result) => {
+          if (error || !result) return reject(error);
+          resolve({ publicId: result.public_id, secureUrl: result.secure_url });
+        },
+      );
+      stream.end(buffer);
+    });
+  }
+
   async createPet(
     dto: CreatePetDTO,
     files: Express.Multer.File[],
@@ -69,18 +91,24 @@ class PetService {
   ) {
     await this.assertStaffBelongsToShelter(actor.id, dto.shelterId, actor.role);
 
+    const uploaded = await Promise.all(
+      files.map((file) => this.uploadToCloudinary(file.buffer)),
+    );
+
     try {
       const pet = await prisma.$transaction(async (trc) => {
         const created = await trc.pet.create({ data: dto });
 
         if (files.length) {
           await trc.petImage.createMany({
-            data: files.map((file, index) => ({
-              petId: created.id,
-              imageUrl: `/uploads/pets/${file.filename}`,
-              publicId: path.parse(file.filename).name,
-              isPrimary: index === 0,
-            })),
+            data: files.map((file, index) => {
+              return {
+                petId: created.id,
+                imageUrl: uploaded[index].secureUrl,
+                publicId: uploaded[index].publicId,
+                isPrimary: index === 0,
+              };
+            }),
           });
         }
 
@@ -92,6 +120,12 @@ class PetService {
 
       return pet;
     } catch (error) {
+      await Promise.all(
+        uploaded.map((img) =>
+          cloudinary.uploader.destroy(img.publicId).catch(() => undefined),
+        ),
+      );
+
       if (
         error instanceof PrismaClientKnownRequestError &&
         error.code === 'P2003'

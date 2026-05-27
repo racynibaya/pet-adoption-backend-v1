@@ -9,6 +9,10 @@ export const petPaginationSchema = z.object({
   gender: z.enum(Gender).optional(),
 });
 
+export const petIdParamSchema = z.object({
+  id: z.coerce.number().int().positive(),
+});
+
 export const createPetBodySchema = z.object({
   name: z.string().min(1).max(100),
   species: z.enum(['DOG', 'CAT', 'RABBIT', 'BIRD', 'OTHER']),
