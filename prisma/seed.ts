@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import prisma from '@config/prisma';
+import cloudinary from '@config/cloudinary';
 
 import {
   AdoptionRequestStatus,
@@ -46,6 +47,35 @@ function shuffle<T>(arr: readonly T[]): T[] {
 
 function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+async function uploadBufferToCloudinary(
+  buffer: Buffer,
+): Promise<{ publicId: string; secureUrl: string }> {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'pet-adoption/seed' },
+      (error, result) => {
+        if (error || !result) return reject(error);
+        resolve({ publicId: result.public_id, secureUrl: result.secure_url });
+      },
+    );
+    stream.end(buffer);
+  });
+}
+
+async function fetchAndUploadImage(
+  sourceUrl: string,
+): Promise<{ publicId: string; secureUrl: string } | null> {
+  try {
+    const res = await fetch(sourceUrl);
+    if (!res.ok) throw new Error(`fetch ${res.status}`);
+    const buffer = Buffer.from(await res.arrayBuffer());
+    return await uploadBufferToCloudinary(buffer);
+  } catch (err) {
+    console.warn(`⚠️  upload failed for ${sourceUrl}:`, err);
+    return null;
+  }
 }
 
 async function fetchDogImages(
@@ -485,7 +515,7 @@ async function main() {
     let descKey: 'Dog' | 'Cat' | 'Rabbit';
     let breedName: string;
     let breedSize: Size;
-    let imageUrls: string[];
+    let sourceUrls: string[];
 
     const gender = randomItem(GENDERS);
     const imageCount = randomInt(2, 4);
@@ -496,27 +526,31 @@ async function main() {
       const breed = randomItem(DOG_BREEDS);
       breedName = breed.name;
       breedSize = breed.size;
-      imageUrls = await fetchDogImages(breed.slug, imageCount);
+      sourceUrls = await fetchDogImages(breed.slug, imageCount);
     } else if (i < 25) {
       species = Species.CAT;
       descKey = 'Cat';
       const breed = randomItem(CAT_BREEDS);
       breedName = breed.name;
       breedSize = breed.size;
-      imageUrls = await fetchCatImages(breed.apiId, imageCount);
+      sourceUrls = await fetchCatImages(breed.apiId, imageCount);
     } else {
       species = Species.RABBIT;
       descKey = 'Rabbit';
       const breed = randomItem(RABBIT_BREEDS);
       breedName = breed.name;
       breedSize = breed.size;
-      imageUrls = [];
+      sourceUrls = [];
     }
 
-    if (imageUrls.length === 0) {
+    if (sourceUrls.length === 0) {
       const pool = PHOTO_URLS[descKey];
-      imageUrls = shuffle(pool).slice(0, Math.min(imageCount, pool.length));
+      sourceUrls = shuffle(pool).slice(0, Math.min(imageCount, pool.length));
     }
+
+    const uploaded = (
+      await Promise.all(sourceUrls.map(fetchAndUploadImage))
+    ).filter((u): u is { publicId: string; secureUrl: string } => u !== null);
 
     const namePool =
       species === Species.DOG
@@ -548,14 +582,16 @@ async function main() {
 
     createdPets.push({ id: pet.id, status });
 
-    await prisma.petImage.createMany({
-      data: imageUrls.map((imageUrl, idx) => ({
-        petId: pet.id,
-        imageUrl,
-        publicId: `seed-pet-${pet.id}-${idx}`,
-        isPrimary: idx === 0,
-      })),
-    });
+    if (uploaded.length) {
+      await prisma.petImage.createMany({
+        data: uploaded.map((img, idx) => ({
+          petId: pet.id,
+          imageUrl: img.secureUrl,
+          publicId: img.publicId,
+          isPrimary: idx === 0,
+        })),
+      });
+    }
   }
 
   // ── 6. Create AdoptionRequests tied to pet status ─────────────────────────

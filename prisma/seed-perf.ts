@@ -22,15 +22,71 @@ const DONATION_COUNT = 100;
 
 // ─── Data pools ───────────────────────────────────────────────────────────────
 
-const FALLBACK_IMAGES = [
-  'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400',
-  'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400',
-  'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=400',
-  'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400',
-  'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400',
-  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400',
-  'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400',
-  'https://images.unsplash.com/photo-1548366086-7f1b76106622?w=400',
+// Pre-uploaded Cloudinary images for perf seeding.
+// To populate: upload ~15-20 pet photos to Cloudinary, then paste each
+// secure_url + public_id pair as an entry below.
+// Empty pool fails fast in main() with a clear error.
+const CLOUDINARY_POOL: ReadonlyArray<{ url: string; publicId: string }> = [
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888734/pet-adoption/seed/pdrr43blxgij4edl0odk.jpg',
+    publicId: 'pet-adoption/seed/pdrr43blxgij4edl0odk',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888735/pet-adoption/seed/scixxaymrt2rcfeqvtwo.jpg',
+    publicId: 'pet-adoption/seed/scixxaymrt2rcfeqvtwo',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888734/pet-adoption/seed/wc9hv2h5harqhcxlba8x.jpg',
+    publicId: 'pet-adoption/seed/wc9hv2h5harqhcxlba8x',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888734/pet-adoption/seed/umukbbgzr3ftnhg6hmso.jpg',
+    publicId: 'pet-adoption/seed/umukbbgzr3ftnhg6hmso',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888736/pet-adoption/seed/ax0giztgyv32qzqzzj86.jpg',
+    publicId: 'pet-adoption/seed/ax0giztgyv32qzqzzj86',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888736/pet-adoption/seed/ziuudx87vxotf9ydtbig.jpg',
+    publicId: 'pet-adoption/seed/ziuudx87vxotf9ydtbig',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888736/pet-adoption/seed/c4kftez4vnucrjx9ylp9.jpg',
+    publicId: 'pet-adoption/seed/c4kftez4vnucrjx9ylp9',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888736/pet-adoption/seed/wo7c3rzbmkzpugrpjydg.jpg',
+    publicId: 'pet-adoption/seed/wo7c3rzbmkzpugrpjydg',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888737/pet-adoption/seed/t3qcdtj55rtkyoxpt3yw.jpg',
+    publicId: 'pet-adoption/seed/t3qcdtj55rtkyoxpt3yw',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888738/pet-adoption/seed/itfkum7jchtvgyzxsqmo.jpg',
+    publicId: 'pet-adoption/seed/itfkum7jchtvgyzxsqmo',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888738/pet-adoption/seed/fhfiervmeew5ngd6bk5g.jpg',
+    publicId: 'pet-adoption/seed/fhfiervmeew5ngd6bk5g',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888738/pet-adoption/seed/idacuezluabmepybodns.jpg',
+    publicId: 'pet-adoption/seed/idacuezluabmepybodns',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888739/pet-adoption/seed/blie5qico0qrlhysgc34.jpg',
+    publicId: 'pet-adoption/seed/blie5qico0qrlhysgc34',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888738/pet-adoption/seed/kyxc1dbvlriigtb375gs.jpg',
+    publicId: 'pet-adoption/seed/kyxc1dbvlriigtb375gs',
+  },
+  {
+    url: 'https://res.cloudinary.com/dmkpagj7j/image/upload/v1779888741/pet-adoption/seed/tr4wofwxdq4b3zbxrwru.jpg',
+    publicId: 'pet-adoption/seed/tr4wofwxdq4b3zbxrwru',
+  },
 ];
 
 const FIRST_NAMES = [
@@ -593,6 +649,12 @@ async function main() {
   console.log('🚀 Performance seed starting…');
   console.time('total');
 
+  if (CLOUDINARY_POOL.length === 0) {
+    throw new Error(
+      'CLOUDINARY_POOL is empty. Upload pet images to Cloudinary and paste their {url, publicId} into prisma/seed-perf.ts.',
+    );
+  }
+
   // ── 0. Clear all existing data ────────────────────────────────────────────
   console.log('\n🗑️  Clearing existing data…');
   console.time('clear');
@@ -716,12 +778,15 @@ async function main() {
   await prisma.petImage.createMany({
     data: pets.flatMap((pet, i) => {
       const count = (i % 3) + 1; // cycles 1, 2, 3 images per pet
-      return Array.from({ length: count }, (_, j) => ({
-        petId: pet.id,
-        imageUrl: FALLBACK_IMAGES[(i + j) % FALLBACK_IMAGES.length],
-        publicId: `shelter/pet_${pet.id}/image_${j + 1}`,
-        isPrimary: j === 0,
-      }));
+      return Array.from({ length: count }, (_, j) => {
+        const poolEntry = CLOUDINARY_POOL[(i + j) % CLOUDINARY_POOL.length];
+        return {
+          petId: pet.id,
+          imageUrl: poolEntry.url,
+          publicId: poolEntry.publicId,
+          isPrimary: j === 0,
+        };
+      });
     }),
   });
   console.timeEnd('images');

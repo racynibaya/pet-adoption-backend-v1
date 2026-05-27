@@ -7,7 +7,8 @@
     "build": "prisma generate && tsc && tsc-alias --outDir dist/src",
     "start": "NODE_ENV=production node ./dist/src/server.js",
     "perf:seed": "tsx prisma/seed-perf.ts",
-    "perf:test": "tsx scripts/load-test.ts"
+    "perf:test": "tsx scripts/load-test.ts",
+    "dump-pool": "tsx prisma/dump-cloudinary-pool.ts"
   },
   "prisma": {
     "config": "prisma.config.ts",
