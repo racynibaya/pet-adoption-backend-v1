@@ -11,12 +11,12 @@ import {
 } from '@utils/error';
 
 import authService from './auth-service';
-import { userSchema, EmailInput, LoginSchema } from './auth-types';
+import { userSchema, emailInput, loginSchema } from './auth-types';
 
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const parsed = LoginSchema.safeParse(req.body);
+      const parsed = loginSchema.safeParse(req.body);
 
       if (!parsed.success) {
         res.status(400).json({ message: parsed.error });
@@ -24,26 +24,14 @@ class AuthController {
       }
       const { email, password } = parsed.data;
 
-      const user = await authService.isExistingEmail(email);
-
-      if (!user) throw new UnauthorizedError('Invalid credentials');
+      const { user, accessToken, refreshToken } =
+        await authService.authenticateUser(email, password);
 
       if (!user.isVerified) {
         throw new ForbiddenError(
           'Email not verified, please verify your email before logging in',
         );
       }
-
-      const tokens = await authService.authenticateUser(email, password);
-
-      if (!tokens) {
-        res
-          .status(401)
-          .json({ success: false, message: 'Invalid credentials' });
-        return;
-      }
-
-      const { accessToken, refreshToken } = tokens;
 
       await prisma.user.update({
         where: { email },
@@ -92,7 +80,7 @@ class AuthController {
         req.body,
       );
 
-      const existingUser = await authService.isExistingEmail(email);
+      const existingUser = await authService.findUserByEmail(email);
 
       if (existingUser) {
         throw new ConflictError('User with this email already exists');
@@ -176,9 +164,9 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { email } = EmailInput.parse(req.body);
+      const { email } = emailInput.parse(req.body);
 
-      const user = await authService.isExistingEmail(email);
+      const user = await authService.findUserByEmail(email);
 
       if (!user) throw new NotFoundError('User with this email does not exist');
 

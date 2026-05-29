@@ -22,7 +22,7 @@ if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is required');
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
 class AuthService {
-  async isExistingEmail(email: string): Promise<User | null> {
+  async findUserByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -33,12 +33,16 @@ class AuthService {
   async authenticateUser(
     email: string,
     password: string,
-  ): Promise<{ accessToken: string; refreshToken: string } | null> {
+  ): Promise<{
+    accessToken: string;
+    refreshToken: string;
+    user: SanitizedUser;
+  }> {
     const user = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (!user) throw new NotFoundError('Email not found');
+    if (!user) throw new NotFoundError('Invalid credentials');
 
     const isPasswordMatched = await bcrypt.compare(
       password,
@@ -54,6 +58,7 @@ class AuthService {
         expiresIn: 15 * 60,
       },
     );
+
     const refreshToken = jwt.sign(
       { id: user.id, role: user.role, email: user.email },
       JWT_SECRET,
@@ -62,7 +67,7 @@ class AuthService {
       },
     );
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, user };
   }
 
   verifyAccessToken(token: string) {

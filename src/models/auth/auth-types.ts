@@ -14,7 +14,7 @@ export type CreateUserInput = {
   email: string;
 };
 
-export const EmailInput = userSchema.pick({ email: true });
+export const emailInput = userSchema.pick({ email: true });
 
 export interface JwtPayload {
   id: number;
@@ -24,6 +24,6 @@ export interface JwtPayload {
 
 export type CreateUserDTO = z.infer<typeof userSchema>;
 
-export const LoginSchema = userSchema.pick({ email: true, password: true });
+export const loginSchema = userSchema.pick({ email: true, password: true });
 
 export type SanitizedUser = Omit<User, 'verifyTokenExpiry' | 'hashedPassword'>;
