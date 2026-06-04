@@ -44,7 +44,7 @@ class ShelterController {
         error.code === 'P2002'
       ) {
         return next(
-          new ConflictError('Shelter with this address already exists'),
+          new ConflictError('Shelter with this contact email already exists'),
         );
       }
       next(error);
@@ -111,7 +111,7 @@ class ShelterController {
         error.code === 'P2002'
       ) {
         return next(
-          new ConflictError('Shelter with this address already exists'),
+          new ConflictError('Shelter with this contact email already exists'),
         );
       }
 
@@ -148,10 +148,12 @@ class ShelterController {
 
   async getShelters(req: Request, res: Response, next: NextFunction) {
     try {
-      const { page, limit } = shelterPaginationSchema.parse(req.query);
+      const { page, limit, city, province, region, island } =
+        shelterPaginationSchema.parse(req.query);
       const { shelters, pagination } = await shelterService.findAllShelters(
         page,
         limit,
+        { city, province, region, island },
       );
 
       res.status(200).json({

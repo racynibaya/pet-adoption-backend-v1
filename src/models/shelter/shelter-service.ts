@@ -1,6 +1,7 @@
 import prisma from '@config/prisma';
 
-import { ShelterCreateDTO, ShelterType } from './shelter-types';
+import { regionsForIsland } from './ph-locations';
+import { ShelterCreateDTO, ShelterFilters, ShelterType } from './shelter-types';
 
 class ShelterService {
   validateShelterData(data: ShelterCreateDTO) {
@@ -10,14 +11,26 @@ class ShelterService {
   }
 
   async createShelter(data: ShelterCreateDTO) {
-    const { name, description, address, contactEmail, phoneNumber, ownerId } =
-      this.validateShelterData(data);
+    const {
+      name,
+      description,
+      addressLine,
+      city,
+      province,
+      region,
+      contactEmail,
+      phoneNumber,
+      ownerId,
+    } = this.validateShelterData(data);
 
     return await prisma.shelter.create({
       data: {
         name,
         description,
-        address,
+        addressLine,
+        city,
+        province,
+        region,
         contactEmail,
         phoneNumber,
         ownerId,
@@ -26,10 +39,28 @@ class ShelterService {
   }
 
   async updateShelterData(data: Partial<ShelterCreateDTO>, shelterId: number) {
-    const { name, description, address, contactEmail, phoneNumber } = data;
+    const {
+      name,
+      description,
+      addressLine,
+      city,
+      province,
+      region,
+      contactEmail,
+      phoneNumber,
+    } = data;
     let updatedShelter = await prisma.shelter.update({
       where: { id: shelterId },
-      data: { name, description, address, contactEmail, phoneNumber },
+      data: {
+        name,
+        description,
+        addressLine,
+        city,
+        province,
+        region,
+        contactEmail,
+        phoneNumber,
+      },
     });
 
     return updatedShelter;
@@ -47,14 +78,26 @@ class ShelterService {
     });
   }
 
-  async findAllShelters(page: number, limit: number) {
+  async findAllShelters(page: number, limit: number, filters: ShelterFilters) {
     const skip = (page - 1) * limit;
+
+    const whereCondition = {
+      city: filters.city,
+      province: filters.province,
+      region: filters.island
+        ? { in: regionsForIsland(filters.island) }
+        : filters.region,
+    };
+
     const [shelters, total] = await prisma.$transaction([
       prisma.shelter.findMany({
+        where: whereCondition,
         skip,
         take: limit,
       }),
-      prisma.shelter.count(),
+      prisma.shelter.count({
+        where: whereCondition,
+      }),
     ]);
 
     return {

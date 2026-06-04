@@ -16,6 +16,8 @@ class AdoptionRequestController {
         req.body,
       );
 
+      console.log(data);
+
       const request = await adoptionRequestService.createRequest(
         req.user!.id,
         data,

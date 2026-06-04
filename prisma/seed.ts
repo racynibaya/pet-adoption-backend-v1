@@ -401,6 +401,41 @@ const SHELTER_NAMES = [
   'Iloilo Safe Haven Shelter',
 ];
 
+// Structured addresses for the 5 shelters, in the same order as SHELTER_NAMES.
+// `region` must match a value in src/models/shelter/ph-locations.ts REGIONS.
+const SHELTER_ADDRESSES = [
+  {
+    addressLine: '123 Aurora Blvd, Brgy. San Antonio, Quezon City',
+    city: 'Quezon City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
+  },
+  {
+    addressLine: '456 Ayala Ave, Brgy. Bel-Air, Makati City',
+    city: 'Makati City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
+  },
+  {
+    addressLine: '78 Lapu-Lapu St, Brgy. Mabolo, Cebu City',
+    city: 'Cebu City',
+    province: 'Cebu',
+    region: 'Central Visayas',
+  },
+  {
+    addressLine: '12 Roxas Blvd, Brgy. 76, Pasay City',
+    city: 'Pasay City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
+  },
+  {
+    addressLine: '55 Bonifacio Dr, Brgy. Poblacion, Davao City',
+    city: 'Davao City',
+    province: 'Davao del Sur',
+    region: 'Davao Region',
+  },
+];
+
 // One URL per shelter, in the same order as SHELTER_NAMES.
 // Paste 5 vetted Unsplash URLs here.
 const SHELTER_IMAGES: string[] = [
@@ -484,7 +519,10 @@ async function main() {
       prisma.shelter.create({
         data: {
           name: SHELTER_NAMES[i],
-          address: ADDRESSES[i],
+          addressLine: SHELTER_ADDRESSES[i].addressLine,
+          city: SHELTER_ADDRESSES[i].city,
+          province: SHELTER_ADDRESSES[i].province,
+          region: SHELTER_ADDRESSES[i].region,
           contactEmail: `contact@${slugify(SHELTER_NAMES[i])}.org.ph`,
           phoneNumber: randomPhPhone(),
           imageUrl: SHELTER_IMAGES[i] || null,

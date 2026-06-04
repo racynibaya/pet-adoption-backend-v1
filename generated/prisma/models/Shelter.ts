@@ -40,7 +40,10 @@ export type ShelterMinAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
-  address: string | null
+  addressLine: string | null
+  city: string | null
+  province: string | null
+  region: string | null
   contactEmail: string | null
   phoneNumber: string | null
   imageUrl: string | null
@@ -53,7 +56,10 @@ export type ShelterMaxAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
-  address: string | null
+  addressLine: string | null
+  city: string | null
+  province: string | null
+  region: string | null
   contactEmail: string | null
   phoneNumber: string | null
   imageUrl: string | null
@@ -66,7 +72,10 @@ export type ShelterCountAggregateOutputType = {
   id: number
   name: number
   description: number
-  address: number
+  addressLine: number
+  city: number
+  province: number
+  region: number
   contactEmail: number
   phoneNumber: number
   imageUrl: number
@@ -91,7 +100,10 @@ export type ShelterMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  address?: true
+  addressLine?: true
+  city?: true
+  province?: true
+  region?: true
   contactEmail?: true
   phoneNumber?: true
   imageUrl?: true
@@ -104,7 +116,10 @@ export type ShelterMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  address?: true
+  addressLine?: true
+  city?: true
+  province?: true
+  region?: true
   contactEmail?: true
   phoneNumber?: true
   imageUrl?: true
@@ -117,7 +132,10 @@ export type ShelterCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  address?: true
+  addressLine?: true
+  city?: true
+  province?: true
+  region?: true
   contactEmail?: true
   phoneNumber?: true
   imageUrl?: true
@@ -217,7 +235,10 @@ export type ShelterGroupByOutputType = {
   id: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl: string | null
@@ -253,7 +274,10 @@ export type ShelterWhereInput = {
   id?: Prisma.IntFilter<"Shelter"> | number
   name?: Prisma.StringFilter<"Shelter"> | string
   description?: Prisma.StringFilter<"Shelter"> | string
-  address?: Prisma.StringFilter<"Shelter"> | string
+  addressLine?: Prisma.StringFilter<"Shelter"> | string
+  city?: Prisma.StringFilter<"Shelter"> | string
+  province?: Prisma.StringFilter<"Shelter"> | string
+  region?: Prisma.StringFilter<"Shelter"> | string
   contactEmail?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
   imageUrl?: Prisma.StringNullableFilter<"Shelter"> | string | null
@@ -270,7 +294,10 @@ export type ShelterOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -285,13 +312,16 @@ export type ShelterOrderByWithRelationInput = {
 
 export type ShelterWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  address?: string
   contactEmail?: string
   AND?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
   OR?: Prisma.ShelterWhereInput[]
   NOT?: Prisma.ShelterWhereInput | Prisma.ShelterWhereInput[]
   name?: Prisma.StringFilter<"Shelter"> | string
   description?: Prisma.StringFilter<"Shelter"> | string
+  addressLine?: Prisma.StringFilter<"Shelter"> | string
+  city?: Prisma.StringFilter<"Shelter"> | string
+  province?: Prisma.StringFilter<"Shelter"> | string
+  region?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
   imageUrl?: Prisma.StringNullableFilter<"Shelter"> | string | null
   ownerId?: Prisma.IntFilter<"Shelter"> | number
@@ -301,13 +331,16 @@ export type ShelterWhereUniqueInput = Prisma.AtLeast<{
   shelterStaffs?: Prisma.ShelterStaffListRelationFilter
   pets?: Prisma.PetListRelationFilter
   donations?: Prisma.DonationListRelationFilter
-}, "id" | "address" | "contactEmail">
+}, "id" | "contactEmail">
 
 export type ShelterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -328,7 +361,10 @@ export type ShelterScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Shelter"> | number
   name?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
   description?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
-  address?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  addressLine?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  city?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  province?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
+  region?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
   contactEmail?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringWithAggregatesFilter<"Shelter"> | string
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Shelter"> | string | null
@@ -340,7 +376,10 @@ export type ShelterScalarWhereWithAggregatesInput = {
 export type ShelterCreateInput = {
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -356,7 +395,10 @@ export type ShelterUncheckedCreateInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -371,7 +413,10 @@ export type ShelterUncheckedCreateInput = {
 export type ShelterUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -387,7 +432,10 @@ export type ShelterUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -403,7 +451,10 @@ export type ShelterCreateManyInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -415,7 +466,10 @@ export type ShelterCreateManyInput = {
 export type ShelterUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -427,7 +481,10 @@ export type ShelterUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -455,7 +512,10 @@ export type ShelterCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -473,7 +533,10 @@ export type ShelterMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -486,7 +549,10 @@ export type ShelterMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  province?: Prisma.SortOrder
+  region?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   phoneNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -594,7 +660,10 @@ export type ShelterUpdateOneWithoutDonationsNestedInput = {
 export type ShelterCreateWithoutOwnerInput = {
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -609,7 +678,10 @@ export type ShelterUncheckedCreateWithoutOwnerInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -653,7 +725,10 @@ export type ShelterScalarWhereInput = {
   id?: Prisma.IntFilter<"Shelter"> | number
   name?: Prisma.StringFilter<"Shelter"> | string
   description?: Prisma.StringFilter<"Shelter"> | string
-  address?: Prisma.StringFilter<"Shelter"> | string
+  addressLine?: Prisma.StringFilter<"Shelter"> | string
+  city?: Prisma.StringFilter<"Shelter"> | string
+  province?: Prisma.StringFilter<"Shelter"> | string
+  region?: Prisma.StringFilter<"Shelter"> | string
   contactEmail?: Prisma.StringFilter<"Shelter"> | string
   phoneNumber?: Prisma.StringFilter<"Shelter"> | string
   imageUrl?: Prisma.StringNullableFilter<"Shelter"> | string | null
@@ -665,7 +740,10 @@ export type ShelterScalarWhereInput = {
 export type ShelterCreateWithoutPetsInput = {
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -680,7 +758,10 @@ export type ShelterUncheckedCreateWithoutPetsInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -710,7 +791,10 @@ export type ShelterUpdateToOneWithWhereWithoutPetsInput = {
 export type ShelterUpdateWithoutPetsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -725,7 +809,10 @@ export type ShelterUncheckedUpdateWithoutPetsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -739,7 +826,10 @@ export type ShelterUncheckedUpdateWithoutPetsInput = {
 export type ShelterCreateWithoutShelterStaffsInput = {
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -754,7 +844,10 @@ export type ShelterUncheckedCreateWithoutShelterStaffsInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -784,7 +877,10 @@ export type ShelterUpdateToOneWithWhereWithoutShelterStaffsInput = {
 export type ShelterUpdateWithoutShelterStaffsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -799,7 +895,10 @@ export type ShelterUncheckedUpdateWithoutShelterStaffsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -813,7 +912,10 @@ export type ShelterUncheckedUpdateWithoutShelterStaffsInput = {
 export type ShelterCreateWithoutDonationsInput = {
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -828,7 +930,10 @@ export type ShelterUncheckedCreateWithoutDonationsInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -858,7 +963,10 @@ export type ShelterUpdateToOneWithWhereWithoutDonationsInput = {
 export type ShelterUpdateWithoutDonationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -873,7 +981,10 @@ export type ShelterUncheckedUpdateWithoutDonationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -888,7 +999,10 @@ export type ShelterCreateManyOwnerInput = {
   id?: number
   name: string
   description: string
-  address: string
+  addressLine: string
+  city: string
+  province: string
+  region: string
   contactEmail: string
   phoneNumber: string
   imageUrl?: string | null
@@ -899,7 +1013,10 @@ export type ShelterCreateManyOwnerInput = {
 export type ShelterUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -914,7 +1031,10 @@ export type ShelterUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -929,7 +1049,10 @@ export type ShelterUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  province?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -990,7 +1113,10 @@ export type ShelterSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   name?: boolean
   description?: boolean
-  address?: boolean
+  addressLine?: boolean
+  city?: boolean
+  province?: boolean
+  region?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
   imageUrl?: boolean
@@ -1008,7 +1134,10 @@ export type ShelterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   name?: boolean
   description?: boolean
-  address?: boolean
+  addressLine?: boolean
+  city?: boolean
+  province?: boolean
+  region?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
   imageUrl?: boolean
@@ -1022,7 +1151,10 @@ export type ShelterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   name?: boolean
   description?: boolean
-  address?: boolean
+  addressLine?: boolean
+  city?: boolean
+  province?: boolean
+  region?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
   imageUrl?: boolean
@@ -1036,7 +1168,10 @@ export type ShelterSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
-  address?: boolean
+  addressLine?: boolean
+  city?: boolean
+  province?: boolean
+  region?: boolean
   contactEmail?: boolean
   phoneNumber?: boolean
   imageUrl?: boolean
@@ -1045,7 +1180,7 @@ export type ShelterSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ShelterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "contactEmail" | "phoneNumber" | "imageUrl" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["shelter"]>
+export type ShelterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "addressLine" | "city" | "province" | "region" | "contactEmail" | "phoneNumber" | "imageUrl" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["shelter"]>
 export type ShelterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shelterStaffs?: boolean | Prisma.Shelter$shelterStaffsArgs<ExtArgs>
@@ -1072,7 +1207,10 @@ export type $ShelterPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: number
     name: string
     description: string
-    address: string
+    addressLine: string
+    city: string
+    province: string
+    region: string
     contactEmail: string
     phoneNumber: string
     imageUrl: string | null
@@ -1509,7 +1647,10 @@ export interface ShelterFieldRefs {
   readonly id: Prisma.FieldRef<"Shelter", 'Int'>
   readonly name: Prisma.FieldRef<"Shelter", 'String'>
   readonly description: Prisma.FieldRef<"Shelter", 'String'>
-  readonly address: Prisma.FieldRef<"Shelter", 'String'>
+  readonly addressLine: Prisma.FieldRef<"Shelter", 'String'>
+  readonly city: Prisma.FieldRef<"Shelter", 'String'>
+  readonly province: Prisma.FieldRef<"Shelter", 'String'>
+  readonly region: Prisma.FieldRef<"Shelter", 'String'>
   readonly contactEmail: Prisma.FieldRef<"Shelter", 'String'>
   readonly phoneNumber: Prisma.FieldRef<"Shelter", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Shelter", 'String'>

@@ -15,7 +15,7 @@ import {
 // ─── Scale ────────────────────────────────────────────────────────────────────
 
 const USER_COUNT = 1_000;
-const SHELTER_COUNT = 20;
+const SHELTER_COUNT = 30;
 const PET_COUNT = 1_000;
 const BOOKING_COUNT = 200;
 const DONATION_COUNT = 100;
@@ -372,174 +372,361 @@ const ADOPTION_MESSAGES = [
 interface ShelterEntry {
   name: string;
   description: string;
-  address: string;
+  addressLine: string;
+  city: string;
+  province: string;
+  region: string;
   contactEmail: string;
   phoneNumber: string;
 }
 
+// 30 shelters spread across the three island groups: 10 Luzon, 10 Visayas,
+// 10 Mindanao. Every shelter takes in a mix of species (dogs, cats, rabbits,
+// birds, and other small animals) — see the pet loop for how species are
+// distributed evenly per shelter.
 const SHELTER_DATA: ShelterEntry[] = [
+  // ── Luzon (10) ────────────────────────────────────────────────────────────
   {
     name: 'Paws & Hearts Animal Shelter',
     description:
-      'A community-driven shelter dedicated to rescuing and rehoming dogs, cats, and small animals across the metro area.',
-    address: '12 Bayani Road, Fort Bonifacio, Taguig City, Metro Manila',
+      'A community-driven shelter dedicated to rescuing and rehoming dogs, cats, rabbits, birds, and other small animals across the metro area.',
+    addressLine: '12 Bayani Road, Fort Bonifacio, Taguig City, Metro Manila',
+    city: 'Taguig City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
     contactEmail: 'contact@pawsandhearts.org',
     phoneNumber: '+639171234501',
   },
   {
     name: 'Second Chance Pet Rescue',
     description:
-      'We believe every animal deserves a second chance. Our team works tirelessly to rehabilitate and rehome animals in need.',
-    address: '45 Ayala Avenue, Bel-Air, Makati City, Metro Manila',
+      'We believe every animal deserves a second chance. Our team rehabilitates and rehomes dogs, cats, and small companion animals in need.',
+    addressLine: '45 Ayala Avenue, Bel-Air, Makati City, Metro Manila',
+    city: 'Makati City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
     contactEmail: 'hello@secondchancepetrescue.org',
     phoneNumber: '+639181234502',
   },
   {
     name: 'Furever Home Adoption Center',
     description:
-      'Matching loving families with their perfect furry companions since 2010. We specialize in senior and special-needs animals.',
-    address: '88 Katipunan Avenue, Loyola Heights, Quezon City, Metro Manila',
+      'Matching loving families with their perfect companions since 2010. We rehome senior and special-needs dogs, cats, and small animals alike.',
+    addressLine: '88 Katipunan Avenue, Loyola Heights, Quezon City, Metro Manila',
+    city: 'Quezon City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
     contactEmail: 'adopt@fureverhome.org',
     phoneNumber: '+639191234503',
   },
   {
     name: 'Happy Tails Humane Society',
     description:
-      'A fully accredited humane society committed to ending animal homelessness through adoption, spay/neuter programs, and community education.',
-    address: '21 Ortigas Avenue, Kapitolyo, Pasig City, Metro Manila',
+      'A fully accredited humane society ending animal homelessness through adoption, spay/neuter programs, and community education for all species.',
+    addressLine: '21 Ortigas Avenue, Kapitolyo, Pasig City, Metro Manila',
+    city: 'Pasig City',
+    province: 'Metro Manila',
+    region: 'National Capital Region',
     contactEmail: 'info@happytailsph.org',
     phoneNumber: '+639201234504',
   },
   {
-    name: 'Rainbow Bridge Rescue',
+    name: 'Cordillera Pet Rescue',
     description:
-      'Founded by a group of veterinarians, we provide medical care, rehabilitation, and loving homes for rescued animals.',
-    address: '7 Shaw Boulevard, Wack-Wack, Mandaluyong City, Metro Manila',
-    contactEmail: 'rescue@rainbowbridgeph.org',
+      'Serving the highlands, we rescue dogs, cats, rabbits, and small animals from the mountain communities and find them loving homes.',
+    addressLine: '24 Session Road, Brgy. Kabayanihan, Baguio City, Benguet',
+    city: 'Baguio City',
+    province: 'Benguet',
+    region: 'Cordillera Administrative Region',
+    contactEmail: 'rescue@cordillerapets.org',
     phoneNumber: '+639211234505',
   },
   {
-    name: 'Sunshine Animal Sanctuary',
+    name: 'Clark Valley Animal Shelter',
     description:
-      'An open sanctuary providing safe refuge and adoption services for stray, abandoned, and surrendered animals.',
-    address: '34 Sumulong Highway, Sto. Niño, Marikina City, Metro Manila',
-    contactEmail: 'sanctuary@sunshineanimals.org',
+      'A Central Luzon shelter offering refuge, medical care, and adoption services for abandoned and surrendered animals of every kind.',
+    addressLine: '7 Fields Avenue, Balibago, Angeles City, Pampanga',
+    city: 'Angeles City',
+    province: 'Pampanga',
+    region: 'Central Luzon',
+    contactEmail: 'info@clarkvalleyshelter.org',
     phoneNumber: '+639221234506',
   },
   {
-    name: 'The Humane Haven',
+    name: 'Batangas Bay Pet Haven',
     description:
-      'A no-kill shelter offering adoption, fostering, and animal welfare advocacy for the local community.',
-    address: '58 Quirino Avenue, Malibay, Pasay City, Metro Manila',
-    contactEmail: 'hello@thehumanehaven.org',
+      'A coastal haven for stray and rescued dogs, cats, birds, and small animals, with a focus on community-based rehoming.',
+    addressLine: '33 P. Burgos Street, Poblacion, Batangas City, Batangas',
+    city: 'Batangas City',
+    province: 'Batangas',
+    region: 'CALABARZON',
+    contactEmail: 'hello@batangasbayhaven.org',
     phoneNumber: '+639231234507',
   },
   {
-    name: 'Loving Paws Rescue',
+    name: 'Bicol Loving Paws Rescue',
     description:
-      'We rescue and rehabilitate dogs and cats from the streets, giving them the care they need before placing them in forever homes.',
-    address: '19 Dr. A. Santos Avenue, BF Homes, Parañaque City, Metro Manila',
-    contactEmail: 'rescue@lovingpawsph.org',
+      'We rescue and rehabilitate animals from across the Bicol region — dogs, cats, rabbits, and more — before placing them in forever homes.',
+    addressLine: '18 Panganiban Drive, Brgy. Dinaga, Naga City, Camarines Sur',
+    city: 'Naga City',
+    province: 'Camarines Sur',
+    region: 'Bicol Region',
+    contactEmail: 'rescue@bicollovingpaws.org',
     phoneNumber: '+639241234508',
   },
   {
-    name: 'New Beginnings Animal Shelter',
+    name: 'Pangasinan New Beginnings Shelter',
     description:
-      'Every animal in our care gets a fresh start. We provide medical care, socialization, and adoption support for all our residents.',
-    address: '63 Alabang-Zapote Road, Pamplona, Las Piñas City, Metro Manila',
-    contactEmail: 'info@newbeginningsanimals.org',
+      'Every animal in our care gets a fresh start — medical care, socialization, and adoption support for dogs, cats, and small animals.',
+    addressLine:
+      '63 A.B. Fernandez Avenue, Brgy. Bonuan, Dagupan City, Pangasinan',
+    city: 'Dagupan City',
+    province: 'Pangasinan',
+    region: 'Ilocos Region',
+    contactEmail: 'info@pangasinanbeginnings.org',
     phoneNumber: '+639251234509',
   },
   {
-    name: 'Harmony Pet Adoption Center',
+    name: 'Quezon Harmony Pet Adoption',
     description:
-      'We focus on creating harmonious matches between pets and families through careful assessment and ongoing adoption support.',
-    address:
-      '11 Alabang Hills Drive, Ayala Alabang, Muntinlupa City, Metro Manila',
-    contactEmail: 'adopt@harmonypets.org',
+      'We create harmonious matches between pets and families through careful assessment, welcoming adopters of dogs, cats, birds, and small pets.',
+    addressLine: '11 Quezon Avenue, Brgy. 4, Lucena City, Quezon',
+    city: 'Lucena City',
+    province: 'Quezon',
+    region: 'CALABARZON',
+    contactEmail: 'adopt@quezonharmonypets.org',
     phoneNumber: '+639261234510',
   },
+  // ── Visayas (10) ──────────────────────────────────────────────────────────
   {
-    name: 'Safe Harbor Animal Rescue',
+    name: 'Cebu Safe Harbor Animal Rescue',
     description:
-      'A foster-based rescue network that houses animals in caring foster homes while they await adoption.',
-    address: '77 A. Mabini Street, Monumento, Caloocan City, Metro Manila',
-    contactEmail: 'contact@safeharborrescue.org',
+      'A foster-based rescue network in Cebu that houses dogs, cats, rabbits, and small animals in caring foster homes while they await adoption.',
+    addressLine: '77 Osmeña Boulevard, Brgy. Capitol Site, Cebu City, Cebu',
+    city: 'Cebu City',
+    province: 'Cebu',
+    region: 'Central Visayas',
+    contactEmail: 'contact@cebusafeharbor.org',
     phoneNumber: '+639271234511',
   },
   {
-    name: 'Bright Futures Humane Society',
+    name: 'Mandaue Bright Futures Society',
     description:
-      'Our shelter prioritizes mental and physical health for every animal, offering enrichment programs and behavioral training before adoption.',
-    address: '29 McArthur Highway, Malinta, Valenzuela City, Metro Manila',
-    contactEmail: 'info@brightfuturesph.org',
+      'We prioritize the physical and mental health of every rescued animal, offering enrichment and behavioral training before adoption.',
+    addressLine: '29 A.S. Fortuna Street, Brgy. Bakilid, Mandaue City, Cebu',
+    city: 'Mandaue City',
+    province: 'Cebu',
+    region: 'Central Visayas',
+    contactEmail: 'info@mandauebrightfutures.org',
     phoneNumber: '+639281234512',
   },
   {
-    name: 'Gentle Hearts Pet Rescue',
+    name: 'Lapu-Lapu Gentle Hearts Rescue',
     description:
-      'Specializing in the rescue of abused and neglected animals, we provide trauma-informed care and patient rehabilitation.',
-    address: '5 Gov. Pascual Avenue, Tinajeros, Malabon City, Metro Manila',
-    contactEmail: 'rescue@gentleheartsph.org',
+      'Specializing in the rescue of abused and neglected animals, we provide trauma-informed care for dogs, cats, and small companion animals.',
+    addressLine: '5 M.L. Quezon National Highway, Pajo, Lapu-Lapu City, Cebu',
+    city: 'Lapu-Lapu City',
+    province: 'Cebu',
+    region: 'Central Visayas',
+    contactEmail: 'rescue@lapulapugentlehearts.org',
     phoneNumber: '+639291234513',
   },
   {
-    name: 'Forever Friends Animal Shelter',
+    name: 'Iloilo Forever Friends Shelter',
     description:
-      'A community shelter run by passionate volunteers who believe that every animal is deserving of a lifelong companion.',
-    address: '40 M. Naval Street, Sipac-Almacen, Navotas City, Metro Manila',
-    contactEmail: 'hello@foreverfriendsph.org',
+      'A community shelter run by passionate volunteers who believe every animal — dog, cat, rabbit, or bird — deserves a lifelong companion.',
+    addressLine: '40 General Luna Street, Brgy. Ortiz, Iloilo City, Iloilo',
+    city: 'Iloilo City',
+    province: 'Iloilo',
+    region: 'Western Visayas',
+    contactEmail: 'hello@iloiloforeverfriends.org',
     phoneNumber: '+639301234514',
   },
   {
-    name: 'Golden Gate Pet Adoption',
+    name: 'Bacolod Golden Gate Pet Adoption',
     description:
-      'We connect rescued animals with responsible adopters through thorough screening, home visits, and post-adoption follow-up.',
-    address:
-      '16 N. Domingo Street, Addition Hills, San Juan City, Metro Manila',
-    contactEmail: 'adopt@goldengatepets.org',
+      'We connect rescued animals with responsible adopters through screening, home visits, and follow-up, rehoming pets of every species.',
+    addressLine:
+      '16 Lacson Street, Brgy. Mandalagan, Bacolod City, Negros Occidental',
+    city: 'Bacolod City',
+    province: 'Negros Occidental',
+    region: 'Western Visayas',
+    contactEmail: 'adopt@bacolodgoldengate.org',
     phoneNumber: '+639311234515',
   },
   {
-    name: 'Coastal Paws Rescue',
+    name: 'Tacloban Coastal Paws Rescue',
     description:
-      'Serving the coastal communities, we rescue animals from informal settlements and provide adoption services to families in the area.',
-    address: '82 Aguinaldo Highway, Palico, Imus City, Cavite',
-    contactEmail: 'info@coastalpawsrescue.org',
+      'Serving Eastern Visayas coastal communities, we rescue and rehome dogs, cats, and small animals displaced by storms and hardship.',
+    addressLine: '82 Real Street, Brgy. 36, Tacloban City, Leyte',
+    city: 'Tacloban City',
+    province: 'Leyte',
+    region: 'Eastern Visayas',
+    contactEmail: 'info@taclobancoastalpaws.org',
     phoneNumber: '+639321234516',
   },
   {
-    name: 'Valley View Animal Sanctuary',
+    name: 'Dumaguete Valley Animal Sanctuary',
     description:
-      'Nestled in the hills, our sanctuary provides a peaceful environment for animal recovery, rehabilitation, and rehoming.',
-    address:
-      '15 Sumulong Memorial Circle, Brgy. Dela Paz, Antipolo City, Rizal',
-    contactEmail: 'sanctuary@valleyviewanimals.org',
+      'A peaceful sanctuary for the recovery, rehabilitation, and rehoming of dogs, cats, rabbits, birds, and other small animals.',
+    addressLine:
+      '15 Rizal Boulevard, Brgy. Tinago, Dumaguete City, Negros Oriental',
+    city: 'Dumaguete City',
+    province: 'Negros Oriental',
+    region: 'Central Visayas',
+    contactEmail: 'sanctuary@dumagueteanimals.org',
     phoneNumber: '+639331234517',
   },
   {
-    name: 'Meadowbrook Humane Society',
+    name: 'Bohol Meadowbrook Humane Society',
     description:
-      'A trusted humane society serving the Laguna region with animal sheltering, adoption events, and spay/neuter clinics.',
-    address: '28 National Road, Brgy. Halang, Calamba City, Laguna',
-    contactEmail: 'contact@meadowbrookhs.org',
+      'A trusted humane society serving Bohol with animal sheltering, adoption events, and spay/neuter clinics for pets of all kinds.',
+    addressLine: '28 C.P. Garcia Avenue, Brgy. Cogon, Tagbilaran City, Bohol',
+    city: 'Tagbilaran City',
+    province: 'Bohol',
+    region: 'Central Visayas',
+    contactEmail: 'contact@boholmeadowbrook.org',
     phoneNumber: '+639341234518',
   },
   {
-    name: 'Riverside Pet Rescue Center',
+    name: 'Capiz Riverside Pet Rescue',
     description:
-      'Located along the river, we rescue and rehabilitate animals found in the waterway and surrounding communities.',
-    address: '54 Tirona Highway, Habay, Bacoor City, Cavite',
-    contactEmail: 'rescue@riversidepetrescue.org',
+      'Located along the river, we rescue and rehabilitate dogs, cats, and small animals found in the waterways and nearby communities.',
+    addressLine: '54 Roxas Avenue, Brgy. Banica, Roxas City, Capiz',
+    city: 'Roxas City',
+    province: 'Capiz',
+    region: 'Western Visayas',
+    contactEmail: 'rescue@capizriverside.org',
     phoneNumber: '+639351234519',
   },
   {
-    name: 'Blue Sky Animal Shelter',
+    name: 'Ormoc Blue Sky Animal Shelter',
     description:
-      'We envision a world where no animal is left behind. Our shelter provides a bright future for every animal that comes through our doors.',
-    address: '9 Pacita Complex, San Pedro City, Laguna',
-    contactEmail: 'hello@blueskyshelter.org',
+      'We envision a world where no animal is left behind, providing a bright future for every dog, cat, and small animal in our care.',
+    addressLine: '9 Bonifacio Street, Brgy. Cogon, Ormoc City, Leyte',
+    city: 'Ormoc City',
+    province: 'Leyte',
+    region: 'Eastern Visayas',
+    contactEmail: 'hello@ormocblueskyshelter.org',
     phoneNumber: '+639361234520',
+  },
+  // ── Mindanao (10) ─────────────────────────────────────────────────────────
+  {
+    name: 'Davao Sunshine Animal Sanctuary',
+    description:
+      'An open sanctuary providing safe refuge and adoption services for stray, abandoned, and surrendered animals of every species.',
+    addressLine: '34 J.P. Laurel Avenue, Brgy. Bajada, Davao City, Davao del Sur',
+    city: 'Davao City',
+    province: 'Davao del Sur',
+    region: 'Davao Region',
+    contactEmail: 'sanctuary@davaosunshine.org',
+    phoneNumber: '+639371234521',
+  },
+  {
+    name: 'CDO Rainbow Bridge Rescue',
+    description:
+      'Founded by veterinarians, we provide medical care, rehabilitation, and loving homes for rescued dogs, cats, rabbits, and small animals.',
+    addressLine:
+      '7 Corrales Avenue, Brgy. 14, Cagayan de Oro City, Misamis Oriental',
+    city: 'Cagayan de Oro City',
+    province: 'Misamis Oriental',
+    region: 'Northern Mindanao',
+    contactEmail: 'rescue@cdorainbowbridge.org',
+    phoneNumber: '+639381234522',
+  },
+  {
+    name: 'Zamboanga Humane Haven',
+    description:
+      'A no-kill shelter offering adoption, fostering, and welfare advocacy for the local community, caring for animals of all kinds.',
+    addressLine:
+      '58 Veterans Avenue, Brgy. Tetuan, Zamboanga City, Zamboanga del Sur',
+    city: 'Zamboanga City',
+    province: 'Zamboanga del Sur',
+    region: 'Zamboanga Peninsula',
+    contactEmail: 'hello@zamboangahaven.org',
+    phoneNumber: '+639391234523',
+  },
+  {
+    name: 'GenSan Loving Paws Rescue',
+    description:
+      'We rescue and rehabilitate dogs, cats, and small companion animals from the streets of General Santos before rehoming them.',
+    addressLine:
+      '19 Pioneer Avenue, Brgy. Dadiangas, General Santos City, South Cotabato',
+    city: 'General Santos City',
+    province: 'South Cotabato',
+    region: 'SOCCSKSARGEN',
+    contactEmail: 'rescue@gensanlovingpaws.org',
+    phoneNumber: '+639401234524',
+  },
+  {
+    name: 'Butuan New Beginnings Shelter',
+    description:
+      'Every animal in our care gets a fresh start — medical care, socialization, and adoption support for dogs, cats, birds, and small pets.',
+    addressLine:
+      '63 J.C. Aquino Avenue, Brgy. Libertad, Butuan City, Agusan del Norte',
+    city: 'Butuan City',
+    province: 'Agusan del Norte',
+    region: 'Caraga',
+    contactEmail: 'info@butuanbeginnings.org',
+    phoneNumber: '+639411234525',
+  },
+  {
+    name: 'Iligan Harmony Pet Adoption',
+    description:
+      'We create harmonious matches between pets and families, welcoming adopters of dogs, cats, rabbits, birds, and other small animals.',
+    addressLine: '11 Quezon Avenue, Brgy. Pala-o, Iligan City, Lanao del Norte',
+    city: 'Iligan City',
+    province: 'Lanao del Norte',
+    region: 'Northern Mindanao',
+    contactEmail: 'adopt@iliganharmonypets.org',
+    phoneNumber: '+639421234526',
+  },
+  {
+    name: 'Cotabato Safe Harbor Rescue',
+    description:
+      'A foster-based rescue network housing dogs, cats, and small animals in caring foster homes across the region while they await adoption.',
+    addressLine:
+      '77 Sinsuat Avenue, Brgy. Rosary Heights, Cotabato City, Maguindanao',
+    city: 'Cotabato City',
+    province: 'Maguindanao',
+    region: 'Bangsamoro',
+    contactEmail: 'contact@cotabatosafeharbor.org',
+    phoneNumber: '+639431234527',
+  },
+  {
+    name: 'Surigao Bright Futures Society',
+    description:
+      'We prioritize the health of every rescued animal, offering enrichment and behavioral training for dogs, cats, and small pets before adoption.',
+    addressLine:
+      '29 Borromeo Street, Brgy. Washington, Surigao City, Surigao del Norte',
+    city: 'Surigao City',
+    province: 'Surigao del Norte',
+    region: 'Caraga',
+    contactEmail: 'info@surigaobrightfutures.org',
+    phoneNumber: '+639441234528',
+  },
+  {
+    name: 'Pagadian Gentle Hearts Rescue',
+    description:
+      'Specializing in the rescue of abused and neglected animals, we provide patient rehabilitation for dogs, cats, rabbits, and small animals.',
+    addressLine: '5 Rizal Avenue, Brgy. Santiago, Pagadian City, Zamboanga del Sur',
+    city: 'Pagadian City',
+    province: 'Zamboanga del Sur',
+    region: 'Zamboanga Peninsula',
+    contactEmail: 'rescue@pagadiangentlehearts.org',
+    phoneNumber: '+639451234529',
+  },
+  {
+    name: 'Koronadal Forever Friends Shelter',
+    description:
+      'A community shelter run by volunteers who believe every animal — dog, cat, rabbit, or bird — deserves a lifelong, loving home.',
+    addressLine:
+      '40 General Santos Drive, Brgy. Zone III, Koronadal City, South Cotabato',
+    city: 'Koronadal City',
+    province: 'South Cotabato',
+    region: 'SOCCSKSARGEN',
+    contactEmail: 'hello@koronadalforeverfriends.org',
+    phoneNumber: '+639461234530',
   },
 ];
 
@@ -677,8 +864,8 @@ async function main() {
   await prisma.user.create({
     data: {
       email: 'admin@petadopt.ph',
-      firstName: 'Alexandra',
-      lastName: 'Cruz',
+      firstName: 'Racyn',
+      lastName: 'Ibaya',
       hashedPassword,
       isVerified: true,
       role: Role.ADMIN,
@@ -712,7 +899,10 @@ async function main() {
     data: staffUsers.map((staff, i) => ({
       name: SHELTER_DATA[i].name,
       description: SHELTER_DATA[i].description,
-      address: SHELTER_DATA[i].address,
+      addressLine: SHELTER_DATA[i].addressLine,
+      city: SHELTER_DATA[i].city,
+      province: SHELTER_DATA[i].province,
+      region: SHELTER_DATA[i].region,
       contactEmail: SHELTER_DATA[i].contactEmail,
       phoneNumber: SHELTER_DATA[i].phoneNumber,
       ownerId: staff.id,
@@ -754,7 +944,11 @@ async function main() {
   console.time('pets');
   const pets = await prisma.pet.createManyAndReturn({
     data: Array.from({ length: PET_COUNT }, (_, i) => {
-      const species = ALL_SPECIES[i % ALL_SPECIES.length];
+      // Shelter is i % SHELTER_COUNT (the remainder); deriving species from the
+      // quotient instead keeps the two indices independent, so every shelter
+      // ends up with a mix of all species rather than a single one.
+      const species =
+        ALL_SPECIES[Math.floor(i / SHELTER_COUNT) % ALL_SPECIES.length];
       const breedPool = BREEDS_BY_SPECIES[species];
       return {
         name: pick(PET_NAMES, i),
