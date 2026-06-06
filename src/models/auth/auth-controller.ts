@@ -215,8 +215,6 @@ class AuthController {
   }
 
   test(req: Request, res: Response, next: NextFunction) {
-    console.log(req.user);
-
     res.json({
       message: 'This is the admin',
     });
