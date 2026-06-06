@@ -1,0 +1,6 @@
+node_modules
+dist
+generated
+uploads
+*.lock
+package-lock.json
