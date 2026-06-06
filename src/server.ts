@@ -20,4 +20,4 @@ async function start() {
   });
 }
 
-start();
+void start().catch(() => logger.error({ message: 'something went wrong' }));

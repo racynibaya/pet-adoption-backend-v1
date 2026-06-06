@@ -1,17 +1,18 @@
-import { Request, Response, NextFunction, Router } from 'express';
+import { Router } from 'express';
 
 import {
   checkVerifiedUser,
   verifyTokenMiddleware,
 } from '@models/auth/auth-middleware';
 
-import prisma from '@config/prisma';
 import userController from './user-controller';
 
 const router = Router();
 
 router
   .route('/me')
-  .get(verifyTokenMiddleware, checkVerifiedUser, userController.me);
+  .get(verifyTokenMiddleware, checkVerifiedUser, (req, res, next) =>
+    userController.me(req, res, next),
+  );
 
 export default router;

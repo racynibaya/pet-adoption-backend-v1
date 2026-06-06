@@ -5,7 +5,7 @@ import {
   CreateAdoptionRequestDTO,
   adoptionRequestSchema,
 } from './adoption-request.types';
-import { BadRequestError } from '@utils/error';
+import { BadRequestError, UnauthorizedError } from '@utils/error';
 
 import adoptionRequestService from './adoption-request-service';
 
@@ -16,8 +16,10 @@ class AdoptionRequestController {
         req.body,
       );
 
+      if (!req.user) throw new UnauthorizedError('Unauthorized');
+
       const request = await adoptionRequestService.createRequest(
-        req.user!.id,
+        req.user.id,
         data,
       );
 

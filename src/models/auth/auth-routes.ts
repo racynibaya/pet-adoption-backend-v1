@@ -25,22 +25,32 @@ router
     res.json({ message: 'POST request to auth route' });
   });
 
-router.post('/login', authController.login);
-router.post('/logout', authController.logout);
-router.post('/register', authController.register);
+router.post('/login', (req, res, next) => authController.login(req, res, next));
+router.post('/logout', (req, res, next) =>
+  authController.logout(req, res, next),
+);
+router.post('/register', (req, res, next) =>
+  authController.register(req, res, next),
+);
 
 router.get(
   '/admin',
   verifyTokenMiddleware,
   checkVerifiedUser,
   authorizeRole('ADMIN'),
-  authController.test,
+  (req, res, next) => authController.test(req, res, next),
 );
-router.get('/refresh', authController.refresh);
+router.get('/refresh', (req, res, next) =>
+  authController.refresh(req, res, next),
+);
 
 // GET /auth/verify?token=xyz
-router.get('/verify', authController.oneTimeEmailVerification);
+router.get('/verify', (req, res, next) =>
+  authController.oneTimeEmailVerification(req, res, next),
+);
 
-router.post('/resend-verification', authController.resendVerification);
+router.post('/resend-verification', (req, res, next) =>
+  authController.resendVerification(req, res, next),
+);
 
 export default router;

@@ -14,18 +14,18 @@ const router = Router();
 
 router
   .route('/')
-  .get(petController.petsHandler)
+  .get((req, res, next) => petController.petsHandler(req, res, next))
   .post(
     verifyTokenMiddleware,
     checkVerifiedUser,
     authorizeRole(Role.STAFF, Role.ADMIN),
     uploadPetImages,
-    petController.createPetHandler,
+    (req, res, next) => petController.createPetHandler(req, res, next),
   );
 
 router
   .route('/:id')
-  .get(petController.petByIDHandler)
+  .get((req, res, next) => petController.petByIDHandler(req, res, next))
   .patch(() => {})
   .delete(() => {});
 

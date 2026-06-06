@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 
-import prisma from '@config/prisma';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import {
   BadRequestError,
@@ -13,8 +12,7 @@ import {
 
 import shelterService from './shelter-service';
 import { Role } from '../../../generated/prisma/enums';
-import { Shelter } from '../../../generated/prisma/client';
-import { shelterPaginationSchema } from './shelter-types';
+import { ShelterCreateDTO, shelterPaginationSchema } from './shelter-types';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -24,11 +22,12 @@ class ShelterController {
           success: false,
           message: `You're unauthorized to create shelter`,
         });
+        return;
       }
 
       const shelter = await shelterService.createShelter({
-        ...req.body,
-        ownerId: req.user?.id,
+        ...(req.body as ShelterCreateDTO),
+        ownerId: req.user.id,
       });
 
       res.status(201).json({
@@ -53,18 +52,19 @@ class ShelterController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     const shelterId = Number(req.params.id);
-    let updatedShelter: Shelter | null = null;
     const user = req.user;
 
     try {
-      const data = shelterService.validateShelterData(req.body);
+      const data = shelterService.validateShelterData(
+        req.body as ShelterCreateDTO,
+      );
 
       if (isNaN(shelterId)) throw new BadRequestError('Invalid shelter ID');
 
       if (!user) throw new BadRequestError('User not found in request');
 
       if (user.role === Role.ADMIN) {
-        updatedShelter = await shelterService.updateShelterData(
+        const updatedShelter = await shelterService.updateShelterData(
           data,
           shelterId,
         );
@@ -89,7 +89,7 @@ class ShelterController {
       }
 
       if (user.role === Role.STAFF && shelterStaff) {
-        updatedShelter = await shelterService.updateShelterData(
+        const updatedShelter = await shelterService.updateShelterData(
           data,
           shelterId,
         );

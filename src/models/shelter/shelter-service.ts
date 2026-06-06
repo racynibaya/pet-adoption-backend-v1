@@ -49,7 +49,7 @@ class ShelterService {
       contactEmail,
       phoneNumber,
     } = data;
-    let updatedShelter = await prisma.shelter.update({
+    const updatedShelter = await prisma.shelter.update({
       where: { id: shelterId },
       data: {
         name,
