@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import helmet from 'helmet';
 
 // Custom Middlewares
 import { corsMiddleware, rateLimiter } from '@middlewares';
@@ -19,7 +20,8 @@ const app = express();
 
 const BASE_ROUTE = '/api/v1';
 
-// Express middlewares
+// Express middlewares\
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(corsMiddleware);
