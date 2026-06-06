@@ -1,5 +1,4 @@
 import { SanitizedUser } from '@models/auth/auth-types';
-import { JwtPayload } from 'jsonwebtoken';
 
 declare global {
   namespace Express {

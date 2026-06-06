@@ -1,12 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import prisma from '@config/prisma';
-import {
-  BadRequestError,
-  ForbiddenError,
-  NotFoundError,
-  UnauthorizedError,
-} from '@utils/error';
+import { ForbiddenError, UnauthorizedError } from '@utils/error';
 
 import { Role } from '../../../generated/prisma/client';
 import authService from './auth-service';

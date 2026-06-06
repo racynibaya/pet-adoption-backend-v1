@@ -10,14 +10,16 @@ import shelterController from './shelter-controller';
 
 const router = Router();
 
-router.get('/', shelterController.getShelters);
+router.get('/', (req, res, next) =>
+  shelterController.getShelters(req, res, next),
+);
 
 router.post(
   '/',
   verifyTokenMiddleware,
   checkVerifiedUser,
   authorizeRole('ADMIN'),
-  shelterController.create,
+  (req, res, next) => shelterController.create(req, res, next),
 );
 
 router
@@ -26,13 +28,13 @@ router
     verifyTokenMiddleware,
     checkVerifiedUser,
     authorizeRole('ADMIN'),
-    shelterController.delete,
+    (req, res, next) => shelterController.delete(req, res, next),
   )
   .patch(
     verifyTokenMiddleware,
     checkVerifiedUser,
     authorizeRole('ADMIN', 'STAFF'),
-    shelterController.update,
+    (req, res, next) => shelterController.update(req, res, next),
   );
 
 export default router;

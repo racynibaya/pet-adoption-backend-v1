@@ -8,11 +8,19 @@
     "start": "NODE_ENV=production node ./dist/src/server.js",
     "perf:seed": "tsx prisma/seed-perf.ts",
     "perf:test": "tsx scripts/load-test.ts",
-    "dump-pool": "tsx prisma/dump-cloudinary-pool.ts"
+    "dump-pool": "tsx prisma/dump-cloudinary-pool.ts",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "prepare": "husky"
   },
   "prisma": {
     "config": "prisma.config.ts",
     "seed": "tsx prisma/seed.ts"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +45,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/autocannon": "^7.12.7",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
@@ -48,12 +57,18 @@
     "@types/multer": "^2.1.0",
     "@types/node": "^25.6.0",
     "autocannon": "^2.0.1",
+    "eslint": "^10.4.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
     "nodemon": "^3.1.14",
     "pino-pretty": "^13.1.3",
     "prettier": "^3.8.3",
     "prisma": "^6.19.3",
     "tsc-alias": "^1.8.17",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1"
   }
 }

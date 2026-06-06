@@ -1,4 +1,3 @@
-import fs from 'node:fs/promises';
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 

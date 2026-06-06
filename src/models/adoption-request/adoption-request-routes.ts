@@ -7,11 +7,8 @@ import {
 
 const router = Router();
 
-router.post(
-  '/',
-  verifyTokenMiddleware,
-  checkVerifiedUser,
-  adoptionRequestController.adoption,
+router.post('/', verifyTokenMiddleware, checkVerifiedUser, (req, res, next) =>
+  adoptionRequestController.adoption(req, res, next),
 );
 
 export default router;

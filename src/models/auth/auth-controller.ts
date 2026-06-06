@@ -56,7 +56,7 @@ class AuthController {
   }
 
   async logout(req: Request, res: Response, next: NextFunction) {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken = req.cookies.refreshToken as string;
 
     try {
       if (refreshToken) await authService.clearRefreshToken(refreshToken);
@@ -190,7 +190,7 @@ class AuthController {
 
   async refresh(req: Request, res: Response, next: NextFunction) {
     try {
-      const refreshToken = req.cookies.refreshToken;
+      const refreshToken = req.cookies.refreshToken as string;
 
       if (!refreshToken) {
         throw new UnauthorizedError(
@@ -214,7 +214,7 @@ class AuthController {
     }
   }
 
-  test(req: Request, res: Response, next: NextFunction) {
+  test(req: Request, res: Response) {
     res.json({
       message: 'This is the admin',
     });

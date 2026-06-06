@@ -76,7 +76,8 @@ class PetService {
       const stream = cloudinary.uploader.upload_stream(
         { folder: 'pet-adoption' },
         (error, result) => {
-          if (error || !result) return reject(error);
+          if (error || !result)
+            return reject(new Error(error?.message ?? 'Upload failed'));
           resolve({ publicId: result.public_id, secureUrl: result.secure_url });
         },
       );

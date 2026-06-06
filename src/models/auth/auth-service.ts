@@ -16,10 +16,12 @@ import { JwtPayload, CreateUserDTO, SanitizedUser } from './auth-types';
 
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-
-if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is required');
 const ONE_HOUR_MS = 60 * 60 * 1000;
+const rawSecret = process.env.JWT_SECRET;
+
+if (!rawSecret) throw new Error('JWT_SECRET environment variable is required');
+
+const JWT_SECRET = rawSecret;
 
 class AuthService {
   async findUserByEmail(email: string): Promise<User | null> {
@@ -99,7 +101,9 @@ class AuthService {
           data: { refreshToken: null },
         });
       }
-    } catch (error) {}
+    } catch {
+      // best-effort: if token lookup fails, still clear the cookie on the client
+    }
   }
 
   async createUser(

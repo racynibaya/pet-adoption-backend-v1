@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 
 import helmet from 'helmet';
@@ -66,8 +66,8 @@ app.use(`${BASE_ROUTE}/pets`, petsRoute);
 app.use(`${BASE_ROUTE}/adoption-requests`, adoptionRequestRoute);
 
 // Global Error Handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  logger.error(err.stack);
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
+  if (err instanceof Error) logger.error(err.stack);
 
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
