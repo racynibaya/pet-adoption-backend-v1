@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
+
 import helmet from 'helmet';
+import pinoHttp from 'pino-http';
 
 // Custom Middlewares
 import { corsMiddleware, rateLimiter } from '@middlewares';
 import { verifyTokenMiddleware } from '@models/auth/auth-middleware';
+import logger from '@config/logger';
 
 // Routes
 import userRoute from '@models/user/user-routes';
@@ -25,7 +27,24 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(corsMiddleware);
-app.use(morgan('dev'));
+
+// HTTP request logging — replace morgan
+app.use(
+  pinoHttp({
+    logger,
+    customLogLevel: (req, res, err) => {
+      if (res.statusCode >= 500 || err) return 'error';
+      if (res.statusCode >= 400) return 'warn';
+      return 'info';
+    },
+    customSuccessMessage: (req, res) => {
+      return `${req.method} ${req.url} ${res.statusCode}`;
+    },
+    customErrorMessage: (req, res, err) => {
+      return `${req.method} ${req.url} ${res.statusCode} - ${err.message}`;
+    },
+  }),
+);
 
 if (process.env.NODE_ENV === 'production')
   app.use(rateLimiter(100, 15 * 60 * 1000)); // Limit to 100 requests per 15 minutes
@@ -48,7 +67,7 @@ app.use(`${BASE_ROUTE}/adoption-requests`, adoptionRequestRoute);
 
 // Global Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
+  logger.error(err.stack);
 
   if (err instanceof AppError) {
     res.status(err.statusCode).json({

@@ -2,6 +2,7 @@ import http from 'http';
 
 import app from './app';
 import prisma from '@config/prisma';
+import logger from '@config/logger';
 
 import dotenv from 'dotenv';
 
@@ -15,7 +16,7 @@ async function start() {
   await prisma.$connect();
   await prisma.pet.count();
   server.listen(PORT, () => {
-    console.log(`HTTP Server listening on http://localhost:${PORT}/`);
+    logger.info(`HTTP Server listening on http://localhost:${PORT}/`);
   });
 }
 
