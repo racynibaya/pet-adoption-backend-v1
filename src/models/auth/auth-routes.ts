@@ -6,6 +6,9 @@ import {
   checkVerifiedUser,
   authorizeRole,
 } from './auth-middleware';
+import { validate } from '@middlewares';
+
+import { emailInput, loginSchema, userSchema } from './auth-types';
 
 const router = Router();
 
@@ -25,11 +28,15 @@ router
     res.json({ message: 'POST request to auth route' });
   });
 
-router.post('/login', (req, res, next) => authController.login(req, res, next));
+router.post('/login', validate(loginSchema, 'body'), (req, res, next) =>
+  authController.login(req, res, next),
+);
+
 router.post('/logout', (req, res, next) =>
   authController.logout(req, res, next),
 );
-router.post('/register', (req, res, next) =>
+
+router.post('/register', validate(userSchema, 'body'), (req, res, next) =>
   authController.register(req, res, next),
 );
 
@@ -38,8 +45,9 @@ router.get(
   verifyTokenMiddleware,
   checkVerifiedUser,
   authorizeRole('ADMIN'),
-  (req, res, next) => authController.test(req, res, next),
+  (req, res, _next) => authController.test(req, res),
 );
+
 router.get('/refresh', (req, res, next) =>
   authController.refresh(req, res, next),
 );
@@ -49,8 +57,10 @@ router.get('/verify', (req, res, next) =>
   authController.oneTimeEmailVerification(req, res, next),
 );
 
-router.post('/resend-verification', (req, res, next) =>
-  authController.resendVerification(req, res, next),
+router.post(
+  '/resend-verification',
+  validate(emailInput, 'body'),
+  (req, res, next) => authController.resendVerification(req, res, next),
 );
 
 export default router;

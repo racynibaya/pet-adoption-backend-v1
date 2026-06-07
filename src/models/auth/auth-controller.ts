@@ -11,18 +11,12 @@ import {
 } from '@utils/error';
 
 import authService from './auth-service';
-import { userSchema, emailInput, loginSchema } from './auth-types';
+import { LoginUserDTO, CreateUserDTO } from './auth-types';
 
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const parsed = loginSchema.safeParse(req.body);
-
-      if (!parsed.success) {
-        res.status(400).json({ message: parsed.error });
-        return;
-      }
-      const { email, password } = parsed.data;
+      const { email, password } = req.body as LoginUserDTO;
 
       const { user, accessToken, refreshToken } =
         await authService.authenticateUser(email, password);
@@ -76,9 +70,8 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { firstName, lastName, email, password } = userSchema.parse(
-        req.body,
-      );
+      const { firstName, lastName, email, password } =
+        req.body as CreateUserDTO;
 
       const existingUser = await authService.findUserByEmail(email);
 
@@ -164,7 +157,7 @@ class AuthController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { email } = emailInput.parse(req.body);
+      const { email } = req.body as { email: string };
 
       const user = await authService.findUserByEmail(email);
 
