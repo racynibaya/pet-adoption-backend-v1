@@ -31,3 +31,5 @@ export type PetFilters = Pick<
   z.infer<typeof petPaginationSchema>,
   'species' | 'size' | 'gender'
 >;
+
+export type PetQueryParams = z.infer<typeof petPaginationSchema>;

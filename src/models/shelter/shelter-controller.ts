@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodError } from 'zod';
 
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import {
-  BadRequestError,
   ConflictError,
   ForbiddenError,
   NotFoundError,
@@ -12,21 +10,17 @@ import {
 
 import shelterService from './shelter-service';
 import { Role } from '../../../generated/prisma/enums';
-import { ShelterCreateDTO, shelterPaginationSchema } from './shelter-types';
+import { ShelterCreateDTO, ShelterPaginationDTO } from './shelter-types';
 
 class ShelterController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.user?.id) {
-        res.status(401).json({
-          success: false,
-          message: `You're unauthorized to create shelter`,
-        });
-        return;
-      }
+      if (!req.user) throw new UnauthorizedError('Unauthorized');
+
+      const data = req.body as ShelterCreateDTO;
 
       const shelter = await shelterService.createShelter({
-        ...(req.body as ShelterCreateDTO),
+        ...data,
         ownerId: req.user.id,
       });
 
@@ -38,30 +32,18 @@ class ShelterController {
 
       return;
     } catch (error) {
-      if (
-        error instanceof PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        return next(
-          new ConflictError('Shelter with this contact email already exists'),
-        );
-      }
       next(error);
     }
   }
 
   async update(req: Request, res: Response, next: NextFunction) {
-    const shelterId = Number(req.params.id);
+    const shelterId = req.params.id as unknown as number;
     const user = req.user;
 
     try {
-      const data = shelterService.validateShelterData(
-        req.body as ShelterCreateDTO,
-      );
+      const data = req.body as ShelterCreateDTO;
 
-      if (isNaN(shelterId)) throw new BadRequestError('Invalid shelter ID');
-
-      if (!user) throw new BadRequestError('User not found in request');
+      if (!user) throw new UnauthorizedError('Unauthorized');
 
       if (user.role === Role.ADMIN) {
         const updatedShelter = await shelterService.updateShelterData(
@@ -115,22 +97,14 @@ class ShelterController {
         );
       }
 
-      if (error instanceof ZodError) {
-        return next(new BadRequestError('Invalid shelter data'));
-      }
-
       next(error);
     }
   }
 
   async delete(req: Request, res: Response, next: NextFunction) {
-    const shelterId = Number(req.params.id);
+    const shelterId = req.params.id as unknown as number;
 
     try {
-      if (isNaN(shelterId)) {
-        throw new BadRequestError('Invalid shelter ID');
-      }
-
       const shelter = await shelterService.findShelter(shelterId);
 
       if (!shelter) throw new NotFoundError('Shelter not found');
@@ -149,7 +123,8 @@ class ShelterController {
   async getShelters(req: Request, res: Response, next: NextFunction) {
     try {
       const { page, limit, city, province, region, island } =
-        shelterPaginationSchema.parse(req.query);
+        req.query as unknown as ShelterPaginationDTO;
+
       const { shelters, pagination } = await shelterService.findAllShelters(
         page,
         limit,

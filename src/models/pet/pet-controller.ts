@@ -1,25 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodError } from 'zod';
 
-import {
-  BadRequestError,
-  NotFoundError,
-  UnauthorizedError,
-} from '@utils/error';
+import { NotFoundError, UnauthorizedError } from '@utils/error';
 
 import petService from './pet-service';
-import {
-  createPetBodySchema,
-  petIdParamSchema,
-  petPaginationSchema,
-} from './pet-types';
+import { CreatePetDTO, PetQueryParams } from './pet-types';
+import logger from '@config/logger';
 
 class PetController {
   async petsHandler(req: Request, res: Response, next: NextFunction) {
     try {
-      const { page, limit, species, size, gender } = petPaginationSchema.parse(
-        req.query,
-      );
+      const { page, limit, species, size, gender } =
+        req.query as unknown as PetQueryParams;
+
+      logger.debug(req.query, 'Received query params');
 
       const { pets, pagination } = await petService.getAllPets(page, limit, {
         species,
@@ -34,16 +27,13 @@ class PetController {
         pagination,
       });
     } catch (error) {
-      if (error instanceof ZodError)
-        return next(new BadRequestError('Invalid Query Params'));
-
       next(error);
     }
   }
 
   async petByIDHandler(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = petIdParamSchema.parse(req.params);
+      const { id } = req.params as unknown as { id: number };
 
       const pet = await petService.getPetById(id);
 
@@ -55,9 +45,6 @@ class PetController {
         data: pet,
       });
     } catch (error) {
-      if (error instanceof ZodError)
-        return next(new BadRequestError('Invalid pet id'));
-
       next(error);
     }
   }
@@ -68,7 +55,7 @@ class PetController {
     try {
       if (!req.user) throw new UnauthorizedError('User is not authenticated');
 
-      const dto = createPetBodySchema.parse(req.body);
+      const dto = req.body as CreatePetDTO;
 
       const pet = await petService.createPet(dto, files, {
         id: req.user.id,
@@ -81,9 +68,6 @@ class PetController {
         data: pet,
       });
     } catch (error) {
-      if (error instanceof ZodError) {
-        return next(new BadRequestError('Invalid request body'));
-      }
       next(error);
     }
   }
