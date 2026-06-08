@@ -27,3 +27,5 @@ export type CreateUserDTO = z.infer<typeof userSchema>;
 export const loginSchema = userSchema.pick({ email: true, password: true });
 
 export type SanitizedUser = Omit<User, 'verifyTokenExpiry' | 'hashedPassword'>;
+
+export type LoginUserDTO = z.infer<typeof loginSchema>;

@@ -1,15 +1,9 @@
 import prisma from '@config/prisma';
 
 import { regionsForIsland } from './ph-locations';
-import { ShelterCreateDTO, ShelterFilters, ShelterType } from './shelter-types';
+import { ShelterCreateDTO, ShelterFilters } from './shelter-types';
 
 class ShelterService {
-  validateShelterData(data: ShelterCreateDTO) {
-    const parsedData = ShelterType.parse(data);
-
-    return parsedData;
-  }
-
   async createShelter(data: ShelterCreateDTO) {
     const {
       name,
@@ -21,7 +15,7 @@ class ShelterService {
       contactEmail,
       phoneNumber,
       ownerId,
-    } = this.validateShelterData(data);
+    } = data;
 
     return await prisma.shelter.create({
       data: {
@@ -49,6 +43,7 @@ class ShelterService {
       contactEmail,
       phoneNumber,
     } = data;
+
     const updatedShelter = await prisma.shelter.update({
       where: { id: shelterId },
       data: {
