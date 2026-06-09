@@ -4,15 +4,12 @@ import { NotFoundError, UnauthorizedError } from '@utils/error';
 
 import petService from './pet-service';
 import { CreatePetDTO, PetQueryParams } from './pet-types';
-import logger from '@config/logger';
 
 class PetController {
   async petsHandler(req: Request, res: Response, next: NextFunction) {
     try {
       const { page, limit, species, size, gender } =
         req.query as unknown as PetQueryParams;
-
-      logger.debug(req.query, 'Received query params');
 
       const { pets, pagination } = await petService.getAllPets(page, limit, {
         species,
