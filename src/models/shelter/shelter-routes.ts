@@ -8,6 +8,7 @@ import {
 
 import shelterController from './shelter-controller';
 import { validate } from '@middlewares';
+import { Role } from '../../../generated/prisma/client';
 import {
   shelterIdParamSchema,
   shelterPaginationSchema,
@@ -24,7 +25,7 @@ router.post(
   '/',
   verifyTokenMiddleware,
   checkVerifiedUser,
-  authorizeRole('ADMIN'),
+  authorizeRole(Role.ADMIN),
   validate(shelterSchema, 'body'),
   (req, res, next) => shelterController.create(req, res, next),
 );
@@ -34,14 +35,14 @@ router
   .delete(
     verifyTokenMiddleware,
     checkVerifiedUser,
-    authorizeRole('ADMIN'),
+    authorizeRole(Role.ADMIN),
     validate(shelterIdParamSchema, 'params'),
     (req, res, next) => shelterController.delete(req, res, next),
   )
   .patch(
     verifyTokenMiddleware,
     checkVerifiedUser,
-    authorizeRole('ADMIN', 'STAFF'),
+    authorizeRole(Role.ADMIN, Role.STAFF),
     validate(shelterIdParamSchema, 'params'),
     validate(shelterSchema, 'body'),
     (req, res, next) => shelterController.update(req, res, next),

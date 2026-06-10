@@ -1,6 +1,6 @@
 import prisma from '@config/prisma';
 
-import { CreateAdoptionRequestDTO } from './adoption-request.types';
+import { CreateAdoptionRequestDTO } from './adoption-request-types';
 import {
   Pet,
   AdoptionRequest,
