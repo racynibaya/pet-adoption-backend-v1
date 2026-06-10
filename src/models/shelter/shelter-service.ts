@@ -2,6 +2,8 @@ import prisma from '@config/prisma';
 
 import { regionsForIsland } from './ph-locations';
 import { ShelterCreateDTO, ShelterFilters } from './shelter-types';
+import { ForbiddenError } from '@utils/error';
+import { Role } from '../../../generated/prisma/client';
 
 class ShelterService {
   async createShelter(data: ShelterCreateDTO) {
@@ -59,6 +61,35 @@ class ShelterService {
     });
 
     return updatedShelter;
+  }
+
+  private async assertCanUpdate(
+    userId: number,
+    shelterId: number,
+    role: Role,
+  ): Promise<void> {
+    if (role === Role.ADMIN) return;
+
+    const shelterStaff = await this.findShelterStaff(userId, shelterId);
+
+    if (!shelterStaff) {
+      throw new ForbiddenError('You are not a staff member of any shelter');
+    }
+
+    if (role !== Role.STAFF) {
+      throw new ForbiddenError(
+        'You do not have permission to update this shelter',
+      );
+    }
+  }
+
+  async updateShelter(
+    actor: { id: number; role: Role },
+    shelterId: number,
+    data: Partial<ShelterCreateDTO>,
+  ) {
+    await this.assertCanUpdate(actor.id, shelterId, actor.role);
+    return this.updateShelterData(data, shelterId);
   }
 
   async findShelterStaff(userId: number, shelterId: number) {
