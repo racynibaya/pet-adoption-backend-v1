@@ -18,7 +18,11 @@ export const validate = (schema: ZodSchema, source: RequestSource = 'body') => {
 
     if (source === 'body') req.body = result.data;
     else if (source === 'query')
-      req.query = result.data as Record<string, string>;
+      Object.defineProperty(req, 'query', {
+        value: result.data,
+        writable: true,
+        configurable: true,
+      });
     else if (source === 'params')
       req.params = result.data as Record<string, string>;
 
