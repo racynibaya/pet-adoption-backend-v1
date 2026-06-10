@@ -1,15 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
-import {
-  ConflictError,
-  ForbiddenError,
-  NotFoundError,
-  UnauthorizedError,
-} from '@utils/error';
+import { ConflictError, NotFoundError, UnauthorizedError } from '@utils/error';
 
 import shelterService from './shelter-service';
-import { Role } from '../../../generated/prisma/enums';
 import { ShelterCreateDTO, ShelterPaginationDTO } from './shelter-types';
 
 class ShelterController {
@@ -45,48 +39,17 @@ class ShelterController {
 
       if (!user) throw new UnauthorizedError('Unauthorized');
 
-      if (user.role === Role.ADMIN) {
-        const updatedShelter = await shelterService.updateShelterData(
-          data,
-          shelterId,
-        );
-
-        res.status(200).json({
-          success: true,
-          message: `Shelter updated successfully`,
-          data: updatedShelter,
-        });
-        return;
-      }
-
-      const shelterStaff = await shelterService.findShelterStaff(
-        user.id,
+      const updatedShelter = await shelterService.updateShelter(
+        { id: user.id, role: user.role },
         shelterId,
+        data,
       );
 
-      if (!shelterStaff) {
-        throw new UnauthorizedError(
-          'You are not a staff member of any shelter',
-        );
-      }
-
-      if (user.role === Role.STAFF && shelterStaff) {
-        const updatedShelter = await shelterService.updateShelterData(
-          data,
-          shelterId,
-        );
-
-        res.json({
-          success: true,
-          message: 'Shelter updated successfully',
-          data: updatedShelter,
-        });
-        return;
-      }
-
-      throw new ForbiddenError(
-        'You do not have permission to update this shelter',
-      );
+      res.status(200).json({
+        success: true,
+        message: 'Shelter updated successfully',
+        data: updatedShelter,
+      });
     } catch (error) {
       if (
         error instanceof PrismaClientKnownRequestError &&
@@ -112,6 +75,7 @@ class ShelterController {
       const deletedShelter = await shelterService.deleteShelter(shelterId);
 
       res.status(200).json({
+        success: true,
         message: `Shelter with ID: ${shelterId} deleted successfully`,
         data: deletedShelter,
       });
@@ -133,7 +97,7 @@ class ShelterController {
 
       res.status(200).json({
         success: true,
-        message: 'Hello from pet controller',
+        message: 'Shelters retrieved successfully',
         data: shelters,
         pagination,
       });

@@ -24,6 +24,13 @@ if (!rawSecret) throw new Error('JWT_SECRET environment variable is required');
 const JWT_SECRET = rawSecret;
 
 class AuthService {
+  async storeRefreshToken(email: string, token: string): Promise<void> {
+    await prisma.user.update({
+      where: { email },
+      data: { refreshToken: token },
+    });
+  }
+
   async findUserByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: { email },
@@ -108,7 +115,7 @@ class AuthService {
 
   async createUser(
     data: CreateUserDTO,
-  ): Promise<SanitizedUser & { link: string }> {
+  ): Promise<SanitizedUser & { link: string; verifyToken: string }> {
     const { firstName, lastName, email, password } = data;
     const token = crypto.randomBytes(32).toString('hex');
     const hashed = await bcrypt.hash(password, 10);
@@ -119,19 +126,21 @@ class AuthService {
           lastName,
           email,
           hashedPassword: hashed,
-          isVerified: true, //TODO: set to false kapag meron na ung email feature
+          isVerified: false,
           verifyToken: token,
           verifyTokenExpiry: new Date(Date.now() + ONE_HOUR_MS), //1hr
         },
         omit: {
-          verifyTokenExpiry: true,
           hashedPassword: true,
+          refreshToken: true,
+          verifyToken: true,
+          verifyTokenExpiry: true,
         },
       });
 
       const link = `${process.env.BASE_URL}/auth/verify?token=${token}`;
 
-      return { link, ...user };
+      return { link, verifyToken: token, ...user };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
@@ -153,9 +162,7 @@ class AuthService {
   async oneTimeVerificationUpdate(record: User): Promise<void> {
     await prisma.user.update({
       where: { email: record.email },
-      data: {
-        isVerified: true,
-      },
+      data: { isVerified: true },
     });
   }
 

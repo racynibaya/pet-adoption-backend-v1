@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import prisma from '@config/prisma';
+import logger from '@config/logger';
 
 import {
   BadRequestError,
@@ -9,9 +9,15 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from '@utils/error';
+import { sendVerificationEmail } from '@utils/email';
 
 import authService from './auth-service';
 import { LoginUserDTO, CreateUserDTO } from './auth-types';
+
+const rawFrontendUrl = process.env.FRONTEND_URL;
+if (!rawFrontendUrl)
+  throw new Error('FRONTEND_URL environment variable is required');
+const FRONTEND_URL = rawFrontendUrl;
 
 class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -27,10 +33,7 @@ class AuthController {
         );
       }
 
-      await prisma.user.update({
-        where: { email },
-        data: { refreshToken },
-      });
+      await authService.storeRefreshToken(email, refreshToken);
 
       res
         .cookie('refreshToken', refreshToken, {
@@ -86,13 +89,23 @@ class AuthController {
         password,
       });
 
+      // Best-effort: user is created even if delivery fails; they can recover
+      // via /resend-verification. Don't block registration on email errors.
+      try {
+        await sendVerificationEmail(user.email, user.link);
+      } catch (err) {
+        logger.error(err, 'Failed to send verification email');
+      }
+
       res.status(201).json({
         success: true,
-        link: user.link,
         message:
           'Registration successful, please check your email to verify your account',
 
-        ...(process.env.NODE_ENV === 'development' && { token }), // dev only
+        ...(process.env.NODE_ENV === 'development' && {
+          link: user.link,
+          token,
+        }), // dev only
       });
     } catch (error) {
       next(error);
@@ -107,45 +120,26 @@ class AuthController {
     try {
       const token = req.query.token;
 
-      if (typeof token !== 'string') {
-        res.status(400).json({
-          success: false,
-          message: 'Verification token is invalid',
-        });
-        return;
-      }
-      if (!token) {
-        res.status(400).json({
-          success: false,
-          message: 'Verification token is missing',
-        });
+      if (typeof token !== 'string' || !token) {
+        res.redirect(`${FRONTEND_URL}/email-verified?error=invalid_token`);
         return;
       }
 
       const record = await authService.findUserViaToken(token);
 
       if (!record) {
-        res.status(400).json({
-          success: false,
-          message: 'Invalid verification token',
-        });
+        res.redirect(`${FRONTEND_URL}/email-verified?error=invalid_token`);
         return;
       }
 
       if (!record.verifyTokenExpiry || record.verifyTokenExpiry < new Date()) {
-        res.status(400).json({
-          success: false,
-          message: 'Verification token has expired, please request a new one',
-        });
+        res.redirect(`${FRONTEND_URL}/email-verified?error=token_expired`);
         return;
       }
 
       await authService.oneTimeVerificationUpdate(record);
 
-      res.status(200).json({
-        success: true,
-        message: 'Email verified successfully, you can now login',
-      });
+      res.redirect(`${FRONTEND_URL}/email-verified`);
     } catch (error) {
       next(error);
     }
@@ -170,11 +164,17 @@ class AuthController {
         user.verifyToken,
       );
 
+      // Best-effort delivery, mirroring register (see above).
+      try {
+        await sendVerificationEmail(user.email, link);
+      } catch (err) {
+        logger.error(err, 'Failed to send verification email');
+      }
+
       res.status(200).json({
-        token,
-        link,
         success: true,
         message: 'Verification link sent',
+        ...(process.env.NODE_ENV === 'development' && { link, token }), // dev only
       });
     } catch (error) {
       next(error);
