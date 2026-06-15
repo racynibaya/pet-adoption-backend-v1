@@ -7,7 +7,7 @@ const allowedOrigins = [
   'http://localhost:3001',
   'http://localhost:5173',
   'https://koda-nest.vercel.app',
-  'https://kodanest.racynibaya.com/',
+  'https://kodanest.racynibaya.com',
 ];
 
 // Properly typed delegate function
